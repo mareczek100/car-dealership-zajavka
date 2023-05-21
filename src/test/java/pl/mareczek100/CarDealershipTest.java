@@ -8,7 +8,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import pl.mareczek100.infrastructure.configuration.AppBeansConfig;
 import pl.mareczek100.infrastructure.configuration.HibernateConfig;
 import pl.mareczek100.service.*;
-import pl.mareczek100.infrastructure.database.TableCreator;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @AllArgsConstructor(onConstructor_ = @Autowired)

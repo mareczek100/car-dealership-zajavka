@@ -18,18 +18,18 @@
         <property name="hibernate.hikari.minimumIdle">10</property>
         <property name="hibernate.hikari.maximumPoolSize">20</property>
         <property name="hibernate.hikari.idleTimeout">300000</property>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Address"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServiceHandling"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServiceParts"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServiceRequest"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToSell"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToSellTempStorage"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToService"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Customer"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Invoice"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Mechanic"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Part"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Salesman"/>
-        <mapping class="pl.mareczek100.infrastructure.database.entity.Service"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.AddressEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServiceHandlingEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToSellEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CarToServiceEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.CustomerEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.InvoiceEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.MechanicEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.PartEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.SalesmanEntity"/>
+        <mapping class="pl.mareczek100.infrastructure.database.entity.ServiceEntity"/>
     </session-factory>
 </hibernate-configuration>

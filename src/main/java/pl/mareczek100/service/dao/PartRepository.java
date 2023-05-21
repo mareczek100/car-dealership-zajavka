@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.Part;
+import pl.mareczek100.infrastructure.database.entity.PartEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +9,10 @@ import java.util.Optional;
 public interface PartRepository {
 
 
-    void partInit(Part part);
+    void partInit(PartEntity partEntity);
 
-    Optional<Part> findPart(String serialNumber);
+    Optional<PartEntity> findPart(String serialNumber);
 
-    List<Part> findAllParts();
+    List<PartEntity> findAllParts();
 
 }

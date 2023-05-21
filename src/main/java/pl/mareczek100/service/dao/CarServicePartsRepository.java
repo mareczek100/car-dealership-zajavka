@@ -1,10 +1,10 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarServiceParts;
+import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 
 
 public interface CarServicePartsRepository {
 
-    void carServicePartsInit(CarServiceParts carServiceParts);
+    void carServicePartsInit(CarServicePartsEntity carServicePartsEntity);
 
 }

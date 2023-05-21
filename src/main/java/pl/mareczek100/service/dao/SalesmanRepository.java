@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.Salesman;
+import pl.mareczek100.infrastructure.database.entity.SalesmanEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface SalesmanRepository {
 
-    void salesmanInit(Salesman salesman);
+    void salesmanInit(SalesmanEntity salesmanEntity);
 
-    Optional<Salesman> findSalesman(String pesel);
+    Optional<SalesmanEntity> findSalesman(String pesel);
 
-    List<Salesman> findAllSalesman();
+    List<SalesmanEntity> findAllSalesman();
 }

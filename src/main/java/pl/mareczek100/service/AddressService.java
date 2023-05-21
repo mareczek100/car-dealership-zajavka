@@ -3,7 +3,7 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.infrastructure.data_storage.AddressDataStorage;
-import pl.mareczek100.infrastructure.database.entity.Address;
+import pl.mareczek100.infrastructure.database.entity.AddressEntity;
 import pl.mareczek100.service.dao.AddressRepository;
 
 import java.util.List;
@@ -14,25 +14,25 @@ public class AddressService {
     AddressDataStorage addressDataStorage;
     AddressRepository addressRepository;
 
-    public Address findCustomerAddress(String email) {
+    public AddressEntity findCustomerAddress(String email) {
         return addressRepository.findCustomerAddress(email)
                 .orElseThrow(() -> new RuntimeException("No such customer [%s]!".formatted(email)));
     }
 
-    public List<Address> findAllAddresses() {
-        List<Address> allAddresses = addressRepository.findAllAddresses();
-        if (allAddresses.isEmpty()){
+    public List<AddressEntity> findAllAddresses() {
+        List<AddressEntity> allAddressEntities = addressRepository.findAllAddresses();
+        if (allAddressEntities.isEmpty()){
             throw  new RuntimeException("No address's at all!");
         }
-        return allAddresses;
+        return allAddressEntities;
     }
 
-    public Address createAddressForCustomer(String email) {
+    public AddressEntity createAddressForCustomer(String email) {
         return addressDataStorage.createAddress(email);
     }
 
-    public void insertAddress(final Address address) {
-        addressRepository.insertAddress(address);
+    public void insertAddress(final AddressEntity addressEntity) {
+        addressRepository.insertAddress(addressEntity);
     }
 
     public void initAddress() {

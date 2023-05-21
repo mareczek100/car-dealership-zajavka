@@ -18,7 +18,8 @@ CREATE TABLE salesman
     name        VARCHAR(32) NOT NULL,
     surname     VARCHAR(32) NOT NULL,
     pesel       VARCHAR(20) 	NOT NULL,
-    PRIMARY KEY (salesman_id)
+    PRIMARY KEY (salesman_id),
+    UNIQUE (pesel)
 );
 
 CREATE TABLE address
@@ -90,7 +91,8 @@ CREATE TABLE service
     service_code VARCHAR(32)    NOT NULL,
     description  TEXT		    NOT NULL,
     price        NUMERIC(19, 2) NOT NULL,
-    PRIMARY KEY (service_id)
+    PRIMARY KEY (service_id),
+    UNIQUE (service_code)
 );
 
 CREATE TABLE part
@@ -109,7 +111,8 @@ CREATE TABLE mechanic
     name        VARCHAR(32) NOT NULL,
     surname     VARCHAR(32) NOT NULL,
     pesel       VARCHAR(20)	NOT NULL,
-    PRIMARY KEY (mechanic_id)
+    PRIMARY KEY (mechanic_id),
+    UNIQUE (pesel)
 );
 
 CREATE TABLE invoice

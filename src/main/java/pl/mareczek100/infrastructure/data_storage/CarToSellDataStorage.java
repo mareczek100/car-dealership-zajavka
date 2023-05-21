@@ -2,7 +2,7 @@ package pl.mareczek100.infrastructure.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.database.entity.CarToSell;
+import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,10 +12,10 @@ import java.util.List;
 public class CarToSellDataStorage {
     TrafficData trafficData;
 
-    public List<CarToSell> createCarToSell() {
+    public List<CarToSellEntity> createCarToSell() {
         return trafficData.getCarList().stream()
                 .map(string -> string.split(";"))
-                .map(arr -> CarToSell.builder()
+                .map(arr -> CarToSellEntity.builder()
                         .vin(arr[0])
                         .brand(arr[1])
                         .model(arr[2])

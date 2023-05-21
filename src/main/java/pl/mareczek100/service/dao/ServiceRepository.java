@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.Service;
+import pl.mareczek100.infrastructure.database.entity.ServiceEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface ServiceRepository {
 
 
-    void serviceInit(Service service);
+    void serviceInit(ServiceEntity serviceEntity);
 
-    List<Service> findAllServices();
+    List<ServiceEntity> findAllServices();
 
-    Optional<Service> findService(String serviceCode);
+    Optional<ServiceEntity> findService(String serviceCode);
 }

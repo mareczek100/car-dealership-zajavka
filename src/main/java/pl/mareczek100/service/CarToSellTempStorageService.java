@@ -3,7 +3,7 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.infrastructure.data_storage.CarToSellTempStorageDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorage;
+import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
 import pl.mareczek100.service.dao.CarToSellTempStorageRepository;
 
 import java.util.Collections;
@@ -20,15 +20,15 @@ public class CarToSellTempStorageService {
                 .forEach(carToSellTempStorageRepository::carToSellTempStorageInit);
     }
 
-    public CarToSellTempStorage findCarToSellTempStorage(String vin) {
+    public CarToSellTempStorageEntity findCarToSellTempStorage(String vin) {
         return carToSellTempStorageRepository.findCarToSellTempStorage(vin)
                 .orElseThrow(() -> new RuntimeException(
                         "Car [%s] is no longer available! Maybe You'll be interested in other cars?\n".formatted(vin) +
                                 "List of cars to buy: \n[%s]".formatted(findAllCarsToSellTempStorage())));
     }
 
-    public List<CarToSellTempStorage> findAllCarsToSellTempStorage() {
-        List<CarToSellTempStorage> allCarsToSell = carToSellTempStorageRepository.findAllCarsToSellTempStorage();
+    public List<CarToSellTempStorageEntity> findAllCarsToSellTempStorage() {
+        List<CarToSellTempStorageEntity> allCarsToSell = carToSellTempStorageRepository.findAllCarsToSellTempStorage();
         if (allCarsToSell.isEmpty()) {
             System.out.println("Sorry, no cars to buy at the moment available! Try again another time!");
             return Collections.emptyList();
@@ -42,8 +42,8 @@ public class CarToSellTempStorageService {
     }
 
     void deleteCarToSellTempStorage(String vin){
-        CarToSellTempStorage carToSellTempStorage = findCarToSellTempStorage(vin);
-        carToSellTempStorageRepository.deleteCarToSellTempStorage(carToSellTempStorage);
+        CarToSellTempStorageEntity carToSellTempStorageEntity = findCarToSellTempStorage(vin);
+        carToSellTempStorageRepository.deleteCarToSellTempStorage(carToSellTempStorageEntity);
     }
 
 }

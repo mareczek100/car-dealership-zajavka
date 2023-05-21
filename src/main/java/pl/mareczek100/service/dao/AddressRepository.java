@@ -1,15 +1,15 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.Address;
+import pl.mareczek100.infrastructure.database.entity.AddressEntity;
 
 import java.util.List;
 import java.util.Optional;
 public interface AddressRepository {
 
-    Optional<Address> findCustomerAddress(String email);
+    Optional<AddressEntity> findCustomerAddress(String email);
 
-    void insertAddress(Address address);
+    void insertAddress(AddressEntity addressEntity);
 
-    List<Address> findAllAddresses();
+    List<AddressEntity> findAllAddresses();
 
 }

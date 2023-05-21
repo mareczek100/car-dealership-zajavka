@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarServiceRequest;
+import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface CarServiceRequestRepository {
 
 
-    void insertCarServiceRequest(CarServiceRequest carServiceRequest);
+    void insertCarServiceRequest(CarServiceRequestEntity carServiceRequestEntity);
 
-    Optional<CarServiceRequest> findCarServiceRequestsByCarVin(String vin);
+    Optional<CarServiceRequestEntity> findCarServiceRequestsByCarVin(String vin);
 
-    List<CarServiceRequest> findAllCarServiceRequest();
+    List<CarServiceRequestEntity> findAllCarServiceRequest();
 }

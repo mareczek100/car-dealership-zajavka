@@ -3,7 +3,7 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.infrastructure.data_storage.PartDataStorage;
-import pl.mareczek100.infrastructure.database.entity.Part;
+import pl.mareczek100.infrastructure.database.entity.PartEntity;
 import pl.mareczek100.service.dao.PartRepository;
 
 import java.util.List;
@@ -20,17 +20,17 @@ public class PartService {
                 .forEach(partRepository::partInit);
     }
 
-    public Part findPart(String serialNumber){
+    public PartEntity findPart(String serialNumber){
         return partRepository.findPart(serialNumber)
                 .orElseThrow(() -> new RuntimeException("Sorry, part [%s] didn't exist!".formatted(serialNumber)));
     }
 
-    public List<Part> findAllParts() {
-        List<Part> allParts = partRepository.findAllParts();
-        if (allParts.isEmpty()){
+    public List<PartEntity> findAllParts() {
+        List<PartEntity> allPartEntities = partRepository.findAllParts();
+        if (allPartEntities.isEmpty()){
             throw  new RuntimeException("No part's at all!");
         }
-        return allParts;
+        return allPartEntities;
     }
 
 }

@@ -2,7 +2,7 @@ package pl.mareczek100.infrastructure.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.database.entity.Part;
+import pl.mareczek100.infrastructure.database.entity.PartEntity;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,11 +12,11 @@ import java.util.List;
 public class PartDataStorage {
     TrafficData trafficData;
 
-    public List<Part> createPart() {
+    public List<PartEntity> createPart() {
 
         return trafficData.getPartList().stream()
                 .map(string -> string.split(";"))
-                .map(arr -> Part.builder()
+                .map(arr -> PartEntity.builder()
                                 .serialNumber(arr[0])
                                 .description(arr[1])
                         .price(new BigDecimal(arr[2]))

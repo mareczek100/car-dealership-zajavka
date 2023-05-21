@@ -1,7 +1,7 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarToService;
-import pl.mareczek100.infrastructure.database.entity.CarToServiceHistory;
+import pl.mareczek100.domain.CarHistory;
+import pl.mareczek100.infrastructure.database.entity.CarToServiceEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +10,12 @@ import java.util.Optional;
 public interface CarToServiceRepository {
 
 
-    void carToServiceInsert(CarToService carToService);
+    void carToServiceInsert(CarToServiceEntity carToServiceEntity);
 
-    List<CarToService> findAllCarsToService();
+    List<CarToServiceEntity> findAllCarsToService();
 
 
-    Optional<CarToService> findCarToService(String vin);
+    Optional<CarToServiceEntity> findCarToService(String vin);
 
-    CarToServiceHistory findCarHistoryByVin(String vin);
+    CarHistory findCarHistoryByVin(String vin);
 }

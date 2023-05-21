@@ -2,17 +2,17 @@ package pl.mareczek100.infrastructure.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.database.entity.CarToSell;
-import pl.mareczek100.infrastructure.database.entity.CarToService;
+import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
+import pl.mareczek100.infrastructure.database.entity.CarToServiceEntity;
 
 @Value
 @Repository
 public class CarToServiceDataStorage {
     TrafficData trafficData;
 
-    public CarToService createCarToServiceFromDealer(CarToSell carFromDealer) {
+    public CarToServiceEntity createCarToServiceFromDealer(CarToSellEntity carFromDealer) {
 
-        return CarToService.builder()
+        return CarToServiceEntity.builder()
                         .vin(carFromDealer.getVin())
                         .brand(carFromDealer.getBrand())
                         .model(carFromDealer.getModel())
@@ -20,12 +20,12 @@ public class CarToServiceDataStorage {
                         .build();
     }
 
-    public CarToService createCarToServiceFromOutside(String vin) {
+    public CarToServiceEntity createCarToServiceFromOutside(String vin) {
 
         return trafficData.getCarOuterServiceRequestList().stream()
                 .filter(string -> string.contains(vin))
                 .map(string -> string.split(";"))
-                .map(arr -> CarToService.builder()
+                .map(arr -> CarToServiceEntity.builder()
                         .vin(arr[1])
                         .brand(arr[2])
                         .model(arr[3])

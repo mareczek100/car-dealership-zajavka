@@ -3,8 +3,8 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.infrastructure.data_storage.InvoiceDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CarToSell;
-import pl.mareczek100.infrastructure.database.entity.Invoice;
+import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
+import pl.mareczek100.infrastructure.database.entity.InvoiceEntity;
 import pl.mareczek100.service.dao.InvoiceRepository;
 
 import java.util.List;
@@ -18,31 +18,31 @@ public class InvoiceService {
     CarToSellService carToSellService;
 
     public String createInvoice(String vin) {
-        Invoice invoice = invoiceDataStorage.createInvoice(vin);
-        invoiceRepository.insertInvoice(invoice);
-        return invoice.getInvoiceNumber();
+        InvoiceEntity invoiceEntity = invoiceDataStorage.createInvoice(vin);
+        invoiceRepository.insertInvoice(invoiceEntity);
+        return invoiceEntity.getInvoiceNumber();
     }
 
-    public Invoice findInvoice(String invoiceNumber) {
+    public InvoiceEntity findInvoice(String invoiceNumber) {
         return invoiceRepository.findInvoice(invoiceNumber)
                 .orElseThrow(() -> new RuntimeException("Sorry, Your Invoice didn't exist!"));
     }
 
-    public List<Invoice> findAllInvoices() {
-        List<Invoice> allInvoices = invoiceRepository.findAllInvoices();
-        if (allInvoices.isEmpty()){
+    public List<InvoiceEntity> findAllInvoices() {
+        List<InvoiceEntity> allInvoiceEntities = invoiceRepository.findAllInvoices();
+        if (allInvoiceEntities.isEmpty()){
             throw  new RuntimeException("No invoice's at all!");
         }
-        return allInvoices;
+        return allInvoiceEntities;
     }
 
-    public Invoice buyANewCar(String vin) {
+    public InvoiceEntity buyANewCar(String vin) {
         carToSellService.findAvailableCarToSell(vin);
-        CarToSell carToSell = carToSellService.findCarToSell(vin);
-        String invoiceNumber = createInvoice(carToSell.getVin());
-        Invoice invoice = findInvoice(invoiceNumber);
+        CarToSellEntity carToSellEntity = carToSellService.findCarToSell(vin);
+        String invoiceNumber = createInvoice(carToSellEntity.getVin());
+        InvoiceEntity invoiceEntity = findInvoice(invoiceNumber);
         carToSellService.deleteFromAvailableCar(vin);
 
-        return invoice;
+        return invoiceEntity;
     }
 }

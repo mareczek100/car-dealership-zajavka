@@ -3,7 +3,7 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.infrastructure.data_storage.CustomerDataStorage;
-import pl.mareczek100.infrastructure.database.entity.Customer;
+import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.List;
@@ -16,21 +16,21 @@ public class CustomerService {
     CustomerDataStorage customerDataStorage;
     CustomerRepository customerRepository;
 
-    public Customer findCustomer(String email) {
+    public CustomerEntity findCustomer(String email) {
         return customerRepository.findCustomer(email)
                 .orElseThrow(() -> new RuntimeException("No such customer [%s]!".formatted(email)));
     }
 
-    public List<Customer> findAllCustomers() {
-        List<Customer> allCustomers = customerRepository.findAllCustomers();
-        if (allCustomers.isEmpty()){
+    public List<CustomerEntity> findAllCustomers() {
+        List<CustomerEntity> allCustomerEntities = customerRepository.findAllCustomers();
+        if (allCustomerEntities.isEmpty()){
             throw  new RuntimeException("No customer's at all!");
         }
-        return allCustomers;
+        return allCustomerEntities;
     }
 
-    public Customer createNewOrFindCustomerToMakeInvoice(String email) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomer(email);
+    public CustomerEntity createNewOrFindCustomerToMakeInvoice(String email) {
+        Optional<CustomerEntity> optionalCustomer = customerRepository.findCustomer(email);
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
         }else {
@@ -38,8 +38,8 @@ public class CustomerService {
         return findCustomer(email);}
     }
 
-    public void insertCustomer(Customer customer) {
-        customerRepository.insertCustomer(customer);
+    public void insertCustomer(CustomerEntity customerEntity) {
+        customerRepository.insertCustomer(customerEntity);
     }
 
 }

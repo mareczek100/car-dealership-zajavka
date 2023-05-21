@@ -2,10 +2,10 @@ package pl.mareczek100.infrastructure.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.database.entity.CarToSell;
-import pl.mareczek100.infrastructure.database.entity.Customer;
-import pl.mareczek100.infrastructure.database.entity.Invoice;
-import pl.mareczek100.infrastructure.database.entity.Salesman;
+import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
+import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
+import pl.mareczek100.infrastructure.database.entity.InvoiceEntity;
+import pl.mareczek100.infrastructure.database.entity.SalesmanEntity;
 import pl.mareczek100.service.CarToSellService;
 import pl.mareczek100.service.CustomerService;
 import pl.mareczek100.service.SalesmanService;
@@ -24,39 +24,39 @@ public class InvoiceDataStorage {
     CustomerService customerService;
     SalesmanService salesmanService;
 
-    public Invoice createInvoice(String vin) {
+    public InvoiceEntity createInvoice(String vin) {
         List<String> invoiceList = trafficData.getInvoiceList();
         List<String> invoiceListAgain = trafficData.getInvoiceListAgain();
         invoiceList.addAll(invoiceListAgain);
 
-        Invoice invoice = invoiceList.stream()
+        InvoiceEntity invoiceEntity = invoiceList.stream()
                 .filter(invoiceParameter -> invoiceParameter.contains(vin))
                 .map(string -> string.split(";"))
-                .map(arr -> Invoice.builder()
+                .map(arr -> InvoiceEntity.builder()
                         .invoiceNumber(UUID.randomUUID().toString())
                         .dateTime(OffsetDateTime.now())
-                        .carToSell(getCarToSell(arr[1]))
-                        .customer(getNewOrFindCustomerToMakeInvoice(arr[0]))
-                        .salesman(getSalesman(arr[2]))
+                        .carToSellEntity(getCarToSell(arr[1]))
+                        .customerEntity(getNewOrFindCustomerToMakeInvoice(arr[0]))
+                        .salesmanEntity(getSalesman(arr[2]))
                         .build())
                 .toList().get(0);
 
-        invoice.getCarToSell().setInvoice(invoice);
-        invoice.getCustomer().setInvoices(Set.of(invoice));
-        invoice.getSalesman().setInvoices(Set.of(invoice));
+        invoiceEntity.getCarToSellEntity().setInvoiceEntity(invoiceEntity);
+        invoiceEntity.getCustomerEntity().setInvoiceEntities(Set.of(invoiceEntity));
+        invoiceEntity.getSalesmanEntity().setInvoiceEntities(Set.of(invoiceEntity));
 
-        return invoice;
+        return invoiceEntity;
     }
 
-    private Salesman getSalesman(String pesel) {
+    private SalesmanEntity getSalesman(String pesel) {
         return salesmanService.findSalesman(pesel);
     }
 
-    private CarToSell getCarToSell(String vin) {
+    private CarToSellEntity getCarToSell(String vin) {
         return carToSellService.findCarToSell(vin);
     }
 
-    private Customer getNewOrFindCustomerToMakeInvoice(String email) {
+    private CustomerEntity getNewOrFindCustomerToMakeInvoice(String email) {
         return customerService.createNewOrFindCustomerToMakeInvoice(email);
     }
 }

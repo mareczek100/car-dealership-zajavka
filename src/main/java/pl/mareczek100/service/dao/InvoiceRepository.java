@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.Invoice;
+import pl.mareczek100.infrastructure.database.entity.InvoiceEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface InvoiceRepository {
 
 
-    void insertInvoice(Invoice invoice);
+    void insertInvoice(InvoiceEntity invoiceEntity);
 
-    Optional<Invoice> findInvoice(String invoiceNumber);
+    Optional<InvoiceEntity> findInvoice(String invoiceNumber);
 
-    List<Invoice> findAllInvoices();
+    List<InvoiceEntity> findAllInvoices();
 }
