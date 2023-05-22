@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
+import pl.mareczek100.domain.CarToSell;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,11 +9,11 @@ import java.util.Optional;
 public interface CarToSellRepository {
 
 
-    void carToSellInit(CarToSellEntity carToSellEntity);
+    void carToSellInit(CarToSell carToSell);
 
-    Optional<CarToSellEntity> findCarToSell(String vin);
+    Optional<CarToSell> findCarToSell(String vin);
 
-    List<CarToSellEntity> findAllCarsToSell();
+    List<CarToSell> findAllCarsToSell();
 
     void deleteCar(String vin);
 }

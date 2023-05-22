@@ -1,8 +1,10 @@
-package pl.mareczek100.infrastructure.data_storage;
+package pl.mareczek100.domain.inputTrafficData.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.ResourceUtils;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,26 +18,23 @@ import java.util.stream.IntStream;
 @Repository
 class TrafficData {
 
-    private final static Path TRAFFIC_SIMULATION = Path.of("./src/main/resources/car-dealership-traffic-simulation.md");
-    private final static String INIT = "INIT";
+    private final static Path TRAFFIC;
+
+    static {
+        try {
+            TRAFFIC = ResourceUtils.getFile("classpath:car-dealership-traffic-simulation.md").toPath();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private final static String WHAT = "WHAT";
     private final static String SALESMAN = "SALESMAN";
-    private final static String MECHANIC = "MECHANIC";
     private final static String CAR = "CAR";
-    private final static String SERVICE = "SERVICE";
-    private final static String PART = "PART";
-    private final static String CUSTOMER = "CUSTOMER";
-    private final static String INVOICE = "INVOICE";
     private final static String BUY_FIRST_TIME = "BUY_FIRST_TIME";
     private final static String BUY_AGAIN = "BUY_AGAIN";
     private final static String SERVICE_REQUEST = "SERVICE_REQUEST";
     private final static String DO_THE_SERVICE = "DO_THE_SERVICE";
 
-    List<String> salesmanList = createSalesmanList();
-    List<String> mechanicList = createMechanicList();
-    List<String> carList = createCarList();
-    List<String> serviceList = createServiceList();
-    List<String> partList = createPartList();
     List<String> customerBuyingList = createCustomerBuyingList();
     List<String> invoiceList = createInvoiceCarBuyingParameterList();
     List<String> invoiceListAgain = createInvoiceCarBuyingAgainList();
@@ -50,9 +49,9 @@ class TrafficData {
         List<String> resultList = new ArrayList<>();
 
         try {
-            List<String> pesel = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> pesel = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(DO_THE_SERVICE) && line.contains(MECHANIC))
+                    .filter(line -> line.contains(DO_THE_SERVICE))
                     .flatMap(line -> Arrays.stream(line.split(" -> "))
                             .skip(2)
                             .filter(string -> !string.equalsIgnoreCase(CAR))
@@ -60,17 +59,17 @@ class TrafficData {
                             .limit(1))
                     .toList();
 
-            List<String> vin = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> vin = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(DO_THE_SERVICE) && line.contains(MECHANIC))
+                    .filter(line -> line.contains(DO_THE_SERVICE))
                     .flatMap(line -> Arrays.stream(line.split(" -> "))
                             .skip(4)
                             .limit(1))
                     .toList();
 
-            List <String> serviceParameters = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List <String> serviceParameters = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(DO_THE_SERVICE) && line.contains(MECHANIC))
+                    .filter(line -> line.contains(DO_THE_SERVICE))
                     .flatMap(line -> Arrays.stream(line.split(" -> "))
                             .skip(2)
                             .filter(string -> !string.equalsIgnoreCase(CAR))
@@ -91,9 +90,9 @@ class TrafficData {
 
     private List<String> createCustomerOuterList() {
         try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            return Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(SERVICE_REQUEST) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(SERVICE_REQUEST))
                     .skip(2)
                     .map(line -> line.substring(
                             line.indexOf(">", line.indexOf(">") + 1) + 1, line.lastIndexOf("-> CAR")))
@@ -110,9 +109,9 @@ class TrafficData {
         List<String> resultList;
 
         try {
-            List<String> outerCarAndRequestCommentList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> outerCarAndRequestCommentList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(SERVICE_REQUEST) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(SERVICE_REQUEST))
                     .skip(2)
                     .flatMap(line -> Arrays.stream(line.split("->"))
                             .skip(4)
@@ -120,9 +119,9 @@ class TrafficData {
                             .filter(string -> !string.equalsIgnoreCase(WHAT)))
                     .toList();
 
-            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(SERVICE_REQUEST) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(SERVICE_REQUEST))
                     .skip(2)
                     .flatMap(line -> Arrays.stream(line.split(";")))
                     .filter(word -> word.contains("@"))
@@ -147,9 +146,9 @@ class TrafficData {
         List<String> resultList;
 
         try {
-            List<String> carVinAndRequestCommentList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> carVinAndRequestCommentList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(SERVICE_REQUEST) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(SERVICE_REQUEST))
                     .map(String::trim)
                     .flatMap(line -> Arrays.stream(line.split("->"))
                             .skip(4)
@@ -158,9 +157,9 @@ class TrafficData {
                     .limit(4)
                     .toList();
 
-            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(SERVICE_REQUEST) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(SERVICE_REQUEST))
                     .limit(2)
                     .flatMap(line -> Arrays.stream(line.split("->")))
                     .map(String::strip)
@@ -184,17 +183,17 @@ class TrafficData {
     private List<String> createInvoiceCarBuyingAgainList() {
         List<String> resultList;
         try {
-            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(BUY_AGAIN) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(BUY_AGAIN))
                     .flatMap(line -> Arrays.stream(line.split("->")))
                     .map(String::strip)
                     .filter(word -> word.contains("@"))
                     .toList();
 
-            List<String> carVinAndSalesmanPeselTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> carVinAndSalesmanPeselTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(BUY_AGAIN) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(BUY_AGAIN))
                     .map(String::strip)
                     .flatMap(line -> Arrays.stream(line.split("->"))
                             .skip(4)
@@ -221,18 +220,18 @@ class TrafficData {
         List<String> resultList;
 
         try {
-            List<String> carVinAndSalesmanPeselTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> carVinAndSalesmanPeselTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(BUY_FIRST_TIME) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(BUY_FIRST_TIME))
                     .flatMap(line -> Arrays.stream(line.split("->"))
                             .skip(4)
                             .map(String::strip)
                             .filter(string -> !SALESMAN.equalsIgnoreCase(string)))
                     .toList();
 
-            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            List<String> customerEmailTempList = Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(BUY_FIRST_TIME) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(BUY_FIRST_TIME))
                     .flatMap(line -> Arrays.stream(line.split(";")))
                     .filter(word -> word.contains("@"))
                     .map(String::strip)
@@ -254,9 +253,9 @@ class TrafficData {
 
     private List<String> createCustomerBuyingList() {
         try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
+            return Files.readAllLines(TRAFFIC).stream()
                     .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(BUY_FIRST_TIME) && line.contains(CUSTOMER))
+                    .filter(line -> line.contains(BUY_FIRST_TIME))
                     .map(line -> line.substring(
                             line.indexOf(">", line.indexOf(">") + 1) + 1, line.lastIndexOf("-> CAR")))
                     .map(String::strip)
@@ -265,73 +264,4 @@ class TrafficData {
             throw new RuntimeException(e);
         }
     }
-
-    private List<String> createServiceList() {
-        try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
-                    .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(INIT) && line.contains(SERVICE))
-                    .map(line -> line.substring(line.lastIndexOf(">") + 1))
-                    .map(String::strip)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<String> createCarList() {
-        try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
-                    .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(INIT) && line.contains(CAR))
-                    .map(line -> line.substring(line.lastIndexOf(">") + 1))
-                    .map(String::strip)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<String> createPartList() {
-        try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
-                    .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(INIT) && line.contains(PART))
-                    .map(line -> line.substring(line.lastIndexOf(">") + 1))
-                    .map(String::strip)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<String> createMechanicList() {
-        try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
-                    .filter(line -> !line.stripTrailing().contains("#"))
-                    .filter(line -> line.contains(INIT) && line.contains(MECHANIC))
-                    .map(line -> line.substring(line.lastIndexOf(">") + 1))
-                    .map(String::strip)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    private List<String> createSalesmanList() {
-
-        try {
-            return Files.readAllLines(TRAFFIC_SIMULATION).stream()
-                    .filter(line -> !line.contains("#"))
-                    .filter(line -> line.contains(INIT) && line.contains(SALESMAN))
-                    .map(line -> line.substring(line.lastIndexOf(">") + 1))
-                    .map(String::strip)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
 }

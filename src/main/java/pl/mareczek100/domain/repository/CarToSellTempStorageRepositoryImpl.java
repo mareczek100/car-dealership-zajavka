@@ -3,8 +3,10 @@ package pl.mareczek100.domain.repository;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.infrastructure.configuration.HibernateConfig;
 import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
+import pl.mareczek100.infrastructure.database.jpaRepository.CarToSellTempStorageJpaRepository;
 import pl.mareczek100.service.dao.CarToSellTempStorageRepository;
 
 import java.util.List;
@@ -14,74 +16,38 @@ import java.util.Optional;
 
 @Repository
 public class CarToSellTempStorageRepositoryImpl implements CarToSellTempStorageRepository {
+
+    CarToSellTempStorageJpaRepository carToSellTempStorageJpaRepository;
+    CarToSellTempStorageMapper carToSellTempStorageMapper;
+
     @Override
-    public void carToSellTempStorageInit(CarToSellTempStorageEntity carToSellTempStorageEntity) {
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            session.merge(carToSellTempStorageEntity);
-            transaction.commit();
-        }
+    public void carToSellTempStorageInit(CarToSellTempStorage carToSellTempStorage) {
+        CarToSellTempStorageEntity carToSellTempStorageEntity = carToSellTempStorageMapper.mapToEntity(carToSellTempStorage);
+        carToSellTempStorageJpaRepository.saveAndFlush(carToSellTempStorageEntity);
     }
 
     @Override
-    public Optional<CarToSellTempStorageEntity> findCarToSellTempStorage(String vin) {
-        Optional<CarToSellTempStorageEntity> carToSellTempStorage;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            carToSellTempStorage = session.createQuery
-                            ("FROM CarToSellTempStorage car WHERE car.vin = :vin", CarToSellTempStorageEntity.class)
-                    .setParameter("vin", vin)
-                    .uniqueResultOptional();
-            transaction.commit();
-        }
-        return carToSellTempStorage;
+    public Optional<CarToSellTempStorage> findCarToSellTempStorage(String vin) {
+        return carToSellTempStorageJpaRepository.findByVin(vin)
+                .map(carToSellTempStorageMapper::mapFromEntity);
     }
 
     @Override
-    public List<CarToSellTempStorageEntity> findAllCarsToSellTempStorage() {
-        List<CarToSellTempStorageEntity> carToSellTempStorageEntity;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            carToSellTempStorageEntity = session.createQuery("FROM CarToSellTempStorage",
-                    CarToSellTempStorageEntity.class).getResultList();
-            transaction.commit();
-        }
-        return carToSellTempStorageEntity;
+    public List<CarToSellTempStorage> findAllCarsToSellTempStorage() {
+        return carToSellTempStorageJpaRepository.findAll().stream()
+                .map(carToSellTempStorageMapper::mapFromEntity)
+                .toList();
     }
 
     @Override
     public void deleteCarToSellTempStorageByCarVin(String vin) {
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            String delete = "DELETE FROM CarToSellTempStorage car WHERE car.vin = :vin";
-            session.createMutationQuery(delete)
-                    .setParameter("vin", vin)
-                    .executeUpdate();
-            transaction.commit();
-        }
+        carToSellTempStorageJpaRepository.deleteCarToSellTempStorageByCarVin(vin);
     }
+
     @Override
-    public void deleteCarToSellTempStorage(CarToSellTempStorageEntity carToSellTempStorageEntity) {
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            session.remove(carToSellTempStorageEntity);
-            transaction.commit();
-        }
+    public void deleteCarToSellTempStorage(CarToSellTempStorage carToSellTempStorage) {
+        CarToSellTempStorageEntity carToSellTempStorageEntity = carToSellTempStorageMapper.mapToEntity(carToSellTempStorage);
+        carToSellTempStorageJpaRepository.delete(carToSellTempStorageEntity);
     }
 
 }

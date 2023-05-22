@@ -20,7 +20,9 @@ public class CarHistory {
             List<Service> services,
             List<Part> parts
     ) {
-
+        @Builder
+        public ServiceRequest {
+        }
 
         @Override
         public String toString() {

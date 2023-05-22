@@ -7,12 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface MechanicRepository extends JpaRepository<Object, Integer> {
+public interface MechanicJpaRepository extends JpaRepository<MechanicEntity, Integer> {
+    Optional<MechanicEntity> findByPesel(String pesel);
 
-
-    void mechanicInit(MechanicEntity mechanicEntity);
-
-    Optional<MechanicEntity> findMechanic(String pesel);
-
-    List<MechanicEntity> findAllMechanics();
 }

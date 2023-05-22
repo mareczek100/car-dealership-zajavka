@@ -2,9 +2,9 @@ package pl.mareczek100.service;
 
 import lombok.Value;
 import org.springframework.stereotype.Service;
-import pl.mareczek100.infrastructure.data_storage.CarServiceHandlingDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CarServiceHandlingEntity;
-import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
+import pl.mareczek100.domain.CarServiceHandling;
+import pl.mareczek100.domain.CarServiceParts;
+import pl.mareczek100.domain.inputTrafficData.data_storage.CarServiceHandlingDataStorage;
 import pl.mareczek100.service.dao.CarServiceHandlingRepository;
 
 import java.util.List;
@@ -17,13 +17,13 @@ public class CarServiceHandlingService {
     CarServicePartsService carServicePartsService;
 
     public void carServiceHandlingInit() {
-        List<CarServiceHandlingEntity> carServiceHandlingEntity = carServiceHandlingDataStorage.createCarServiceHandling();
-        List<CarServicePartsEntity> carServicePartEntities = carServicePartsService.createCarServiceParts();
-        for (int i = 0; i < carServiceHandlingEntity.size(); i++) {
-            carServiceHandlingRepository.carServiceHandlingInit(carServiceHandlingEntity.get(i));
-            carServicePartEntities.get(i).setCarServiceRequestEntity(carServiceHandlingEntity.get(i).getCarServiceRequestEntity());
+        List<CarServiceHandling> carServiceHandling = carServiceHandlingDataStorage.createCarServiceHandling();
+        List<CarServiceParts> carServicePart = carServicePartsService.createCarServiceParts();
+        for (int i = 0; i < carServiceHandling.size(); i++) {
+            carServiceHandlingRepository.carServiceHandlingInit(carServiceHandling.get(i));
+            carServicePart.get(i).setCarServiceRequest(carServiceHandling.get(i).getCarServiceRequest());
         }
-        carServicePartEntities.forEach(carServicePartsService::carServiceInit);
+        carServicePart.forEach(carServicePartsService::carServiceInit);
     }
 
 

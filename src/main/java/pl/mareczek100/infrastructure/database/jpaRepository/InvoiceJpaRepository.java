@@ -7,12 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface InvoiceRepository extends JpaRepository<Object, Integer> {
+public interface InvoiceJpaRepository extends JpaRepository<InvoiceEntity, Integer> {
+    Optional<InvoiceEntity> findInvoiceByInvoiceNumber(String invoiceNumber);
 
-
-    void insertInvoice(InvoiceEntity invoiceEntity);
-
-    Optional<InvoiceEntity> findInvoice(String invoiceNumber);
-
-    List<InvoiceEntity> findAllInvoices();
 }

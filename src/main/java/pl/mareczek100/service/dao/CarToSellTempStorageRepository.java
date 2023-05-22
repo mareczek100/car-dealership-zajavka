@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
+import pl.mareczek100.domain.CarToSellTempStorage;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CarToSellTempStorageRepository {
 
-    void carToSellTempStorageInit(CarToSellTempStorageEntity carToSellTempStorageEntity);
-    Optional<CarToSellTempStorageEntity> findCarToSellTempStorage(String vin);
-    List<CarToSellTempStorageEntity> findAllCarsToSellTempStorage();
+    void carToSellTempStorageInit(CarToSellTempStorage carToSellTempStorage);
+    Optional<CarToSellTempStorage> findCarToSellTempStorage(String vin);
+    List<CarToSellTempStorage> findAllCarsToSellTempStorage();
     void deleteCarToSellTempStorageByCarVin(String vin);
-    void deleteCarToSellTempStorage(CarToSellTempStorageEntity carToSellTempStorageEntity);
+    void deleteCarToSellTempStorage(CarToSellTempStorage carToSellTempStorage);
 }

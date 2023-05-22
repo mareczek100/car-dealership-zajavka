@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface SalesmanRepository extends JpaRepository<Object, Integer> {
+public interface SalesmanJpaRepository extends JpaRepository<SalesmanEntity, Integer> {
+    Optional<SalesmanEntity> findByPesel(String pesel);
 
-    void salesmanInit(SalesmanEntity salesmanEntity);
-
-    Optional<SalesmanEntity> findSalesman(String pesel);
-
-    List<SalesmanEntity> findAllSalesman();
 }

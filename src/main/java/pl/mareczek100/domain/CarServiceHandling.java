@@ -15,7 +15,7 @@ public class CarServiceHandling {
      Integer carServiceHandlingId;
      Short hours;
      String comment;
-     CarServiceRequestInputData carServiceRequest;
+     CarServiceRequest carServiceRequest;
      Mechanic mechanic;
      Service service;
 

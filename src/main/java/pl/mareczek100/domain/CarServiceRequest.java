@@ -8,7 +8,7 @@ import java.util.Set;
 @With
 @Value
 @Builder
-@ToString(exclude = {"carServiceHandlingEntities","carServicePartEntities"})
+@ToString(exclude = {"carServiceHandling","carServicePart"})
 @EqualsAndHashCode(of = "carServiceRequestNumber")
 public class CarServiceRequest {
     Integer carServiceRequestId;
@@ -18,7 +18,7 @@ public class CarServiceRequest {
     String customerComment;
     Customer customer;
     CarToService carToService;
-    Set<CarServiceHandling> carServiceHandlingEntities;
-    Set<CarServiceParts> carServicePartEntities;
+    Set<CarServiceHandling> carServiceHandling;
+    Set<CarServiceParts> carServicePart;
 
 }

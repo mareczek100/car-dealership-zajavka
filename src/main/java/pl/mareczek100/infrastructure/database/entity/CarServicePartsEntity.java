@@ -6,7 +6,6 @@ import lombok.*;
 @Data
 @Entity
 @EqualsAndHashCode(of = "carServicePartsId")
-@ToString(exclude = "part")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

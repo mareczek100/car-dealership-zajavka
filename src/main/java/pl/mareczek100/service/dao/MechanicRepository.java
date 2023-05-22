@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.MechanicEntity;
+import pl.mareczek100.domain.Mechanic;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface MechanicRepository {
 
 
-    void mechanicInit(MechanicEntity mechanicEntity);
+    void mechanicInit(Mechanic mechanic);
 
-    Optional<MechanicEntity> findMechanic(String pesel);
+    Optional<Mechanic> findMechanic(String pesel);
 
-    List<MechanicEntity> findAllMechanics();
+    List<Mechanic> findAllMechanics();
 }

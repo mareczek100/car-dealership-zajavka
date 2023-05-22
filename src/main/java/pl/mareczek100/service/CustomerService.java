@@ -2,8 +2,8 @@ package pl.mareczek100.service;
 
 import lombok.Value;
 import org.springframework.stereotype.Service;
-import pl.mareczek100.infrastructure.data_storage.CustomerDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
+import pl.mareczek100.domain.Customer;
+import pl.mareczek100.domain.inputTrafficData.data_storage.PurchaseDataStorage;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.List;
@@ -13,33 +13,33 @@ import java.util.Optional;
 @Service
 public class CustomerService {
 
-    CustomerDataStorage customerDataStorage;
+    PurchaseDataStorage purchaseDataStorage;
     CustomerRepository customerRepository;
 
-    public CustomerEntity findCustomer(String email) {
+    public Customer findCustomer(String email) {
         return customerRepository.findCustomer(email)
                 .orElseThrow(() -> new RuntimeException("No such customer [%s]!".formatted(email)));
     }
 
-    public List<CustomerEntity> findAllCustomers() {
-        List<CustomerEntity> allCustomerEntities = customerRepository.findAllCustomers();
+    public List<Customer> findAllCustomers() {
+        List<Customer> allCustomerEntities = customerRepository.findAllCustomers();
         if (allCustomerEntities.isEmpty()){
             throw  new RuntimeException("No customer's at all!");
         }
         return allCustomerEntities;
     }
 
-    public CustomerEntity createNewOrFindCustomerToMakeInvoice(String email) {
-        Optional<CustomerEntity> optionalCustomer = customerRepository.findCustomer(email);
+    public Customer createNewOrFindCustomerToMakeInvoice(String email) {
+        Optional<Customer> optionalCustomer = customerRepository.findCustomer(email);
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
         }else {
-        insertCustomer(customerDataStorage.createCustomerWithAddress(email));
+        insertCustomer(purchaseDataStorage.customerWithAddress().get(0));
         return findCustomer(email);}
     }
 
-    public void insertCustomer(CustomerEntity customerEntity) {
-        customerRepository.insertCustomer(customerEntity);
+    public void insertCustomer(Customer customer) {
+        customerRepository.insertCustomer(customer);
     }
 
 }

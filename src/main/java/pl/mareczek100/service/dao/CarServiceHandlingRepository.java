@@ -1,10 +1,10 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CarServiceHandlingEntity;
+import pl.mareczek100.domain.CarServiceHandling;.CarServiceHandling;
 
 
 public interface CarServiceHandlingRepository {
 
 
-    void carServiceHandlingInit(CarServiceHandlingEntity carServiceHandlingEntity);
+    void carServiceHandlingInit(CarServiceHandling carServiceHandling);
 }

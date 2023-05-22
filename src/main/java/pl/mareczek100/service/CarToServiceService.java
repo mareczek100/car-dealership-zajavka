@@ -3,9 +3,9 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import pl.mareczek100.domain.CarHistory;
-import pl.mareczek100.infrastructure.data_storage.CarToServiceDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
-import pl.mareczek100.infrastructure.database.entity.CarToServiceEntity;
+import pl.mareczek100.domain.CarToSell;
+import pl.mareczek100.domain.CarToService;
+import pl.mareczek100.domain.inputTrafficData.data_storage.CarToServiceDataStorage;
 import pl.mareczek100.service.dao.CarToServiceRepository;
 
 import java.util.Collections;
@@ -21,29 +21,29 @@ public class CarToServiceService {
     CarToServiceRepository carToServiceRepository;
     CarToSellService carToSellService;
 
-    public CarToServiceEntity createCarToService(String vin) {
-        CarToServiceEntity existingCarToServiceEntity = findCarToService(vin);
-        CarToSellEntity existingCarToSellEntity = carToSellService.findCarToSell(vin);
-        if (Objects.nonNull(existingCarToServiceEntity)) {
-            return existingCarToServiceEntity;
-        } else if (Objects.nonNull(existingCarToSellEntity)) {
-            return carToServiceDataStorage.createCarToServiceFromDealer(existingCarToSellEntity);
+    public CarToService createCarToService(String vin) {
+        CarToService existingCarToService = findCarToService(vin);
+        CarToSell existingCarToSell = carToSellService.findCarToSell(vin);
+        if (Objects.nonNull(existingCarToService)) {
+            return existingCarToService;
+        } else if (Objects.nonNull(existingCarToSell)) {
+            return carToServiceDataStorage.createCarToServiceFromDealer(existingCarToSell);
         }else {
             return carToServiceDataStorage.createCarToServiceFromOutside(vin);
         }
     }
 
-    public CarToServiceEntity carToServiceInit(String vin) {
+    public CarToService carToServiceInit(String vin) {
         carToServiceRepository.carToServiceInsert(createCarToService(vin));
         return findCarToService(vin);
     }
 
-    public CarToServiceEntity findCarToService(String vin) {
+    public CarToService findCarToService(String vin) {
         return carToServiceRepository.findCarToService(vin).orElse(null);
     }
 
-    public List<CarToServiceEntity> findAllCarsToService() {
-        List<CarToServiceEntity> allCarsToService = carToServiceRepository.findAllCarsToService();
+    public List<CarToService> findAllCarsToService() {
+        List<CarToService> allCarsToService = carToServiceRepository.findAllCarsToService();
         if (allCarsToService.isEmpty()) {
             System.out.println("Sorry, no cars in our service database!");
             return Collections.emptyList();

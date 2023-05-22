@@ -22,12 +22,7 @@ public class CarDealership {
         CarServiceRequestService carServiceRequestService = context.getBean(CarServiceRequestService.class);
         CarServiceHandlingService carServiceHandlingService = context.getBean(CarServiceHandlingService.class);
 
-        addressService.initAddress();
-        salesmanService.salesmanInit();
-        mechanicService.mechanicInit();
-        carToSellService.carToSellInit();
-        serviceService.serviceInit();
-        partService.partInit();
+
         for (int i = 0; i < carToSellService.findAllCarsToSell().size(); i++) {
             System.out.println(invoiceService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
         }

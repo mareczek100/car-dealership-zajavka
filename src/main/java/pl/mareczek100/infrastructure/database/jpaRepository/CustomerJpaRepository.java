@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface CustomerRepository extends JpaRepository<Object, Integer> {
+public interface CustomerJpaRepository extends JpaRepository<CustomerEntity, Integer> {
+    Optional<CustomerEntity> findByEmail(String email);
 
-    void insertCustomer(CustomerEntity customerEntity);
-    Optional<CustomerEntity> findCustomer(String email);
-
-    List<CustomerEntity> findAllCustomers();
 }

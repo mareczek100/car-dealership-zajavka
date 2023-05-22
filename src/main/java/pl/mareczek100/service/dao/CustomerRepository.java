@@ -1,6 +1,6 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
+import pl.mareczek100.domain.Customer;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface CustomerRepository {
 
-    void insertCustomer(CustomerEntity customerEntity);
-    Optional<CustomerEntity> findCustomer(String email);
+    Customer insertCustomer(Customer customer);
+    Optional<Customer> findCustomer(String email);
 
-    List<CustomerEntity> findAllCustomers();
+    List<Customer> findAllCustomers();
 }

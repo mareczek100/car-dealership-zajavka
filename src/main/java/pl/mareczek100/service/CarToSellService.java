@@ -2,9 +2,8 @@ package pl.mareczek100.service;
 
 import lombok.Value;
 import org.springframework.stereotype.Service;
-import pl.mareczek100.infrastructure.data_storage.CarToSellDataStorage;
-import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
-import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
+import pl.mareczek100.domain.CarToSell;
+import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.service.dao.CarToSellRepository;
 
 import java.util.Collections;
@@ -13,23 +12,22 @@ import java.util.List;
 @Value
 @Service
 public class CarToSellService {
-    CarToSellDataStorage carToSellDataStorage;
     CarToSellRepository carToSellRepository;
     CarToSellTempStorageService carToSellTempStorageService;
 
 
     public void carToSellInit() {
-        carToSellDataStorage.createCarToSell()
-                .forEach(carToSellRepository::carToSellInit);
         carToSellTempStorageService.carToSellTempStorageInit();
     }
 
-    public CarToSellEntity findCarToSell(String vin) {
-        return carToSellRepository.findCarToSell(vin).orElse(null);
+    public CarToSell findCarToSell(String vin) {
+        return carToSellRepository.findCarToSell(vin)
+                .orElseThrow(() ->
+                        new RuntimeException("Car [%s] is no longer available!".formatted(vin)));
     }
 
-    public List<CarToSellEntity> findAllCarsToSell() {
-        List<CarToSellEntity> allCarsToSell = carToSellRepository.findAllCarsToSell();
+    public List<CarToSell> findAllCarsToSell() {
+        List<CarToSell> allCarsToSell = carToSellRepository.findAllCarsToSell();
         if (allCarsToSell.isEmpty()) {
             System.out.println("Sorry, no cars to buy at the moment available! Try again another time!");
             return Collections.emptyList();
@@ -37,11 +35,11 @@ public class CarToSellService {
         return allCarsToSell;
     }
 
-    public CarToSellTempStorageEntity findAvailableCarToSell(String vin) {
+    public CarToSellTempStorage findAvailableCarToSell(String vin) {
         return carToSellTempStorageService.findCarToSellTempStorage(vin);
     }
 
-    public List<CarToSellTempStorageEntity> findAllAvailableCarsToSell() {
+    public List<CarToSellTempStorage> findAllAvailableCarsToSell() {
         return carToSellTempStorageService.findAllCarsToSellTempStorage();
     }
 

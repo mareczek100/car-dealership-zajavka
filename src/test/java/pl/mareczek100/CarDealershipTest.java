@@ -53,20 +53,16 @@ class CarDealershipTest {
     @Order(1)
     void purge() {
         log.info("#### RUNNING ORDER 1 ####");
-        tableCreator.createCleanTables();
-        tableCreator.deleteFromTables();
+
     }
 
     @Test
     @Order(2)
     void init() {
         log.info("#### RUNNING ORDER 2 ####");
-        addressService.initAddress();
-        salesmanService.salesmanInit();
-        mechanicService.mechanicInit();
+
         carToSellService.carToSellInit();
-        serviceService.serviceInit();
-        partService.partInit();
+
     }
 
     @Test

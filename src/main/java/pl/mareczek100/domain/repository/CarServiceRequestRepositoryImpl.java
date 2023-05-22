@@ -1,63 +1,30 @@
 package pl.mareczek100.domain.repository;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.configuration.HibernateConfig;
-import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
+import pl.mareczek100.domain.CarServiceRequest;
+import pl.mareczek100.infrastructure.database.jpaRepository.CarServiceRequestJpaRepository;
 import pl.mareczek100.service.dao.CarServiceRequestRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 
 @Repository
+@AllArgsConstructor
 public class CarServiceRequestRepositoryImpl implements CarServiceRequestRepository {
-
-
+    private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
+    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
     @Override
-    public void insertCarServiceRequest(CarServiceRequestEntity carServiceRequestEntity) {
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            session.merge(carServiceRequestEntity);
-            session.flush();
-            transaction.commit();
-        }
+    public Optional<CarServiceRequest> findCarServiceRequestsByCarVin(String vin) {
+     return carServiceRequestJpaRepository.findCarServiceRequestsByCarVin(vin).stream()
+             .map(entity -> carServiceRequestEntityMapper.mapFromEntity(entity))
+             .toList();
     }
-
     @Override
-    public Optional<CarServiceRequestEntity> findCarServiceRequestsByCarVin(String vin) {
-        Optional<CarServiceRequestEntity> carServiceRequest;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            carServiceRequest = session.createQuery
-                            ("FROM CarServiceRequest csr WHERE csr.carToService.vin = :vin",
-                                    CarServiceRequestEntity.class)
-                    .setParameter("vin", vin)
-                    .uniqueResultOptional();
-            transaction.commit();
-        }
-        return carServiceRequest;
-    }
-
-    @Override
-    public List<CarServiceRequestEntity> findAllCarServiceRequest() {
-        List<CarServiceRequestEntity> carServiceRequestEntity;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            carServiceRequestEntity = session.createQuery("FROM CarServiceRequest", CarServiceRequestEntity.class).getResultList();
-            transaction.commit();
-        }
-        return carServiceRequestEntity;
+    public List<CarServiceRequest> findAllCarServiceRequest() {
+        return carServiceRequestJpaRepository.findAll().stream()
+                .map(carServiceRequestEntityMapper::mapFromEntity)
+                .toList();
     }
 }

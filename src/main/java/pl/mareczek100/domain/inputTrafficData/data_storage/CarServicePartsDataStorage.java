@@ -1,9 +1,9 @@
-package pl.mareczek100.infrastructure.data_storage;
+package pl.mareczek100.domain.inputTrafficData.data_storage;
 
 import lombok.Value;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
-import pl.mareczek100.infrastructure.database.entity.PartEntity;
+import pl.mareczek100.domain.CarServiceParts;
+import pl.mareczek100.domain.Part;
 import pl.mareczek100.service.PartService;
 
 import java.util.List;
@@ -14,13 +14,13 @@ public class CarServicePartsDataStorage {
 
     TrafficData trafficData;
     PartService partService;
-    public List<CarServicePartsEntity> createCarServiceParts() {
+    public List<CarServiceParts> createCarServiceParts() {
 
         return trafficData.getCarServiceHandlingList().stream()
                 .map(string -> string.split(";"))
-                .map(arr -> CarServicePartsEntity.builder()
+                .map(arr -> CarServiceParts.builder()
                         .quantity(getQuantity(arr[3]))
-                        .partEntity(getPart(arr[2]))
+                        .part(getPart(arr[2]))
                         .build())
                 .toList();
     }
@@ -30,7 +30,7 @@ public class CarServicePartsDataStorage {
         }
         return Short.valueOf(quantity);
     }
-    private PartEntity getPart(String partNumber) {
+    private Part getPart(String partNumber) {
         if (partNumber.isBlank()) {
             return null;
         }

@@ -7,12 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface ServiceRepository extends JpaRepository<Object, Integer> {
+public interface ServiceJpaRepository extends JpaRepository<ServiceEntity, Integer> {
+    Optional<ServiceEntity> findByServiceCode(String serviceCode);
 
-
-    void serviceInit(ServiceEntity serviceEntity);
-
-    List<ServiceEntity> findAllServices();
-
-    Optional<ServiceEntity> findService(String serviceCode);
 }

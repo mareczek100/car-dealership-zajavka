@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
-@ToString(exclude = {"address", "carServiceRequests", "invoices"})
+@ToString(exclude = {"addressEntity", "carServiceRequestEntities", "invoiceEntities"})
 @EqualsAndHashCode(of = "email")
 @NoArgsConstructor
 @AllArgsConstructor

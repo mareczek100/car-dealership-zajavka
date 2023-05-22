@@ -1,60 +1,34 @@
 package pl.mareczek100.domain.repository;
 
+import lombok.AllArgsConstructor;
 import lombok.Value;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import pl.mareczek100.infrastructure.configuration.HibernateConfig;
-import pl.mareczek100.infrastructure.database.entity.ServiceEntity;
+import pl.mareczek100.domain.Service;
+import pl.mareczek100.infrastructure.database.jpaRepository.SalesmanJpaRepository;
+import pl.mareczek100.infrastructure.database.jpaRepository.ServiceJpaRepository;
 import pl.mareczek100.service.dao.ServiceRepository;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
-@Value
+
 @Repository
+@AllArgsConstructor
 public class ServiceRepositoryImpl implements ServiceRepository {
+
+    private final ServiceJpaRepository serviceJpaRepository;
+    private final ServiceEntityMapper serviceEntityMapper;
     @Override
-    public void serviceInit(ServiceEntity serviceEntity) {
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            session.persist(serviceEntity);
-            transaction.commit();
-        }
-    }
-    @Override
-    public List<ServiceEntity> findAllServices() {
-        List<ServiceEntity> serviceEntityList;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            serviceEntityList = session.createQuery("FROM Service", ServiceEntity.class).getResultList();
-            transaction.commit();
-        }
-        return serviceEntityList;
+    public List<Service> findAllServices() {
+        return serviceJpaRepository.findAll().stream()
+                .map(serviceEntityMapper::mapFromEntity)
+                .toList();
     }
 
     @Override
-    public Optional<ServiceEntity> findService(String serviceCode) {
-        Optional<ServiceEntity> service;
-        try (Session session = HibernateConfig.getSession()) {
-            if (Objects.isNull(session)) {
-                throw new RuntimeException("Session is null");
-            }
-            Transaction transaction = session.beginTransaction();
-            service = session.createQuery
-                            ("FROM Service ser WHERE ser.serviceCode = :serviceCode", ServiceEntity.class)
-                    .setParameter("serviceCode", serviceCode)
-                    .uniqueResultOptional();
-            transaction.commit();
-        }
-        return service;
+    public Optional<Service> findService(String serviceCode) {
+        return serviceJpaRepository.findByServiceCode(serviceCode)
+                .map(serviceEntityMapper::mapFromEntity);
     }
 
 }

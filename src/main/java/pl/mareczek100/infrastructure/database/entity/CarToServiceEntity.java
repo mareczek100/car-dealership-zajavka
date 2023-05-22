@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(of = "vin")
-@ToString(exclude = "carServiceRequests")
+@ToString(exclude = "carServiceRequestEntities")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
