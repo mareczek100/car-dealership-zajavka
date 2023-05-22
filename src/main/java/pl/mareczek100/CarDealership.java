@@ -19,23 +19,21 @@ public class CarDealership {
         InvoiceService invoiceService = context.getBean(InvoiceService.class);
         AddressService addressService = context.getBean(AddressService.class);
         CustomerService customerService = context.getBean(CustomerService.class);
+        PurchaseCarService purchaseCarService = context.getBean(PurchaseCarService.class);
         CarServiceRequestService carServiceRequestService = context.getBean(CarServiceRequestService.class);
-        CarServiceHandlingService carServiceHandlingService = context.getBean(CarServiceHandlingService.class);
-
+        ServiceRequestProcessingService requestProcessingService = context.getBean(ServiceRequestProcessingService.class);
 
         for (int i = 0; i < carToSellService.findAllCarsToSell().size(); i++) {
-            System.out.println(invoiceService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
+            System.out.println(purchaseCarService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
         }
-        carServiceRequestService.createCarServiceRequest("alf.samoch@gmail.com");
-        carServiceRequestService.createCarServiceRequest("tom.zim@gmail.com");
-        carServiceRequestService.createCarServiceRequest("adr.paczk@gmail.com");
-
-        carServiceHandlingService.carServiceHandlingInit();
+        carServiceRequestService.createCarServiceRequestInner();
+        carServiceRequestService.createCarServiceRequestOuter();
+        requestProcessingService.serviceRequestProcess();
 
         carServiceRequestService.findAllCarServiceRequest();
         carServiceRequestService.findCarServiceRequestHistory("2C3CDYAG2DH731952");
 
-        System.out.println(customerService.findCustomer("alf.samoch@gmail.com").getCarServiceRequestEntities());
+        System.out.println(customerService.findCustomer("alf.samoch@gmail.com").getCarServiceRequests());
 
     }
 }

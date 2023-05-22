@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface CarToSellRepository {
 
-
-    void carToSellInit(CarToSell carToSell);
-
     Optional<CarToSell> findCarToSell(String vin);
 
     List<CarToSell> findAllCarsToSell();

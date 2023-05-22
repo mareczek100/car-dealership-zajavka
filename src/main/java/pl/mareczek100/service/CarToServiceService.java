@@ -2,12 +2,12 @@ package pl.mareczek100.service;
 
 import lombok.Value;
 import org.springframework.stereotype.Service;
-import pl.mareczek100.domain.CarHistory;
-import pl.mareczek100.domain.CarToSell;
-import pl.mareczek100.domain.CarToService;
+import org.springframework.transaction.annotation.Transactional;
+import pl.mareczek100.domain.*;
 import pl.mareczek100.domain.inputTrafficData.data_storage.CarToServiceDataStorage;
 import pl.mareczek100.service.dao.CarToServiceRepository;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -20,7 +20,7 @@ public class CarToServiceService {
     CarToServiceDataStorage carToServiceDataStorage;
     CarToServiceRepository carToServiceRepository;
     CarToSellService carToSellService;
-
+    @Transactional
     public CarToService createCarToService(String vin) {
         CarToService existingCarToService = findCarToService(vin);
         CarToSell existingCarToSell = carToSellService.findCarToSell(vin);
@@ -32,16 +32,15 @@ public class CarToServiceService {
             return carToServiceDataStorage.createCarToServiceFromOutside(vin);
         }
     }
-
+    @Transactional
     public CarToService carToServiceInit(String vin) {
-        carToServiceRepository.carToServiceInsert(createCarToService(vin));
-        return findCarToService(vin);
+        return carToServiceRepository.carToServiceInsert(createCarToService(vin));
     }
-
+    @Transactional
     public CarToService findCarToService(String vin) {
         return carToServiceRepository.findCarToService(vin).orElse(null);
     }
-
+    @Transactional
     public List<CarToService> findAllCarsToService() {
         List<CarToService> allCarsToService = carToServiceRepository.findAllCarsToService();
         if (allCarsToService.isEmpty()) {
@@ -50,17 +49,28 @@ public class CarToServiceService {
         }
         return allCarsToService;
     }
-
+    @Transactional
     public void printCarHistory(String vin) {
-        CarHistory carHistoryByVin = carToServiceRepository.findCarHistoryByVin(vin);
+        CarToService carHistoryByVin = carToServiceRepository.findCarHistoryByVin(vin);
         System.out.printf("###CAR HISTORY FOR VIN: [%s]%n", vin);
-        carHistoryByVin.getServiceRequests().forEach(this::printServiceRequest);
+        printServiceRequest(carHistoryByVin);
     }
 
-    private void printServiceRequest(CarHistory.ServiceRequest serviceRequest) {
+    private void printServiceRequest(CarToService serviceRequest) {
         System.out.printf("###SERVICE REQUEST: [%s]%n", serviceRequest);
-        serviceRequest.services().forEach(service -> System.out.printf("###SERVICE: [%s]%n", service));
-        serviceRequest.parts().forEach(part -> System.out.printf("###PART: [%s]%n", part));
+        serviceRequest.getCarServiceRequests()
+                .stream()
+                .map(CarServiceRequest::getCarServiceHandling)
+                .flatMap(Collection::stream)
+                .map(CarServiceHandling::getService)
+                .forEach(service -> System.out.printf("###SERVICE: [%s]%n", service));
+
+        serviceRequest.getCarServiceRequests()
+                .stream()
+                .map(CarServiceRequest::getCarServicePart)
+                .flatMap(Collection::stream)
+                .map(CarServiceParts::getPart)
+                .forEach(part -> System.out.printf("###PART: [%s]%n", part));
     }
 
 

@@ -18,7 +18,7 @@ import java.util.List;
 public class DomainFileDataPreparationService {
 
     private final static String FINISHED = "FINISHED";
-    CarServiceHandlingDataStorage carServiceHandlingDataStorage;
+    CarServiceProcessDataStorage carServiceProcessDataStorage;
     CarServiceRequestDataStorage carServiceRequestDataStorage;
     PurchaseDataStorage purchaseDataStorage;
 
@@ -90,7 +90,7 @@ public class DomainFileDataPreparationService {
 
     public List<CarServiceProcessInputData> prepareCarServiceProcessInputData() {
         List<CarServiceProcessInputData> carServiceProcessInputData = new ArrayList<>();
-        List<String[]> carServiceHandling = carServiceHandlingDataStorage.createCarServiceHandling();
+        List<String[]> carServiceHandling = carServiceProcessDataStorage.createCarServiceProcessingInputData();
 
         for (String[] serviceHandling : carServiceHandling) {
             carServiceProcessInputData.add(

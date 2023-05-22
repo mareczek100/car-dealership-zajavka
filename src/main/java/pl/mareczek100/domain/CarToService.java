@@ -18,6 +18,6 @@ public class CarToService {
     String brand;
     String model;
     Short year;
-    Set<CarServiceRequestInputData> carServiceRequests;
+    Set<CarServiceRequest> carServiceRequests;
 
 }

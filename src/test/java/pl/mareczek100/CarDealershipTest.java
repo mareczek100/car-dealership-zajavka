@@ -15,7 +15,6 @@ import pl.mareczek100.service.*;
 @Slf4j
 class CarDealershipTest {
 
-    private final TableCreator tableCreator;
     private final AddressService addressService;
     private final SalesmanService salesmanService;
     private final MechanicService mechanicService;
@@ -25,17 +24,13 @@ class CarDealershipTest {
     private final PartService partService;
     private final InvoiceService invoiceService;
     private final CarServiceRequestService carServiceRequestService;
-    private final CarServiceHandlingService carServiceHandlingService;
+    private final ServiceRequestProcessingService requestProcessingService;
+    private final PurchaseCarService purchaseCarService;
     private final CarToServiceService carToServiceService;
 
-    @AfterAll
-    static void afterAll() {
-        HibernateConfig.closeSessionFactory();
-    }
 
     @BeforeEach
     void setUp() {
-        Assertions.assertNotNull(tableCreator);
         Assertions.assertNotNull(addressService);
         Assertions.assertNotNull(salesmanService);
         Assertions.assertNotNull(mechanicService);
@@ -45,7 +40,8 @@ class CarDealershipTest {
         Assertions.assertNotNull(partService);
         Assertions.assertNotNull(invoiceService);
         Assertions.assertNotNull(carServiceRequestService);
-        Assertions.assertNotNull(carServiceHandlingService);
+        Assertions.assertNotNull(requestProcessingService);
+        Assertions.assertNotNull(purchaseCarService);
         Assertions.assertNotNull(carToServiceService);
     }
 
@@ -70,7 +66,7 @@ class CarDealershipTest {
     void purchase() {
         log.info("#### RUNNING ORDER 3 ####");
         for (int i = 0; i < carToSellService.findAllCarsToSell().size(); i++) {
-            System.out.println(invoiceService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
+            System.out.println(purchaseCarService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
         }
     }
 
@@ -78,9 +74,9 @@ class CarDealershipTest {
     @Order(4)
     void createServiceRequest() {
         log.info("#### RUNNING ORDER 4 ####");
-        carServiceRequestService.createCarServiceRequest("alf.samoch@gmail.com");
-        carServiceRequestService.createCarServiceRequest("tom.zim@gmail.com");
-        carServiceRequestService.createCarServiceRequest("adr.paczk@gmail.com");
+        carServiceRequestService.createCarServiceRequestInner();
+        carServiceRequestService.createCarServiceRequestOuter();
+
 //        carServiceRequestService.findAllCarServiceRequest();
     }
 
@@ -88,7 +84,7 @@ class CarDealershipTest {
     @Order(5)
     void processServiceRequest() {
         log.info("#### RUNNING ORDER 5 ####");
-        carServiceHandlingService.carServiceHandlingInit();
+        requestProcessingService.serviceRequestProcess();
     }
 
     @Test

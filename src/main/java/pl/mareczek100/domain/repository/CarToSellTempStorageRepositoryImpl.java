@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.infrastructure.configuration.HibernateConfig;
 import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
+import pl.mareczek100.infrastructure.database.entityMapper.CarToSellTempStorageEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarToSellTempStorageJpaRepository;
 import pl.mareczek100.service.dao.CarToSellTempStorageRepository;
 
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class CarToSellTempStorageRepositoryImpl implements CarToSellTempStorageRepository {
 
     CarToSellTempStorageJpaRepository carToSellTempStorageJpaRepository;
-    CarToSellTempStorageMapper carToSellTempStorageMapper;
+    CarToSellTempStorageEntityMapper carToSellTempStorageMapper;
 
     @Override
     public void carToSellTempStorageInit(CarToSellTempStorage carToSellTempStorage) {

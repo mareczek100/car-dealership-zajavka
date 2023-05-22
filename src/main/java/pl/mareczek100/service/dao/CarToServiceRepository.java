@@ -1,6 +1,5 @@
 package pl.mareczek100.service.dao;
 
-import pl.mareczek100.domain.CarHistory;
 import pl.mareczek100.domain.CarToService;
 
 import java.util.List;
@@ -16,5 +15,5 @@ public interface CarToServiceRepository {
 
     Optional<CarToService> findCarToService(String vin);
 
-    CarHistory findCarHistoryByVin(String vin);
+    CarToService findCarHistoryByVin(String vin);
 }

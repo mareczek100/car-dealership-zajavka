@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface SalesmanRepository {
 
-    void salesmanInit(Salesman salesman);
-
     Optional<Salesman> findSalesman(String pesel);
 
     List<Salesman> findAllSalesman();

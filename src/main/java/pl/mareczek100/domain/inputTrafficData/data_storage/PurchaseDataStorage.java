@@ -26,6 +26,7 @@ public class PurchaseDataStorage {
                         .build())
                 .toList();
     }
+
     public List<String[]> vinAndPeselFirstTime(){
         return trafficData.getInvoiceList().stream()
                 .map(string -> string.split(";"))
@@ -38,7 +39,7 @@ public class PurchaseDataStorage {
     }
 
     private Address getAddressForCustomer(String email) {
-        Address customerAddress = addressService.createAddressForCustomer(email);
+        Address customerAddress = createAddress(email);
         List<Address> allAddresses = addressService.findAllAddresses();
 
         if (allAddresses.contains(customerAddress)) {
@@ -46,5 +47,18 @@ public class PurchaseDataStorage {
             return allAddresses.get(existingAddress);
         }
         return customerAddress;
+    }
+    private Address createAddress(String email) {
+        return trafficData.getCustomerBuyingList().stream()
+                .filter(invoiceParameter -> invoiceParameter.contains(email))
+                .map(string -> string.split(";"))
+                .map(arr -> Address.builder()
+                        .country(arr[4])
+                        .city(arr[5])
+                        .postalCode(arr[6])
+                        .street(arr[7])
+                        .buildingFlatNumber(arr[8])
+                        .build())
+                .toList().get(0);
     }
 }

@@ -3,6 +3,7 @@ package pl.mareczek100.domain.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Part;
+import pl.mareczek100.infrastructure.database.entityMapper.PartEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.PartJpaRepository;
 import pl.mareczek100.service.dao.PartRepository;
 

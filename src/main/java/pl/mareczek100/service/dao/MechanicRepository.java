@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface MechanicRepository {
 
-
-    void mechanicInit(Mechanic mechanic);
-
     Optional<Mechanic> findMechanic(String pesel);
 
     List<Mechanic> findAllMechanics();

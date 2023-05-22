@@ -2,6 +2,7 @@ package pl.mareczek100.service;
 
 import lombok.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Customer;
 import pl.mareczek100.domain.inputTrafficData.data_storage.PurchaseDataStorage;
 import pl.mareczek100.service.dao.CustomerRepository;
@@ -15,12 +16,12 @@ public class CustomerService {
 
     PurchaseDataStorage purchaseDataStorage;
     CustomerRepository customerRepository;
-
+    @Transactional
     public Customer findCustomer(String email) {
         return customerRepository.findCustomer(email)
                 .orElseThrow(() -> new RuntimeException("No such customer [%s]!".formatted(email)));
     }
-
+    @Transactional
     public List<Customer> findAllCustomers() {
         List<Customer> allCustomerEntities = customerRepository.findAllCustomers();
         if (allCustomerEntities.isEmpty()){
@@ -28,7 +29,7 @@ public class CustomerService {
         }
         return allCustomerEntities;
     }
-
+    @Transactional
     public Customer createNewOrFindCustomerToMakeInvoice(String email) {
         Optional<Customer> optionalCustomer = customerRepository.findCustomer(email);
         if (optionalCustomer.isPresent()) {
@@ -37,7 +38,7 @@ public class CustomerService {
         insertCustomer(purchaseDataStorage.customerWithAddress().get(0));
         return findCustomer(email);}
     }
-
+    @Transactional
     public void insertCustomer(Customer customer) {
         customerRepository.insertCustomer(customer);
     }

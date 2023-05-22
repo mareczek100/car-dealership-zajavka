@@ -3,6 +3,7 @@ package pl.mareczek100.domain.repository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarToSell;
+import pl.mareczek100.infrastructure.database.entityMapper.CarToSellEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarToSellJpaRepository;
 import pl.mareczek100.service.dao.CarToSellRepository;
 
@@ -15,12 +16,12 @@ import java.util.Optional;
 public class CarToSellRepositoryImpl implements CarToSellRepository {
 
     private final CarToSellJpaRepository carToSellJpaRepository;
-    private final CarToSellMapper carToSellMapper;
+    private final CarToSellEntityMapper carToSellMapper;
 
     @Override
     public Optional<CarToSell> findCarToSell(String vin) {
         return carToSellJpaRepository.findByVin(vin)
-                .map(carToSellMapper::mapEntity);
+                .map(carToSellMapper::mapFromEntity);
     }
 
     @Override

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Customer;
 import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
+import pl.mareczek100.infrastructure.database.entityMapper.CustomerEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.CustomerJpaRepository;
 import pl.mareczek100.service.dao.CustomerRepository;
 

@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface InvoiceRepository {
 
-
-    Invoice insertInvoice(Invoice invoice);
-
     Optional<Invoice> findInvoice(String invoiceNumber);
 
     List<Invoice> findAllInvoices();

@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface ServiceRepository {
 
-
-    void serviceInit(Service service);
-
     List<Service> findAllServices();
 
     Optional<Service> findService(String serviceCode);

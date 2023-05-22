@@ -8,9 +8,6 @@ import java.util.Optional;
 
 public interface PartRepository {
 
-
-    void partInit(Part part);
-
     Optional<Part> findPart(String serialNumber);
 
     List<Part> findAllParts();
