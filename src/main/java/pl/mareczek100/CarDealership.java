@@ -33,7 +33,7 @@ public class CarDealership {
         carServiceRequestService.findAllCarServiceRequest();
         carServiceRequestService.findCarServiceRequestHistory("2C3CDYAG2DH731952");
 
-        System.out.println(customerService.findCustomer("alf.samoch@gmail.com").getCarServiceRequests());
+//        System.out.println(customerService.findCustomer("alf.samoch@gmail.com").getCarServiceRequests());
 
     }
 }

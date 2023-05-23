@@ -26,6 +26,6 @@ public class ServiceEntity {
     @Column(name = "price")
     private BigDecimal price;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
-    private Set<CarServiceHandlingEntity> carServiceHandlingEntities;
+    private Set<CarServiceHandlingEntity> carServiceHandlings;
 
 }

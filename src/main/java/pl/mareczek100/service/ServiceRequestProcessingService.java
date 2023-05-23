@@ -28,7 +28,4 @@ public class ServiceRequestProcessingService {
                     carServiceRequest, carServiceHandling.get(i), carServiceParts.get(i));
         }
     }
-
-
-
 }

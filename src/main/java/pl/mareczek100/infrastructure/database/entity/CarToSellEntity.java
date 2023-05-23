@@ -31,6 +31,6 @@ public class CarToSellEntity {
     @Column(name = "price")
     private BigDecimal price;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "carToSell")
-    private InvoiceEntity invoiceEntity;
+    private InvoiceEntity invoice;
 
 }

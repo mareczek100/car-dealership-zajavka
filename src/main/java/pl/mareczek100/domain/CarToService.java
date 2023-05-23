@@ -1,7 +1,6 @@
 package pl.mareczek100.domain;
 
 import lombok.*;
-import pl.mareczek100.domain.inputTrafficData.CarServiceRequestInputData;
 
 import java.util.Set;
 

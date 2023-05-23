@@ -44,12 +44,13 @@ public class CarServiceRequestService {
     }
 
     @Transactional
-    public void findAllCarServiceRequest() {
+    public List<CarServiceRequest> findAllCarServiceRequest() {
         System.out.println("Service history for all cars: ");
         List<CarServiceRequest> allCarServiceRequest = carServiceRequestRepository.findAllCarServiceRequest();
         if (allCarServiceRequest.isEmpty()) {
             throw new RuntimeException("No car service request's at all!");
         }
         allCarServiceRequest.forEach(System.out::println);
+        return allCarServiceRequest;
     }
 }

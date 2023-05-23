@@ -7,7 +7,6 @@ CREATE TABLE salesman
     PRIMARY KEY (salesman_id),
     UNIQUE (pesel)
 );
-
 CREATE TABLE address
 (
     address_id  SERIAL      NOT NULL,
@@ -18,7 +17,6 @@ CREATE TABLE address
     building_flat_number     VARCHAR(32),
     PRIMARY KEY (address_id)
 );
-
 CREATE TABLE customer
 (
     customer_id SERIAL      NOT NULL,
@@ -33,7 +31,6 @@ CREATE TABLE customer
         FOREIGN KEY (address_id)
             REFERENCES address (address_id)
 );
-
 CREATE TABLE car_to_sell
 (
     car_to_sell_id   SERIAL          NOT NULL,
@@ -46,7 +43,6 @@ CREATE TABLE car_to_sell
     PRIMARY KEY (car_to_sell_id),
     UNIQUE (vin)
 );
-
 CREATE TABLE car_to_sell_temp_storage
 (
     car_to_sell_temp_storage_id   SERIAL          NOT NULL,
@@ -59,7 +55,6 @@ CREATE TABLE car_to_sell_temp_storage
     PRIMARY KEY (car_to_sell_temp_storage_id),
     UNIQUE (vin)
 );
-
 CREATE TABLE car_to_service
 (
     car_to_service_id SERIAL    NOT NULL,
@@ -70,7 +65,6 @@ CREATE TABLE car_to_service
     PRIMARY KEY (car_to_service_id),
     UNIQUE (vin)
 );
-
 CREATE TABLE service
 (
     service_id   SERIAL         NOT NULL,
@@ -80,7 +74,6 @@ CREATE TABLE service
     PRIMARY KEY (service_id),
     UNIQUE (service_code)
 );
-
 CREATE TABLE part
 (
     part_id       SERIAL            NOT NULL,
@@ -90,7 +83,6 @@ CREATE TABLE part
     PRIMARY KEY (part_id),
     UNIQUE (serial_number)
 );
-
 CREATE TABLE mechanic
 (
     mechanic_id SERIAL      NOT NULL,
@@ -100,7 +92,6 @@ CREATE TABLE mechanic
     PRIMARY KEY (mechanic_id),
     UNIQUE (pesel)
 );
-
 CREATE TABLE invoice
 (
     invoice_id     SERIAL                   NOT NULL,
@@ -121,7 +112,6 @@ CREATE TABLE invoice
         FOREIGN KEY (salesman_id)
             REFERENCES salesman (salesman_id)
 );
-
 CREATE TABLE car_service_request
 (
     car_service_request_id      SERIAL                      NOT NULL,
@@ -140,7 +130,6 @@ CREATE TABLE car_service_request
         FOREIGN KEY (car_to_service_id)
             REFERENCES car_to_service (car_to_service_id)
 );
-
 CREATE TABLE car_service_parts
 (
     car_service_parts_id         SERIAL      NOT NULL,
@@ -155,7 +144,6 @@ CREATE TABLE car_service_parts
         FOREIGN KEY (part_id)
             REFERENCES part (part_id)
 );
-
 CREATE TABLE car_service_handling
 (
     car_service_handling_id 	SERIAL      NOT NULL,

@@ -29,7 +29,7 @@ public class AddressEntity {
     @Column(name = "building_flat_number")
     private String buildingFlatNumber;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
-    private Set<CustomerEntity> customerEntities;
+    private Set<CustomerEntity> customers;
 
 
 }

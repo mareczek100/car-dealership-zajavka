@@ -1,7 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarServiceRequest;
 import pl.mareczek100.domain.Customer;
@@ -12,7 +11,6 @@ import pl.mareczek100.domain.inputTrafficData.CarServiceRequestInputData;
 import java.util.ArrayList;
 import java.util.List;
 
-@Value
 @Repository
 @AllArgsConstructor
 public class DomainFileDataPreparationService {

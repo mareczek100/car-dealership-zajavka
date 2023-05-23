@@ -24,14 +24,14 @@ public class CarServiceHandlingEntity {
     @JoinColumn(name = "car_service_request_id")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
-    private CarServiceRequestEntity carServiceRequestEntity;
+    private CarServiceRequestEntity carServiceRequest;
     @JoinColumn(name = "mechanic_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
-    private MechanicEntity mechanicEntity;
+    private MechanicEntity mechanic;
     @JoinColumn(name = "service_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
-    private ServiceEntity serviceEntity;
+    private ServiceEntity service;
 
 }

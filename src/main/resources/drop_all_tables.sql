@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS flyway_schema_history CASCADE;
 DROP TABLE IF EXISTS car_service_handling CASCADE;
 DROP TABLE IF EXISTS car_service_parts CASCADE;
 DROP TABLE IF EXISTS car_service_request CASCADE;

@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @Entity
 @EqualsAndHashCode(of = "vin")
-@ToString(exclude = "carServiceRequestEntities")
+@ToString(exclude = "carServiceRequests")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,6 +31,6 @@ public class CarToServiceEntity {
     private Short year;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "carToService")
     @Fetch(FetchMode.JOIN)
-    private Set<CarServiceRequestEntity> carServiceRequestEntities;
+    private Set<CarServiceRequestEntity> carServiceRequests;
 
 }

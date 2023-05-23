@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(exclude = {"carServiceHandlingEntities","carServicePartEntities"})
+@ToString(exclude = {"carServiceHandling","carServicePart"})
 @EqualsAndHashCode(of = "carServiceRequestNumber")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,14 +29,14 @@ public class CarServiceRequestEntity {
     private String customerComment;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
-    private CustomerEntity customerEntity;
+    private CustomerEntity customer;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "car_to_service_id")
-    private CarToServiceEntity carToServiceEntity;
+    private CarToServiceEntity carToService;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "carServiceRequest")
-    private Set<CarServiceHandlingEntity> carServiceHandlingEntities;
+    private Set<CarServiceHandlingEntity> carServiceHandling;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "carServiceRequest")
-    private Set<CarServicePartsEntity> carServicePartEntities;
+    private Set<CarServicePartsEntity> carServicePart;
 
 
 }

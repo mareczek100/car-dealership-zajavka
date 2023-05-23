@@ -1,6 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.Data;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@Value
+@Data
 @Repository
-class TrafficData {
+public class TrafficData {
 
     private final static Path TRAFFIC;
 

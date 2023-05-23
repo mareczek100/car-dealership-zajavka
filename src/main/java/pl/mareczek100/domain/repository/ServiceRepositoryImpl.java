@@ -1,11 +1,9 @@
 package pl.mareczek100.domain.repository;
 
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Service;
 import pl.mareczek100.infrastructure.database.entityMapper.ServiceEntityMapper;
-import pl.mareczek100.infrastructure.database.jpaRepository.SalesmanJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.ServiceJpaRepository;
 import pl.mareczek100.service.dao.ServiceRepository;
 

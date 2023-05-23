@@ -8,7 +8,6 @@ import java.util.Set;
 @Builder
 @ToString(exclude = "customers")
 @EqualsAndHashCode(of = {"country", "city", "postalCode", "street", "buildingFlatNumber"})
-
 public class Address {
 
     Integer addressId;
@@ -18,6 +17,4 @@ public class Address {
     String street;
     String buildingFlatNumber;
     Set<Customer> customers;
-
-
 }

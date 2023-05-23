@@ -10,7 +10,7 @@ import java.util.Set;
 @Data
 @Entity
 @Builder
-@ToString(exclude = {"addressEntity", "carServiceRequestEntities", "invoiceEntities"})
+@ToString(exclude = {"address", "carServiceRequests", "invoices"})
 @EqualsAndHashCode(of = "email")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,12 +30,12 @@ public class CustomerEntity {
     private String email;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private AddressEntity addressEntity;
+    private AddressEntity address;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     @Fetch(FetchMode.JOIN)
-    private Set<CarServiceRequestEntity> carServiceRequestEntities;
+    private Set<CarServiceRequestEntity> carServiceRequests;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
-    private Set<InvoiceEntity> invoiceEntities;
+    private Set<InvoiceEntity> invoices;
 
 
 }

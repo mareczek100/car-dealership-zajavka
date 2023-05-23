@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 @AllArgsConstructor
 public class PartRepositoryImpl implements PartRepository {
-
 private final PartJpaRepository partJpaRepository;
 private final PartEntityMapper partEntityMapper;
     @Override

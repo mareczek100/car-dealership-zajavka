@@ -3,7 +3,6 @@ package pl.mareczek100.service;
 import lombok.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.Invoice;
 import pl.mareczek100.domain.inputTrafficData.data_storage.InvoiceDataStorage;
 import pl.mareczek100.service.dao.InvoiceRepository;

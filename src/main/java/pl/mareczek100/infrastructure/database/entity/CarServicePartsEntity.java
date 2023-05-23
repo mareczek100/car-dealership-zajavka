@@ -19,8 +19,8 @@ public class CarServicePartsEntity {
     private Short quantity;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_service_request_id")
-    private CarServiceRequestEntity carServiceRequestEntity;
+    private CarServiceRequestEntity carServiceRequest;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "part_id")
-    private PartEntity partEntity;
+    private PartEntity part;
 }

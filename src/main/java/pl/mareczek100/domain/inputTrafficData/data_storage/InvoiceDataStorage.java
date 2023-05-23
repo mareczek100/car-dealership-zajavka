@@ -12,7 +12,6 @@ import pl.mareczek100.service.SalesmanService;
 
 import java.time.OffsetDateTime;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Value

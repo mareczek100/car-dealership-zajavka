@@ -26,14 +26,14 @@ public class InvoiceEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_to_sell_id", unique = true)
     @Fetch(FetchMode.JOIN)
-    private CarToSellEntity carToSellEntity;
+    private CarToSellEntity carToSell;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     @Fetch(FetchMode.JOIN)
-    private CustomerEntity customerEntity;
+    private CustomerEntity customer;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "salesman_id")
     @Fetch(FetchMode.JOIN)
-    private SalesmanEntity salesmanEntity;
+    private SalesmanEntity salesman;
 
 }

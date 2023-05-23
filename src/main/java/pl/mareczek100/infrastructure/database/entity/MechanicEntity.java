@@ -26,6 +26,6 @@ public class MechanicEntity {
     @Column(name = "pesel", unique = true)
     private String pesel;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "mechanic")
-    private Set<CarServiceHandlingEntity> carServiceHandlingEntities;
+    private Set<CarServiceHandlingEntity> carServiceHandlings;
 
 }

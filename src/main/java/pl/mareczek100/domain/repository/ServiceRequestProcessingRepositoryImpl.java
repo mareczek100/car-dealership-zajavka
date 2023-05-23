@@ -36,7 +36,7 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
 
         Optional<PartEntity> partEntity = partJpaRepository.findById(carServiceParts.getPart().getPartId());
         CarServicePartsEntity servicePartsEntity = servicePartsEntityMapper.mapToEntity(carServiceParts);
-        partEntity.ifPresent(servicePartsEntity::setPartEntity);
+        partEntity.ifPresent(servicePartsEntity::setPart);
         carServicePartsJpaRepository.saveAndFlush(servicePartsEntity);
 
         CarServiceHandlingEntity serviceHandlingEntity = serviceHandlingEntityMapper.mapToEntity(carServiceHandling);

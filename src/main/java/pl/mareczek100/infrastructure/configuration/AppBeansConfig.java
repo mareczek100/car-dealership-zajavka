@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Import;
 import pl.mareczek100.CarDealership;
 
 @Configuration
-@Import({DatabaseConfig.class, HibernateConfig.class})
+@Import(DatabaseJpaConfig.class)
 @ComponentScan(basePackageClasses = CarDealership.class)
 public class AppBeansConfig {
 
