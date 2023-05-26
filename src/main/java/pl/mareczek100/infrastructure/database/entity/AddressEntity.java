@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Set;
-
-@Data
+@Getter
 @ToString(exclude = "customers")
 @Entity
 @EqualsAndHashCode(of = {"country", "city", "postalCode", "street", "buildingFlatNumber"})

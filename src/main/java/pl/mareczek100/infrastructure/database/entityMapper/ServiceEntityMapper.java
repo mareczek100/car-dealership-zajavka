@@ -8,7 +8,7 @@ import pl.mareczek100.infrastructure.database.entity.ServiceEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ServiceEntityMapper {
-    @Mapping(target = "carServiceHandlings", ignore = true)
+//    @Mapping(target = "carServiceHandlings", ignore = true)
     Service mapFromEntity(ServiceEntity serviceEntity);
     ServiceEntity mapToEntity(Service service);
 

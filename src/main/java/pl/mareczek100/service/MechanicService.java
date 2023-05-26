@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Mechanic;
@@ -8,11 +8,11 @@ import pl.mareczek100.service.dao.MechanicRepository;
 
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class MechanicService {
 
-    MechanicRepository mechanicRepository;
+    private final MechanicRepository mechanicRepository;
     @Transactional
     public Mechanic findMechanic(String pesel){
         return mechanicRepository.findMechanic(pesel)

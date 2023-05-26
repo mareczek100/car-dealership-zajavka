@@ -10,6 +10,7 @@ import pl.mareczek100.infrastructure.database.entity.AddressEntity;
 public interface AddressEntityMapper {
     @Mapping(target = "customers", ignore = true)
     Address mapFromEntity(AddressEntity addressEntity);
+    @Mapping(target = "customers", ignore = true)
     AddressEntity mapToEntity(Address address);
 
 }

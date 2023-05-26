@@ -12,8 +12,9 @@ public interface CarServiceRequestJpaRepository extends JpaRepository<CarService
 
     @Query("""
             SELECT csr FROM CarServiceRequestEntity csr
-            WHERE csr.carToServiceEntity.vin = :vin
+            WHERE csr.carToService.vin = :vin
             """)
     Optional<CarServiceRequestEntity> findCarServiceRequestsByCarVin(final @Param("vin") String vin);
+
 
 }

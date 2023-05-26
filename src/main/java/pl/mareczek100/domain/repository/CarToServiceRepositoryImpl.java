@@ -39,10 +39,5 @@ public class CarToServiceRepositoryImpl implements CarToServiceRepository {
                 .toList();
     }
 
-    @Override
-    public CarToService findCarHistoryByVin(String vin) {
-        CarToServiceEntity carToServiceHistory = carToServiceJpaRepository.findCarHistoryByVin(vin);
-        return carToServiceMapper.mapFromEntity(carToServiceHistory);
-    }
 
 }

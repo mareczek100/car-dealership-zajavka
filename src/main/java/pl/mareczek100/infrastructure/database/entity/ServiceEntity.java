@@ -19,12 +19,16 @@ public class ServiceEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "service_id")
     private Integer serviceId;
+
     @Column(name = "service_code", unique = true)
     private String serviceCode;
+
     @Column(name = "description")
     private String description;
+
     @Column(name = "price")
     private BigDecimal price;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "service")
     private Set<CarServiceHandlingEntity> carServiceHandlings;
 

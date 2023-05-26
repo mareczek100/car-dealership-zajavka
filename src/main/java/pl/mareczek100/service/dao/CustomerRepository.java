@@ -10,6 +10,5 @@ public interface CustomerRepository {
 
     Customer insertCustomer(Customer customer);
     Optional<Customer> findCustomer(String email);
-
     List<Customer> findAllCustomers();
 }

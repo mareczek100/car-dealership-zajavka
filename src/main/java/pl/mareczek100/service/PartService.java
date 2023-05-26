@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Part;
@@ -8,11 +8,11 @@ import pl.mareczek100.service.dao.PartRepository;
 
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class PartService {
-    PartRepository partRepository;
 
+    private final PartRepository partRepository;
     @Transactional
     public Part findPart(String serialNumber){
         return partRepository.findPart(serialNumber)

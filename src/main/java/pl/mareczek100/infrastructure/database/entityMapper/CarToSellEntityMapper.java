@@ -10,6 +10,7 @@ import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
 public interface CarToSellEntityMapper {
     @Mapping(target = "invoice", ignore = true)
     CarToSell mapFromEntity(CarToSellEntity carToSellEntity);
-    CarToSellEntity mapToEntity(CarToSell carToSell);
 
+    @Mapping(target = "invoice", ignore = true)
+    CarToSellEntity mapToEntity(CarToSell carToSell);
 }

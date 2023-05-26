@@ -1,6 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.Customer;
@@ -14,14 +14,14 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@Value
 @Repository
+@AllArgsConstructor
 public class InvoiceDataStorage {
 
-    TrafficData trafficData;
-    CarToSellService carToSellService;
-    CustomerService customerService;
-    SalesmanService salesmanService;
+    private final TrafficData trafficData;
+    private final CarToSellService carToSellService;
+    private final CustomerService customerService;
+    private final SalesmanService salesmanService;
 
     public Invoice createInvoice(String vin) {
         List<String> invoiceList = trafficData.getInvoiceList();

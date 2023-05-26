@@ -7,7 +7,8 @@ import lombok.With;
 @With
 @Value
 @Builder
-public class CarServiceProcessInputData {
+public class CarRepairProcessData {
+
     String mechanicPesel;
     String carVin;
     String partSerialNumber;

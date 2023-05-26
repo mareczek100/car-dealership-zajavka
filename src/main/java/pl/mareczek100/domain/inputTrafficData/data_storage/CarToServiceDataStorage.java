@@ -1,14 +1,14 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.CarToService;
 
-@Value
 @Repository
+@AllArgsConstructor
 public class CarToServiceDataStorage {
-    TrafficData trafficData;
+    private final TrafficData trafficData;
 
     public CarToService createCarToServiceFromDealer(CarToSell carFromDealer) {
 

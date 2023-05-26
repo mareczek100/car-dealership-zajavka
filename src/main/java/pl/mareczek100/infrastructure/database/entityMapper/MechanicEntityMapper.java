@@ -8,7 +8,7 @@ import pl.mareczek100.infrastructure.database.entity.MechanicEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MechanicEntityMapper {
-    @Mapping(target = "carServiceHandlings", ignore = true)
+//    @Mapping(target = "carServiceHandlings", ignore = true)
     Mechanic mapFromEntity(MechanicEntity mechanicEntity);
     MechanicEntity mapToEntity(Mechanic mechanic);
 

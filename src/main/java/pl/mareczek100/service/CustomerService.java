@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Customer;
@@ -10,12 +10,12 @@ import pl.mareczek100.service.dao.CustomerRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Value
 @Service
+@AllArgsConstructor
 public class CustomerService {
 
-    PurchaseDataStorage purchaseDataStorage;
-    CustomerRepository customerRepository;
+    private final PurchaseDataStorage purchaseDataStorage;
+    private final CustomerRepository customerRepository;
     @Transactional
     public Customer findCustomer(String email) {
         return customerRepository.findCustomer(email)
@@ -35,12 +35,12 @@ public class CustomerService {
         if (optionalCustomer.isPresent()) {
             return optionalCustomer.get();
         }else {
-        insertCustomer(purchaseDataStorage.customerWithAddress().get(0));
+        insertCustomer(purchaseDataStorage.customerWithAddress(email));
         return findCustomer(email);}
     }
     @Transactional
-    public void insertCustomer(Customer customer) {
-        customerRepository.insertCustomer(customer);
+    public Customer insertCustomer(Customer customer) {
+        return customerRepository.insertCustomer(customer);
     }
 
 }

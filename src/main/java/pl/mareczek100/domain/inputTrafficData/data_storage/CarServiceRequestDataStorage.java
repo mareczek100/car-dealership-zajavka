@@ -1,6 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.CarServiceRequest;
@@ -11,13 +11,13 @@ import pl.mareczek100.service.CustomerService;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
-
-@Value
 @Repository
+@AllArgsConstructor
 public class CarServiceRequestDataStorage {
-    TrafficData trafficData;
-    CustomerService customerService;
-    CarToServiceService carToServiceService;
+
+    private final TrafficData trafficData;
+    private final CustomerService customerService;
+    private final CarToServiceService carToServiceService;
 
     public List<CarServiceRequest> createInnerCarServiceRequest() {
 
@@ -26,7 +26,7 @@ public class CarServiceRequestDataStorage {
                 .map(arr -> CarServiceRequest.builder()
                         .carServiceRequestNumber("" + UUID.randomUUID())
                         .receivedDateTime(OffsetDateTime.now())
-                        .customerComment(arr[2])
+                        .comment(arr[2])
                         .customer(customerService.findCustomer(arr[0]))
                         .carToService(carToServiceService.carToServiceInit(arr[1]))
                         .build())
@@ -40,8 +40,8 @@ public class CarServiceRequestDataStorage {
                 .map(arr -> CarServiceRequest.builder()
                         .carServiceRequestNumber("" + UUID.randomUUID())
                         .receivedDateTime(OffsetDateTime.now())
-                        .customerComment(arr[5])
-                        .customer(getNewCustomer())
+                        .comment(arr[5])
+                        .customer(customerService.insertCustomer(getNewCustomer()))
                         .carToService(carToServiceService.carToServiceInit(arr[1]))
                         .build())
                 .toList();

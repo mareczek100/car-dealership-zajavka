@@ -6,6 +6,5 @@ import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 
 public interface CarServicePartsJpaRepository extends JpaRepository<CarServicePartsEntity, Integer> {
 
-    void carServicePartsInit(CarServicePartsEntity carServicePartsEntity);
 
 }

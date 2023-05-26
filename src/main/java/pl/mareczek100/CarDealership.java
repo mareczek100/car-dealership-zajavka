@@ -17,7 +17,7 @@ public class CarDealership {
         ServiceService serviceService = context.getBean(ServiceService.class);
         PartService partService = context.getBean(PartService.class);
         InvoiceService invoiceService = context.getBean(InvoiceService.class);
-        AddressService addressService = context.getBean(AddressService.class);
+//        AddressService addressService = context.getBean(AddressService.class);
         CustomerService customerService = context.getBean(CustomerService.class);
         PurchaseCarService purchaseCarService = context.getBean(PurchaseCarService.class);
         CarServiceRequestService carServiceRequestService = context.getBean(CarServiceRequestService.class);
@@ -31,7 +31,7 @@ public class CarDealership {
         requestProcessingService.serviceRequestProcess();
 
         carServiceRequestService.findAllCarServiceRequest();
-        carServiceRequestService.findCarServiceRequestHistory("2C3CDYAG2DH731952");
+//        carServiceRequestService.findCarServiceRequestHistory("2C3CDYAG2DH731952");
 
 //        System.out.println(customerService.findCustomer("alf.samoch@gmail.com").getCarServiceRequests());
 

@@ -1,5 +1,6 @@
 package pl.mareczek100.domain.repository;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.infrastructure.database.entity.CarToSellTempStorageEntity;
@@ -12,16 +13,11 @@ import java.util.Optional;
 
 
 @Repository
+@AllArgsConstructor
 public class CarToSellTempStorageRepositoryImpl implements CarToSellTempStorageRepository {
 
-    CarToSellTempStorageJpaRepository carToSellTempStorageJpaRepository;
-    CarToSellTempStorageEntityMapper carToSellTempStorageMapper;
-
-    @Override
-    public void carToSellTempStorageInit(CarToSellTempStorage carToSellTempStorage) {
-        CarToSellTempStorageEntity carToSellTempStorageEntity = carToSellTempStorageMapper.mapToEntity(carToSellTempStorage);
-        carToSellTempStorageJpaRepository.saveAndFlush(carToSellTempStorageEntity);
-    }
+    private final CarToSellTempStorageJpaRepository carToSellTempStorageJpaRepository;
+    private final CarToSellTempStorageEntityMapper carToSellTempStorageMapper;
 
     @Override
     public Optional<CarToSellTempStorage> findCarToSellTempStorage(String vin) {
@@ -38,7 +34,7 @@ public class CarToSellTempStorageRepositoryImpl implements CarToSellTempStorageR
 
     @Override
     public void deleteCarToSellTempStorageByCarVin(String vin) {
-        carToSellTempStorageJpaRepository.deleteCarToSellTempStorageByCarVin(vin);
+        carToSellTempStorageJpaRepository.deleteCarToSellTempStorageByVin(vin);
     }
 
     @Override

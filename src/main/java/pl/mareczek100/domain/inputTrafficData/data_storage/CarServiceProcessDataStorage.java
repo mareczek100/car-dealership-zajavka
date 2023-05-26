@@ -1,6 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarServiceHandling;
 import pl.mareczek100.domain.CarServiceParts;
@@ -14,15 +14,16 @@ import pl.mareczek100.service.ServiceService;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Value
 @Repository
+@AllArgsConstructor
 public class CarServiceProcessDataStorage {
+
     private final static String FINISHED = "FINISHED";
-    TrafficData trafficData;
-    PartService partService;
-    ServiceService serviceService;
-    MechanicService mechanicService;
-    CarServiceRequestService carServiceRequestService;
+    private final TrafficData trafficData;
+    private final PartService partService;
+    private final ServiceService serviceService;
+    private final MechanicService mechanicService;
+    private final CarServiceRequestService carServiceRequestService;
 
     public List<CarServiceHandling> createCarServiceHandling() {
         return trafficData.getCarServiceHandlingList().stream()
@@ -42,11 +43,12 @@ public class CarServiceProcessDataStorage {
                 .map(string -> string.split(";"))
                 .map(arr -> CarServiceParts.builder()
                         .quantity(getQuantity(arr[3]))
+                        .carServiceRequest(carServiceRequestService.findCarServiceRequest(arr[1]))
                         .part(getPart(arr[2]))
                         .build())
                 .toList();
     }
-    private static Short getQuantity(String quantity) {
+    private Short getQuantity(String quantity) {
         if (quantity.isBlank()) {
             return null;
         }

@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
 @Entity
 @EqualsAndHashCode(of = "vin")
 @ToString(exclude = "invoice")
@@ -30,6 +30,7 @@ public class CarToSellEntity {
     private String color;
     @Column(name = "price")
     private BigDecimal price;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "carToSell")
     private InvoiceEntity invoice;
 

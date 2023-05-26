@@ -15,7 +15,7 @@ public class PurchaseCarServiceRepositoryImpl implements PurchaseCarServiceRepos
     private final InvoiceEntityMapper invoiceEntityMapper;
 
     @Override
-    public Invoice buyANewCar(Invoice invoice) {
+    public Invoice insertInvoice(Invoice invoice) {
         InvoiceEntity invoiceEntity = invoiceEntityMapper.mapToEntity(invoice);
         InvoiceEntity invoiceEntitySaved = invoiceJpaRepository.saveAndFlush(invoiceEntity);
         return invoiceEntityMapper.mapFromEntity(invoiceEntitySaved);

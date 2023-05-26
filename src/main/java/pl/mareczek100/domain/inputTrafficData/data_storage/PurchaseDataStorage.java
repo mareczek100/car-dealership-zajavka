@@ -1,6 +1,6 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
@@ -8,14 +8,15 @@ import pl.mareczek100.service.AddressService;
 
 import java.util.List;
 
-@Value
 @Repository
+@AllArgsConstructor
 public class PurchaseDataStorage {
-    TrafficData trafficData;
-    AddressService addressService;
+    private final TrafficData trafficData;
+    private final AddressService addressService;
 
-    public List<Customer> customerWithAddress() {
+    public Customer customerWithAddress(String email) {
         return trafficData.getCustomerBuyingList().stream()
+                .filter(line -> line.contains(email))
                 .map(string -> string.split(";"))
                 .map(arr -> Customer.builder()
                         .name(arr[0])
@@ -24,7 +25,7 @@ public class PurchaseDataStorage {
                         .email(arr[3])
                         .address(getAddressForCustomer(arr[3]))
                         .build())
-                .toList();
+                .toList().get(0);
     }
 
     public List<String[]> vinAndPeselFirstTime(){

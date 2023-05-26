@@ -1,16 +1,17 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Service;
 import pl.mareczek100.service.dao.ServiceRepository;
 
 import java.util.List;
 
-@Value
+@AllArgsConstructor
 @org.springframework.stereotype.Service
 public class ServiceService {
-    ServiceRepository serviceRepository;
+
+    private final ServiceRepository serviceRepository;
     @Transactional
     public List<Service> findAllServices() {
         List<Service> allService = serviceRepository.findAllServices();

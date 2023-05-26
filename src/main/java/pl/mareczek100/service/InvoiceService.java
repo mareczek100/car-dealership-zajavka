@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Invoice;
@@ -9,14 +9,14 @@ import pl.mareczek100.service.dao.InvoiceRepository;
 
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class InvoiceService {
 
-    InvoiceDataStorage invoiceDataStorage;
-    InvoiceRepository invoiceRepository;
+    private final InvoiceDataStorage invoiceDataStorage;
+    private final InvoiceRepository invoiceRepository;
 
-    public Invoice createInvoice(String vin) {
+    public Invoice createInvoiceWithCustomer(String vin) {
         return invoiceDataStorage.createInvoice(vin);
     }
     @Transactional

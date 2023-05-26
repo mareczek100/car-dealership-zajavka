@@ -1,6 +1,7 @@
 package pl.mareczek100.domain.inputTrafficData.data_storage;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.ResourceUtils;
 
@@ -13,9 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-@Data
+@Getter
 @Repository
+@AllArgsConstructor
 public class TrafficData {
 
     private final static Path TRAFFIC;
@@ -35,13 +36,13 @@ public class TrafficData {
     private final static String SERVICE_REQUEST = "SERVICE_REQUEST";
     private final static String DO_THE_SERVICE = "DO_THE_SERVICE";
 
-    List<String> customerBuyingList = createCustomerBuyingList();
-    List<String> invoiceList = createInvoiceCarBuyingParameterList();
-    List<String> invoiceListAgain = createInvoiceCarBuyingAgainList();
-    List<String> carFromDealerServiceRequestList = carFromDealerServiceRequestList();
-    List<String> carOuterServiceRequestList = createOuterCarServiceRequestList();
-    List<String> customerOuterList = createCustomerOuterList();
-    List<String> carServiceHandlingList = createCarServiceHandlingList();
+    private final List<String> customerBuyingList = createCustomerBuyingList();
+    private final List<String> invoiceList = createInvoiceCarBuyingParameterList();
+    private final List<String> invoiceListAgain = createInvoiceCarBuyingAgainList();
+    private final List<String> carFromDealerServiceRequestList = carFromDealerServiceRequestList();
+    private final List<String> carOuterServiceRequestList = createOuterCarServiceRequestList();
+    private final List<String> customerOuterList = createCustomerOuterList();
+    private final List<String> carServiceHandlingList = createCarServiceHandlingList();
 
 
     private List<String> createCarServiceHandlingList() {

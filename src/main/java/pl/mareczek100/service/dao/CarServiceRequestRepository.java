@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface CarServiceRequestRepository {
 
-    CarServiceRequest insertCarServiceRequest(CarServiceRequest carServiceRequest);
+    void insertCarServiceRequest(CarServiceRequest carServiceRequest);
 
     Optional<CarServiceRequest> findCarServiceRequestsByCarVin(String vin);
 

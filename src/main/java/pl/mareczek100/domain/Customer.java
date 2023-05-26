@@ -1,7 +1,6 @@
 package pl.mareczek100.domain;
 
 import lombok.*;
-import pl.mareczek100.domain.inputTrafficData.CarServiceRequestInputData;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -10,7 +9,7 @@ import java.util.Set;
 @With
 @Value
 @Builder
-@ToString(exclude = {"address", "carServiceRequests", "invoices"})
+@ToString(exclude = {"carServiceRequests", "invoices"})
 @EqualsAndHashCode(of = "email")
 public class Customer {
 
@@ -20,10 +19,10 @@ public class Customer {
     String phone;
     String email;
     Address address;
-    Set<CarServiceRequestInputData> carServiceRequests;
+    Set<CarServiceRequest> carServiceRequests;
     Set<Invoice> invoices;
 
-    public Set<CarServiceRequestInputData> getCarServiceRequests() {
+    public Set<CarServiceRequest> getCarServiceRequests() {
         return Objects.isNull(carServiceRequests) ? new HashSet<>() : carServiceRequests;
     }
     public Set<Invoice> getInvoices() {

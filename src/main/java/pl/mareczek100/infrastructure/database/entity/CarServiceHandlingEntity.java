@@ -17,18 +17,23 @@ public class CarServiceHandlingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_service_handling_id")
     private Integer carServiceHandlingId;
+
     @Column(name = "hours")
     private Short hours;
+
     @Column(name = "comment")
     private String comment;
+
     @JoinColumn(name = "car_service_request_id")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Fetch(FetchMode.JOIN)
     private CarServiceRequestEntity carServiceRequest;
+
     @JoinColumn(name = "mechanic_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     private MechanicEntity mechanic;
+
     @JoinColumn(name = "service_id")
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)

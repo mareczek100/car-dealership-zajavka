@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.CarToSell;
@@ -10,21 +10,16 @@ import pl.mareczek100.service.dao.CarToSellRepository;
 import java.util.Collections;
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class CarToSellService {
-    CarToSellRepository carToSellRepository;
-    CarToSellTempStorageService carToSellTempStorageService;
+
+    private final CarToSellRepository carToSellRepository;
+    private final CarToSellTempStorageService carToSellTempStorageService;
 
     @Transactional
-    public void carToSellInit() {
-        carToSellTempStorageService.carToSellTempStorageInit();
-    }
-    @Transactional
     public CarToSell findCarToSell(String vin) {
-        return carToSellRepository.findCarToSell(vin)
-                .orElseThrow(() ->
-                        new RuntimeException("Car [%s] is no longer available!".formatted(vin)));
+        return carToSellRepository.findCarToSell(vin).orElse(null);
     }
     @Transactional
     public List<CarToSell> findAllCarsToSell() {

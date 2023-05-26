@@ -1,6 +1,6 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Salesman;
@@ -8,10 +8,11 @@ import pl.mareczek100.service.dao.SalesmanRepository;
 
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class SalesmanService {
-    SalesmanRepository salesmanRepository;
+
+    private final SalesmanRepository salesmanRepository;
     @Transactional
     public Salesman findSalesman(String pesel) {
         return salesmanRepository.findSalesman(pesel)

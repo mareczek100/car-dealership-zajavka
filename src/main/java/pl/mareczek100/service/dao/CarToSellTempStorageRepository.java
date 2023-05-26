@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface CarToSellTempStorageRepository {
 
-    void carToSellTempStorageInit(CarToSellTempStorage carToSellTempStorage);
     Optional<CarToSellTempStorage> findCarToSellTempStorage(String vin);
     List<CarToSellTempStorage> findAllCarsToSellTempStorage();
     void deleteCarToSellTempStorageByCarVin(String vin);

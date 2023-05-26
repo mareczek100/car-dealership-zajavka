@@ -1,25 +1,20 @@
 package pl.mareczek100.service;
 
-import lombok.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.CarToSellTempStorage;
-import pl.mareczek100.domain.inputTrafficData.data_storage.CarToSellTempStorageDataStorage;
 import pl.mareczek100.service.dao.CarToSellTempStorageRepository;
 
 import java.util.Collections;
 import java.util.List;
 
-@Value
 @Service
+@AllArgsConstructor
 public class CarToSellTempStorageService {
-    CarToSellTempStorageDataStorage carToSellTempStorageDataStorage;
-    CarToSellTempStorageRepository carToSellTempStorageRepository;
-    @Transactional
-    public void carToSellTempStorageInit() {
-        carToSellTempStorageDataStorage.createCarToSellTempStorage()
-                .forEach(carToSellTempStorageRepository::carToSellTempStorageInit);
-    }
+
+    private final CarToSellTempStorageRepository carToSellTempStorageRepository;
+
     @Transactional
     public CarToSellTempStorage findCarToSellTempStorage(String vin) {
         return carToSellTempStorageRepository.findCarToSellTempStorage(vin)

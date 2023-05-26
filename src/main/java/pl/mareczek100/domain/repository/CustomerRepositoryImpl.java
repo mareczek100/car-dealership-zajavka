@@ -2,6 +2,7 @@ package pl.mareczek100.domain.repository;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
+import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
 import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
 import pl.mareczek100.infrastructure.database.entityMapper.CustomerEntityMapper;
@@ -9,6 +10,7 @@ import pl.mareczek100.infrastructure.database.jpaRepository.CustomerJpaRepositor
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -34,6 +36,11 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer insertCustomer(Customer customer) {
+        Address customerAddress = customer.getAddress();
+        if (Objects.nonNull(customerAddress.getAddressId())){
+            customerAddress = customerAddress.withAddressId(null);
+            customer = customer.withAddress(customerAddress);
+        }
         CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
         CustomerEntity customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
         return customerMapper.mapFromEntity(customerEntitySaved);

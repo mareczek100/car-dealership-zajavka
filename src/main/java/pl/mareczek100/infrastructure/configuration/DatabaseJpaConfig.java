@@ -32,7 +32,9 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackageClasses = _JpaMarker.class)
 @PropertySource("classpath:database.properties")
 public class DatabaseJpaConfig {
+
     private final Environment environment;
+
 
     @Bean(destroyMethod = "close")
     public DataSource dataSource() {
@@ -60,7 +62,7 @@ public class DatabaseJpaConfig {
 
     @Bean
     @DependsOn("flyway")
-    public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPackagesToScan(_EntityMarker.class.getPackageName());
@@ -84,12 +86,10 @@ public class DatabaseJpaConfig {
     private Properties jpaProperties() {
         final Properties properties = new Properties();
         properties.setProperty(org.hibernate.cfg.Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect");
-        properties.setProperty(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "validate");
+        properties.setProperty(org.hibernate.cfg.Environment.HBM2DDL_AUTO, "none");
         properties.setProperty(org.hibernate.cfg.Environment.SHOW_SQL, "true");
         properties.setProperty(org.hibernate.cfg.Environment.FORMAT_SQL, "false");
         properties.setProperty(org.hibernate.cfg.Environment.FORMAT_SQL, "false");
-//        properties.setProperty(org.hibernate.cfg.Environment.CONNECTION_PROVIDER,
-//                "org.hibernate.hikaricp.internal.HikariCPConnectionProvider");
         return properties;
     }
 }

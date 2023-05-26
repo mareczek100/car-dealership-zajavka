@@ -9,10 +9,10 @@ import pl.mareczek100.domain.Customer;
 @With
 @Value
 @Builder
-public class CarServiceRequestInputData {
+public class CustomerCarRepairRequestInputData {
 
-    Customer customer;
-    CarToService carToService;
+    Customer requestedCustomer;
+    CarToService customerCarToRepair;
     String customerComment;
 
 }

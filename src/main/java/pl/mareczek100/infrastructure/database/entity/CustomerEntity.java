@@ -6,7 +6,6 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
-
 @Data
 @Entity
 @Builder
@@ -20,22 +19,27 @@ public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")
     private Integer customerId;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "phone")
     private String phone;
+
     @Column(name = "email", unique = true)
     private String email;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-    private AddressEntity address;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     @Fetch(FetchMode.JOIN)
+    private AddressEntity address;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<CarServiceRequestEntity> carServiceRequests;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
     private Set<InvoiceEntity> invoices;
-
-
 }

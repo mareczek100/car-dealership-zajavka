@@ -8,7 +8,7 @@ import pl.mareczek100.infrastructure.database.entity.AddressEntity;
 import java.util.Optional;
 
 public interface AddressJpaRepository extends JpaRepository<AddressEntity, Integer> {
-    @Query("SELECT cus.address FROM Customer cus WHERE cus.email = :email")
+    @Query("SELECT cus.address FROM CustomerEntity cus WHERE cus.email = :email")
     Optional<AddressEntity> findCustomerAddress(@Param("email") String email);
 
 }

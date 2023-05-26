@@ -11,7 +11,10 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import pl.mareczek100.domain.CarServiceRequest;
+import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.Invoice;
+import pl.mareczek100.domain.inputTrafficData.CarRepairProcessData;
+import pl.mareczek100.domain.inputTrafficData.data_storage.DomainFileDataService;
 import pl.mareczek100.infrastructure.configuration.AppBeansConfig;
 import pl.mareczek100.service.*;
 
@@ -20,19 +23,13 @@ import java.util.Objects;
 
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@AllArgsConstructor(onConstructor_ = @Autowired)
 @SpringJUnitConfig(classes = AppBeansConfig.class)
+@AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 class CarDealershipTest {
 
     @Container
     static PostgreSQLContainer<?> POSTGRESQL_CONTAINER = new PostgreSQLContainer<>("postgres:15.0");
-    @DynamicPropertySource
-    static void postgresqlContainerProperties(DynamicPropertyRegistry registry) {
-        registry.add("jdbc.url", () -> POSTGRESQL_CONTAINER.getJdbcUrl());
-        registry.add("jdbc.user", () -> POSTGRESQL_CONTAINER.getUsername());
-        registry.add("jdbc.pass", () -> POSTGRESQL_CONTAINER.getPassword());
-    }
     private final AddressService addressService;
     private final SalesmanService salesmanService;
     private final MechanicService mechanicService;
@@ -46,6 +43,14 @@ class CarDealershipTest {
     private final ServiceRequestProcessingService requestProcessingService;
     private final PurchaseCarService purchaseCarService;
     private final CarToServiceService carToServiceService;
+    private final DomainFileDataService domainFileDataService;
+
+    @DynamicPropertySource
+    static void postgresqlContainerProperties(DynamicPropertyRegistry registry) {
+        registry.add("jdbc.url", () -> POSTGRESQL_CONTAINER.getJdbcUrl());
+        registry.add("jdbc.user", () -> POSTGRESQL_CONTAINER.getUsername());
+        registry.add("jdbc.pass", () -> POSTGRESQL_CONTAINER.getPassword());
+    }
 
     @BeforeEach
     void setUp() {
@@ -62,6 +67,7 @@ class CarDealershipTest {
         Assertions.assertNotNull(salesmanService);
         Assertions.assertNotNull(requestProcessingService);
         Assertions.assertNotNull(serviceService);
+        Assertions.assertNotNull(domainFileDataService);
     }
 
 
@@ -69,8 +75,9 @@ class CarDealershipTest {
     @Order(1)
     void purchase() {
         log.info("#### RUNNING ORDER 1 ####");
-        for (int i = 0; i < carToSellService.findAllCarsToSell().size(); i++) {
-            System.out.println(purchaseCarService.buyANewCar(carToSellService.findAllCarsToSell().get(i).getVin()));
+        List<CarToSell> allCarsToSell = carToSellService.findAllCarsToSell();
+        for (CarToSell carToSell : allCarsToSell) {
+            purchaseCarService.buyANewCar(carToSell.getVin());
         }
     }
 
@@ -95,12 +102,14 @@ class CarDealershipTest {
     @Order(4)
     void printCarServiceHistory() {
         log.info("#### RUNNING ORDER 4 ####");
-//        carServiceRequestService.findCarServiceRequestHistory("1GCEC19X27Z109567");
-//        carServiceRequestService.findCarServiceRequestHistory("2C3CDYAG2DH731952");
-//        carServiceRequestService.findCarServiceRequestHistory("1N4BA41E18C806520");
-        carToServiceService.printCarHistory("1GCEC19X27Z109567");
-        carToServiceService.printCarHistory("2C3CDYAG2DH731952");
-        carToServiceService.printCarHistory("1N4BA41E18C806520");
+        carServiceRequestService.printCarHistory("1GCEC19X27Z109567");
+        carServiceRequestService.printCarHistory("2C3CDYAG2DH731952");
+        carServiceRequestService.printCarHistory("1N4BA41E18C806520");
+//
+//        carServiceRequestService.findCarServiceRequest("1GCEC19X27Z109567");
+//        carServiceRequestService.findCarServiceRequest("2C3CDYAG2DH731952");
+//        carServiceRequestService.findCarServiceRequest("1N4BA41E18C806520");
+
     }
 
     @Test
@@ -109,15 +118,18 @@ class CarDealershipTest {
         log.info("#### RUNNING ORDER 5 ####");
         List<Invoice> allInvoices = invoiceService.findAllInvoices();
         List<CarServiceRequest> allCarServiceRequest = carServiceRequestService.findAllCarServiceRequest();
+        List<CarRepairProcessData> carRepairProcessData = domainFileDataService.carServiceProcessData();
 
         Assertions.assertEquals(6, allInvoices.size());
         Assertions.assertEquals(3, allCarServiceRequest.size());
         Assertions.assertEquals(2, allCarServiceRequest.stream()
                 .filter(carServiceRequest ->
                         Objects.nonNull(carServiceRequest.getCompletedDateTime())).toList().size());
-        Assertions.assertEquals(5, allCarServiceRequest.stream()
+        Assertions.assertEquals(3, allCarServiceRequest.stream()
                 .map(CarServiceRequest::getCarServiceHandling).toList().size());
-        Assertions.assertEquals(4, allCarServiceRequest.stream()
-                .map(CarServiceRequest::getCarServicePart).toList().size());
+        Assertions.assertEquals(4, carRepairProcessData.stream()
+                .map(CarRepairProcessData::getPartQuantity)
+                .filter(Objects::nonNull)
+                .toList().size());
     }
 }
