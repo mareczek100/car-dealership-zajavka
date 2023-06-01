@@ -10,20 +10,21 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import pl.mareczek100.domain.CarServiceParts;
 import pl.mareczek100.domain.CarServiceRequest;
 import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.Invoice;
-import pl.mareczek100.domain.inputTrafficData.CarRepairProcessData;
 import pl.mareczek100.domain.inputTrafficData.data_storage.DomainFileDataService;
-import pl.mareczek100.infrastructure.configuration.AppBeansConfig;
+import pl.mareczek100.infrastructure.configuration.AppConfig;
 import pl.mareczek100.service.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 @Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@SpringJUnitConfig(classes = AppBeansConfig.class)
+@SpringJUnitConfig(classes = AppConfig.class)
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @Slf4j
 class CarDealershipTest {
@@ -118,7 +119,7 @@ class CarDealershipTest {
         log.info("#### RUNNING ORDER 5 ####");
         List<Invoice> allInvoices = invoiceService.findAllInvoices();
         List<CarServiceRequest> allCarServiceRequest = carServiceRequestService.findAllCarServiceRequest();
-        List<CarRepairProcessData> carRepairProcessData = domainFileDataService.carServiceProcessData();
+//        List<CarRepairProcessData> carRepairProcessData = domainFileDataService.carServiceProcessData();
 
         Assertions.assertEquals(6, allInvoices.size());
         Assertions.assertEquals(3, allCarServiceRequest.size());
@@ -127,8 +128,10 @@ class CarDealershipTest {
                         Objects.nonNull(carServiceRequest.getCompletedDateTime())).toList().size());
         Assertions.assertEquals(3, allCarServiceRequest.stream()
                 .map(CarServiceRequest::getCarServiceHandling).toList().size());
-        Assertions.assertEquals(4, carRepairProcessData.stream()
-                .map(CarRepairProcessData::getPartQuantity)
+        Assertions.assertEquals(4, allCarServiceRequest.stream()
+                .map(CarServiceRequest::getCarServicePart)
+                .flatMap(Collection::stream)
+                .map(CarServiceParts::getPart)
                 .filter(Objects::nonNull)
                 .toList().size());
     }

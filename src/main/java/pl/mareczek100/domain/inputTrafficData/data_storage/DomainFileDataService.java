@@ -20,6 +20,7 @@ public class DomainFileDataService {
     private final PurchaseDataStorage purchaseDataStorage;
 
 
+
     public List<CarPurchaseInputData> prepareNextTimePurchaseData() {
         List<CarPurchaseInputData> carPurchaseInputData = new ArrayList<>();
         String[] emailVinAndPesel = purchaseDataStorage.emailVinAndPeselAgain();
