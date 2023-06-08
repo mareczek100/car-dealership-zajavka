@@ -17,9 +17,16 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     private final InvoiceJpaRepository invoiceJpaRepository;
     private final InvoiceEntityMapper invoiceEntityMapper;
     @Override
-    public Optional<Invoice> findInvoice(String invoiceNumber) {
+    public Optional<Invoice> findInvoiceByInvoiceNumber(String invoiceNumber) {
         return invoiceJpaRepository.findInvoiceByInvoiceNumber(invoiceNumber)
                 .map(invoiceEntityMapper::mapFromEntity);
+    }
+
+    @Override
+    public List<Invoice> findInvoiceByEmail(String email) {
+        return invoiceJpaRepository.findInvoiceByEmail(email).stream()
+                .map(invoiceEntityMapper::mapFromEntity)
+                .toList();
     }
 
     @Override

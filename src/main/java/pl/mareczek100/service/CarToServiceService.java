@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.CarToService;
-import pl.mareczek100.domain.inputTrafficData.data_storage.CarToServiceDataStorage;
 import pl.mareczek100.service.dao.CarToServiceRepository;
 
 import java.util.Collections;
@@ -16,7 +15,6 @@ import java.util.Objects;
 @AllArgsConstructor
 public class CarToServiceService {
 
-    private final CarToServiceDataStorage carToServiceDataStorage;
     private final CarToServiceRepository carToServiceRepository;
     private final CarToSellService carToSellService;
     @Transactional
@@ -26,10 +24,11 @@ public class CarToServiceService {
         if (Objects.nonNull(existingCarToService)) {
             return existingCarToService;
         } else if (Objects.nonNull(existingCarToSell)) {
-            return carToServiceDataStorage.createCarToServiceFromDealer(existingCarToSell);
-        }else {
-            return carToServiceDataStorage.createCarToServiceFromOutside(vin);
+//            return carToServiceDataStorage.createCarToServiceFromDealer(existingCarToSell);
+//        }else {
+//            return carToServiceDataStorage.createCarToServiceFromOutside(vin);
         }
+        return null;
     }
     @Transactional
     public CarToService carToServiceInit(String vin) {

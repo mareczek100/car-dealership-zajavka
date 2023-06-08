@@ -1,4 +1,4 @@
-package pl.mareczek100.domain.inputTrafficData;
+package pl.mareczek100.api.dto;
 
 import lombok.Builder;
 import lombok.Value;

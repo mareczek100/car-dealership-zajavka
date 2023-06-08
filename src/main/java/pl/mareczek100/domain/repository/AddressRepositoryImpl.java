@@ -12,19 +12,8 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class AddressRepositoryImpl implements AddressRepository {
+public class AddressRepositoryImpl  {
 
-    private final AddressJpaRepository addressJpaRepository;
-    private final AddressEntityMapper addressEntityMapper;
-    public Optional<Address> findCustomerAddress(String email) {
-    return addressJpaRepository.findCustomerAddress(email)
-             .map(addressEntityMapper::mapFromEntity);
-    }
-    @Override
-    public List<Address> findAllAddresses() {
-        return addressJpaRepository.findAll().stream()
-                .map(addressEntityMapper::mapFromEntity)
-                .toList();
-    }
+
 
 }

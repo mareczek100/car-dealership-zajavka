@@ -8,7 +8,8 @@ import java.util.Optional;
 
 public interface InvoiceRepository {
 
-    Optional<Invoice> findInvoice(String invoiceNumber);
+    Optional<Invoice> findInvoiceByInvoiceNumber(String invoiceNumber);
+    List<Invoice> findInvoiceByEmail(String email);
 
     List<Invoice> findAllInvoices();
 }

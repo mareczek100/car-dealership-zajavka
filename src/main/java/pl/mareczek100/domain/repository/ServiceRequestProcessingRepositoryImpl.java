@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarServiceHandling;
 import pl.mareczek100.domain.CarServiceParts;
-import pl.mareczek100.domain.CarServiceRequest;
 import pl.mareczek100.infrastructure.database.entity.CarServiceHandlingEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;

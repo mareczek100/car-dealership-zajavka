@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.CarServiceHandling;
 import pl.mareczek100.domain.CarServiceParts;
 import pl.mareczek100.domain.CarServiceRequest;
-import pl.mareczek100.domain.inputTrafficData.data_storage.CarServiceRequestDataStorage;
 import pl.mareczek100.service.dao.CarServiceRequestRepository;
 
 import java.util.List;
@@ -16,18 +15,17 @@ import java.util.Objects;
 @AllArgsConstructor
 public class CarServiceRequestService {
 
-    private final CarServiceRequestDataStorage carServiceRequestDataStorage;
     private final CarServiceRequestRepository carServiceRequestRepository;
 
     @Transactional
     public void createCarServiceRequestInner() {
-        carServiceRequestDataStorage.createInnerCarServiceRequest().forEach(
-                carServiceRequestRepository::insertCarServiceRequest);
+//        carServiceRequestDataStorage.createInnerCarServiceRequest().forEach(
+//                carServiceRequestRepository::insertCarServiceRequest);
     }
     @Transactional
     public void createCarServiceRequestOuter() {
-        carServiceRequestDataStorage.createOuterCarServiceRequest().forEach(
-                carServiceRequestRepository::insertCarServiceRequest);
+//        carServiceRequestDataStorage.createOuterCarServiceRequest().forEach(
+//                carServiceRequestRepository::insertCarServiceRequest);
     }
 
     @Transactional

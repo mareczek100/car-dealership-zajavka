@@ -1,22 +1,16 @@
 package pl.mareczek100.infrastructure.configuration;
 
 import jakarta.servlet.Filter;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.NonNull;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@EnableWebMvc
+@Configuration
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-//    @Override
-//    public void onStartup(ServletContext container) {
-//        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-//        context.register(AppConfig.class);
-//        container.addListener(new ContextLoaderListener(context));
-//        ServletRegistration.Dynamic dispatcher =
-//        container.addServlet("dispatcher", new DispatcherServlet(context));
-//        dispatcher.setLoadOnStartup(1);
-//        dispatcher.addMapping("/");
-//    }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -40,6 +34,5 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         encodingFilter.setEncoding("UTF-8");
         encodingFilter.setForceEncoding(true);
         return new Filter[]{new HiddenHttpMethodFilter(), encodingFilter};
-
     }
 }

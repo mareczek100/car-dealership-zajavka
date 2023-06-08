@@ -32,7 +32,7 @@ public class CustomerEntity {
     @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
 //    @Fetch(FetchMode.JOIN)
     private AddressEntity address;

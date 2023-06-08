@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Invoice's site</title>
+    <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
+<h1 class="text-center">Your invoices</h1>
+<br>
+    <h4 class="text-center">You can see your invoices here if you have any.</h4><br>
+        <h3 class="text-center" th:text="${noInvoice}"></h3>
+        <div>
+            <form class="was-validated" action="#" th:action="@{/invoice/show}" method="GET">
+                <div class="mb-3">
+                    <label>To see your invoices put an email below:
+                        <input type="text" th:name="email" class="form-control" placeholder="place for your email" required>
+                    </label>
+                    <div class="invalid-feedback">Please enter your email.</div>
+                    <div class="valid-feedback">Thanks!</div>
+                </div>
+                <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="emailValidation" required>
+                    <label class="form-check-label" for="emailValidation">Confirm your email is valid.</label>
+                    <div class="invalid-feedback">If you are certain check the box.</div>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary" type="submit">Find your invoices</button>
+                </div>
+            </form>
+        </div><br>
+
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+</div>
+</body>
+</html>

@@ -4,9 +4,13 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
+import pl.mareczek100.infrastructure.database.entity.AddressEntity;
 import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
+import pl.mareczek100.infrastructure.database.entityMapper.AddressEntityMapper;
 import pl.mareczek100.infrastructure.database.entityMapper.CustomerEntityMapper;
+import pl.mareczek100.infrastructure.database.jpaRepository.AddressJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.CustomerJpaRepository;
+import pl.mareczek100.service.dao.AddressRepository;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.List;
@@ -16,10 +20,12 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class CustomerRepositoryImpl implements CustomerRepository {
+public class CustomerRepositoryImpl implements CustomerRepository, AddressRepository {
 
     private final CustomerJpaRepository customerJpaRepository;
     private final CustomerEntityMapper customerMapper;
+    private final AddressJpaRepository addressJpaRepository;
+    private final AddressEntityMapper addressMapper;
 
     @Override
     public Optional<Customer> findCustomer(String email) {
@@ -36,14 +42,33 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     @Override
     public Customer insertCustomer(Customer customer) {
-        Address customerAddress = customer.getAddress();
-        if (Objects.nonNull(customerAddress.getAddressId())){
-            customerAddress = customerAddress.withAddressId(null);
-            customer = customer.withAddress(customerAddress);
-        }
         CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
-        CustomerEntity customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
+        CustomerEntity customerEntitySaved = null;
+        Address customerAddress = customer.getAddress();
+
+        if (Objects.isNull(customerAddress.getAddressId())){
+            AddressEntity addressEntity = addressMapper.mapToEntity(customerAddress);
+            addressJpaRepository.saveAndFlush(addressEntity);
+            customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
+        }
+        if (Objects.nonNull(customerAddress.getAddressId())){
+            customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
+        }
+
+        // Jak zrobic zeby addres ktory jest przypisany do customera z bazy danych nie dodawal sie do bazy drugi raz!??
+
         return customerMapper.mapFromEntity(customerEntitySaved);
+    }
+
+    public Optional<Address> findCustomerAddress(String email) {
+        return addressJpaRepository.findCustomerAddress(email)
+                .map(addressMapper::mapFromEntity);
+    }
+    @Override
+    public List<Address> findAllAddresses() {
+        return addressJpaRepository.findAll().stream()
+                .map(addressMapper::mapFromEntity)
+                .toList();
     }
 
 

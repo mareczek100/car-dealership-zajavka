@@ -4,12 +4,9 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.Location;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -22,17 +19,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
-import org.thymeleaf.spring6.view.ThymeleafViewResolver;
-import org.thymeleaf.templatemode.TemplateMode;
 import pl.mareczek100.infrastructure.database.entity._EntityMarker;
 import pl.mareczek100.infrastructure.database.jpaRepository._JpaMarker;
 
 import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -41,45 +32,9 @@ import java.util.Properties;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = _JpaMarker.class)
 @PropertySource("classpath:database.properties")
-public class DatabaseJpaConfig implements WebMvcConfigurer, ApplicationContextAware {
+public class DatabaseJpaConfig  {
 
     private final Environment environment;
-
-    @Setter
-    private ApplicationContext applicationContext;
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
-
-    @Bean
-    public SpringResourceTemplateResolver templateResolver() {
-        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
-        templateResolver.setApplicationContext(this.applicationContext);
-        templateResolver.setPrefix("/WEB-INF/templates");
-        templateResolver.setSuffix(".html");
-        templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        return templateResolver;
-    }
-
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
-        return templateEngine;
-    }
-
-    @Bean
-    public ThymeleafViewResolver viewResolver(){
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        return viewResolver;
-    }
-
 
     @Bean(destroyMethod = "close")
     public DataSource dataSource() {
@@ -97,10 +52,10 @@ public class DatabaseJpaConfig implements WebMvcConfigurer, ApplicationContextAw
     }
 
     @Bean(initMethod = "migrate")
-    Flyway flyway() {
+    Flyway flyway() throws IOException {
         ClassicConfiguration configuration = new ClassicConfiguration();
         configuration.setBaselineOnMigrate(true);
-        configuration.setLocations(new Location("filesystem:src/main/resources/flyway/migrations"));
+        configuration.setLocations(new Location("classpath:flyway/migrations"));
         configuration.setDataSource(dataSource());
         return new Flyway(configuration);
     }

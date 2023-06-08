@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Invoice's site</title>
+    <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
+<h1 class="text-center">Invoices for your products.</h1>
+<br>
+    <h4 class="text-center">Your invoices:</h4><br>
+        <table class="table table-striped table-primary table-hover">
+            <tr th:each="invoice : ${invoiceDTOs}">
+                <th>invoiceNumber</th>
+                <th>dateTime</th>
+                <th>car</th>
+                <th>salesman</th>
+            </tr>
+            <tr>
+                <td th:text="${invoice.invoiceNumber}"></td>
+                <td th:text="${invoice.dateTime}"></td>
+                <td th:text="${invoice.car}"></td>
+                <td th:text="${invoice.salesman}"></td>
+            </tr>
+        </table><br><br>
+
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/invoice}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">Customer portal</a>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+</div>
+</body>
+</html>
