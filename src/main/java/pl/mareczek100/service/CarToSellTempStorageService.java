@@ -32,11 +32,6 @@ public class CarToSellTempStorageService {
         return allCarsToSell;
     }
     @Transactional
-    public void deleteCarToSellTempStorageByVin(String vin) {
-        findCarToSellTempStorage(vin);
-        carToSellTempStorageRepository.deleteCarToSellTempStorageByCarVin(vin);
-    }
-    @Transactional
     void deleteCarToSellTempStorage(String vin){
         CarToSellTempStorage carToSellTempStorage = findCarToSellTempStorage(vin);
         carToSellTempStorageRepository.deleteCarToSellTempStorage(carToSellTempStorage);

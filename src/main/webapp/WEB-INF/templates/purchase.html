@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
     <head>
     <title>Purchase car</title>
         <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
@@ -10,20 +10,39 @@
                 crossorigin="anonymous"></script>
     </head>
     <body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
-    <h1>You can here buy a new car!</h1>
-        <div class="container">
-            <div class="page-header" id="banner>">
-            <p>Put a car vin to buy it.</p>
-                <form action="#" th:action="@{/purchase}" method="POST">
-                    <div class="form-group">
-                        vin: <input type="text" th:name="vin"/>
+    <h1 class="text-center">You can here buy a new car!</h1>
+    <h4 class="text-center">To buy a car You must have an account.</h4>
+    <h4 class="text-center">If You don't have yet go to Customer portal - link is bottom of the site.</h4>
+
+    <br>
+    <h3 class="text-center" th:text="${carBought}"></h3>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <form class="was-validated" action="#"  th:action="@{/car/purchase/{carVin}(carVin=${carVin})}" method="POST">
+                    <div class="mb-3">
+                        <label> If You decided put an email and click "BUY!".
+                            <input type="text" th:name="email" class="form-control" placeholder="place for your email" required>
+                        <div class="invalid-feedback">Please enter your email.</div>
+                        <div class="valid-feedback">Thanks!</div>
+                        <button class="btn btn-primary" type="submit">BUY!</button>
+                        </label>
                     </div>
-                    <div class="form-group">
-                        <input type="submit" value="Buy a car!" name="button"/>
-                    </div>
-                </form>
+                </form><br>
+                <a th:href="@{/invoice}" class="btn btn-primary">Check invoice!</a>
+            </div>
+            <div class="col">
+                <img th:if="${carVin}" th:src="@{resources/img/alfa-romeo.jpg}" class="img-thumbnail" alt="...">
             </div>
         </div>
-    <a href="invoice">Your invoice!</a>
+    </div>
+
+    <br>
+    <div class="d-grid gap-2 col-2 mx-auto">
+        <a class="btn btn-primary" th:href="@{/car}" role="button">Go back</a>
+        <a class="btn btn-primary" th:href="@{/customer}" role="button">Customer portal</a>
+        <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+    </div>
     </body>
 </html>

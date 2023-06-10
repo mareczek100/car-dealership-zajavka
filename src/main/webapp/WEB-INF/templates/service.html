@@ -11,50 +11,29 @@
 </head>
 <body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
 
-<h1 class="text-center">Customer Portal!</h1>
-<h2 class="text-center">Make a wish :)</h2>
+<h1 class="text-center">Here You can give Your car to service.</h1>
+<h2 class="text-center">You can also check progress of Your repair.</h2>
 <br><br>
     <div class="d-flex justify-content-evenly">
-
-            <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">SALESMEN</h5>
-                <p class="card-text">See our Salesmen. Their grace is unbelievable.</p>
-                <a href="salesman" class="btn btn-primary">Become to convinced!</a>
-                </div>
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+                <h5 class="card-title">Repair car!</h5>
+                <p class="card-text">Send Your car to our best mechanics. They'll take care.</p>
+                <a th:href="@{service/request}" class="btn btn-primary">Service request</a>
             </div>
-            <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">CARS</h5>
-                <p class="card-text">Wanna buy a car? Here is all you want.</p>
-                <a href="purchase" class="btn btn-primary">Check our garage!</a>
-                </div>
+        </div>
+        <div class="card" style="width: 20rem;">
+            <div class="card-body">
+                <h5 class="card-title">Check progress!</h5>
+                <p class="card-text">Check what's going on with Your service request.</p>
+                <a th:href="@{service/progress}" class="btn btn-primary">Is finished?</a>
             </div>
-    </div><br>
-    <div class="d-flex justify-content-evenly">
-
-            <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">INVOICES</h5>
-                <p class="card-text">Bought already something in our shop? Check your documents.</p>
-                <a href="invoice" class="btn btn-primary">Look and cry!:)</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                <h5 class="card-title">SERVICE</h5>
-                <p class="card-text">Do You announce your car to repair or came to check your service history? This is right place.</p>
-                <a href="service" class="btn btn-primary">Toolbox-noise!</a>
-                </div>
-            </div>
+        </div>
     </div>
 
-
-
-
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+</div>
 </body>
 </html>

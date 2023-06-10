@@ -3,10 +3,15 @@ package pl.mareczek100.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.mareczek100.domain.CarToSell;
+import pl.mareczek100.domain.Customer;
 import pl.mareczek100.domain.Invoice;
+import pl.mareczek100.domain.Salesman;
 import pl.mareczek100.service.dao.InvoiceRepository;
 
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -15,9 +20,18 @@ public class InvoiceService {
     private final InvoiceRepository invoiceRepository;
     private final CustomerService customerService;
 
-    public Invoice createInvoiceWithCustomer(String vin) {
-//        return createInvoice(vin);
-        return null;
+    public Invoice createInvoice(Customer customer, CarToSell carToSell, Salesman salesman) {
+        return Invoice.builder()
+                .invoiceNumber(UUID.randomUUID().toString())
+                .dateTime(OffsetDateTime.now())
+                .carToSell(carToSell)
+                .customer(customer)
+                .salesman(salesman)
+        .build();
+    }
+    @Transactional
+    public Invoice insertInvoice(Invoice invoice){
+        return invoiceRepository.insertInvoice(invoice);
     }
 
     @Transactional

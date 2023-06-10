@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Customer portal</title>
+    <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
+
+<h1 class="text-center">Request Portal!</h1>
+<h3 class="text-center">If You are new client choose "New client request"</h3>
+<br>
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/service/service_request_new}" role="button">New client request</a>
+</div>
+<br><br>
+
+<form class="row g-3 was-validated" action="#" th:action="@{/service/service_request_new}" method="GET">
+    <h5>If You bought Your car by us just put below vin number and send a request.</h5>
+    <div class="col-md-3">
+        <label for="validationVin" class="form-label">Car vin number</label>
+        <input type="text" th:name="vin" field="*{vin}" class="form-control" id="validationVin" required>
+        <div class="invalid-feedback">Enter your real name</div>
+        <div class="valid-feedback">Looks good!</div>
+    </div>
+    <div class="col-md-4">
+        <label for="validationComment" class="form-label">Comment</label>
+        <textarea th:name="comment" field="*{comment}" class="form-control" id="validationComment" required></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please write a short comment what's wrong with Your car?
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Make request</button>
+    </div>
+</form>
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+</div>
+</body>
+</html>

@@ -14,17 +14,19 @@
 <br>
     <h4 class="text-center">Your invoices:</h4><br>
         <table class="table table-striped table-primary table-hover">
-            <tr th:each="invoice : ${invoiceDTOs}">
+            <tr>
                 <th>invoiceNumber</th>
                 <th>dateTime</th>
                 <th>car</th>
                 <th>salesman</th>
+                <th>customer</th>
             </tr>
-            <tr>
+            <tr th:each="invoice : ${invoiceDTOs}">
                 <td th:text="${invoice.invoiceNumber}"></td>
                 <td th:text="${invoice.dateTime}"></td>
-                <td th:text="${invoice.car}"></td>
+                <td th:text="${invoice.carToSell}"></td>
                 <td th:text="${invoice.salesman}"></td>
+                <td th:text="${invoice.customer}"></td>
             </tr>
         </table><br><br>
 

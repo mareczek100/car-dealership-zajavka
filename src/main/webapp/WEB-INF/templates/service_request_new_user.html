@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Customer portal</title>
+    <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+</head>
+<body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
+
+<h1 class="text-center">Request Portal!</h1>
+<h4 class="text-center">Create an account and put Your car data to make a repair request!</h4>
+<br><br>
+<!--th:object="${customer}" th:object="${car}"-->
+<form class="row g-3 was-validated" action="#"  th:action="@{/service/service_request_new/add}" method="POST">
+    <h4>Customer details:</h4>
+    <div class="col-md-3">
+        <label for="validationName" class="form-label">First name</label>
+        <input type="text" th:name="name" field="*{name}" class="form-control" id="validationName" required>
+        <div class="invalid-feedback">Enter your real name</div>
+        <div class="valid-feedback">Looks good!</div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationSurname" class="form-label">Last name</label>
+        <input type="text" th:name="surname" field="*{surname}" class="form-control" id="validationSurname" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Enter your surname</div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationPhoneNumber" class="form-label">Phone number</label>
+        <div class="input-group has-validation">
+            <span class="input-group-text" id="inputPhone">+48</span>
+            <input type="text" th:name="phone" field="*{phone}" class="form-control" id="validationPhoneNumber" aria-describedby="inputPhone" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+                Please enter nine numbers.
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationEmail" class="form-label">Email</label>
+        <div class="input-group has-validation">
+            <input type="text" th:name="email" field="*{email}" class="form-control" id="validationEmail" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+                Please provide a valid email address contains "@".
+            </div>
+        </div>
+    </div><br>
+    <h4>Address details:</h4>
+    <div class="col-md-2">
+        <label for="validationCountry" class="form-label">Country</label>
+        <input type="text" th:name="country" field="*{address.country}" class="form-control" id="validationCountry" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please select a valid country.
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="City" class="form-label">City</label>
+        <input type="text" th:name="city" field="*{address.city}" class="form-control" id="City" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please select a valid city.
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label for="validationPostalCode" class="form-label">PostalCode</label>
+        <input type="text" th:name="postalCode" field="*{address.postalCode}" class="form-control" id="validationPostalCode" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please select a valid postal code.
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationStreet" class="form-label">Street</label>
+        <input type="text" th:name="street" field="*{address.street}" class="form-control" id="validationStreet" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please select a valid street name (without number).
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label for="validationBuildingNumber" class="form-label">Building and flat number</label>
+        <input type="text" th:name="buildingFlatNumber" field="*{address.buildingFlatNumber}" class="form-control" id="validationBuildingNumber" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please provide building and flat number for example 5/23 or only building number.
+        </div>
+    </div>
+
+
+    <h4>Car data:</h4>
+    <div class="col-md-3">
+        <label for="validationVin" class="form-label">Number vin</label>
+        <input type="text" th:name="vin" field="*{vin}" class="form-control" id="validationVin" required>
+        <div class="invalid-feedback">Enter your real vin</div>
+        <div class="valid-feedback">Looks good!</div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationBrand" class="form-label">Car brand</label>
+        <input type="text" th:name="brand" field="*{brand}" class="form-control" id="validationBrand" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Enter your car brand</div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationModel" class="form-label">Car model</label>
+        <div class="input-group has-validation">
+            <input type="text" th:name="model" field="*{model}" class="form-control" id="validationModel" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Enter your car model.</div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <label for="validationYear" class="form-label">Year</label>
+        <div class="input-group has-validation">
+            <input type="text" th:name="year" field="*{year}" class="form-control" id="validationYear" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">
+                Please provide a valid car production year.
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label for="validationColor" class="form-label">Color</label>
+        <input type="text" th:name="color" field="*{color}" class="form-control" id="validationColor" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please put a valid car color.
+        </div>
+    </div>
+    <div class="col-md-5">
+        <label for="validationComment" class="form-label">Comment</label>
+        <textarea type="text" th:name="comment" field="*{comment}" class="form-control" id="validationComment" required></textarea>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">
+            Please write a short comment what's wrong with Your car?
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Make request</button>
+    </div>
+</form>
+<div class="d-grid gap-2 col-2 mx-auto">
+    <a class="btn btn-primary" th:href="@{/service}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/customer}" role="button">Customer portal</a>
+    <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
+</div>
+</body>
+</html>

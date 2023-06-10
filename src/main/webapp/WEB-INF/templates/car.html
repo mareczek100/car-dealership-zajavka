@@ -23,15 +23,24 @@
             <th>Available</th>
             <th>Purchase</th>
         </tr>
-        <tr th:each="car : ${carAvailableDTOs}">
+        <tr th:each="car : ${carDTOs}">
             <td th:text="${car.brand}"></td>
             <td th:text="${car.model}"></td>
             <td th:text="${car.year}"></td>
             <td th:text="${car.color}"></td>
             <td th:text="${car.price}"></td>
-            <td th:text="YES"></td>
             <td>
-                <a class="btn btn-primary" th:href="@{/customer}" role="button">Buy it!</a>
+                <span th:if="${#lists.contains(carAvailable, car)}" th:text="${availableYes}"></span>
+                <span th:unless="${#lists.contains(carAvailable, car)}" th:text="${availableNo}"></span>
+            </td>
+            <td>
+                <form action="#"
+                      th:action="@{/car/purchase/{carVin}(carVin=${car.vin})}" method="GET">
+                <button th:if="${#lists.contains(carAvailable, car)}"
+                   class="btn btn-primary" type="submit">Check and buy!</button>
+                <a th:unless="${#lists.contains(carAvailable, car)}"
+                   class="btn btn-primary disabled" role="button" aria-disabled="true">Sorry!</a>
+                </form>
             </td>
         </tr>
     </table></div><br>

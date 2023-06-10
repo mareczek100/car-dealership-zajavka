@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Repository
 @AllArgsConstructor
-public class CustomerRepositoryImpl implements CustomerRepository, AddressRepository {
+public class CustomerWithAddressRepositoryImpl implements CustomerRepository, AddressRepository {
 
     private final CustomerJpaRepository customerJpaRepository;
     private final CustomerEntityMapper customerMapper;
@@ -54,8 +54,6 @@ public class CustomerRepositoryImpl implements CustomerRepository, AddressReposi
         if (Objects.nonNull(customerAddress.getAddressId())){
             customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
         }
-
-        // Jak zrobic zeby addres ktory jest przypisany do customera z bazy danych nie dodawal sie do bazy drugi raz!??
 
         return customerMapper.mapFromEntity(customerEntitySaved);
     }
