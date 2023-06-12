@@ -12,4 +12,5 @@ public interface InvoiceRepository {
     Optional<Invoice> findInvoiceByInvoiceNumber(String invoiceNumber);
     List<Invoice> findInvoiceByEmail(String email);
     List<Invoice> findAllInvoices();
+    Optional<Invoice> findInvoiceByVin(String vin);
 }

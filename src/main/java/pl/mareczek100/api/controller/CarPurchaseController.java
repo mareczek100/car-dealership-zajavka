@@ -40,13 +40,10 @@ public class CarPurchaseController {
 
     @GetMapping("/purchase/{carVin}")
     public String purchaseView(
-            @PathVariable String carVin,
-
-            Model model
+            @PathVariable String carVin, Model model
     ) {
         
         model.addAttribute("carVin", carVin);
-
         return "purchase";
     }
 

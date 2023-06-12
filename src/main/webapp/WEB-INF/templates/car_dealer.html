@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>SERVICE PORTAL</title>
+    <title>DEALER PORTAL</title>
     <meta http-equiv="Content-Type=" content="text/html; charset=UTF-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -11,29 +11,28 @@
 </head>
 <body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
 
-<h1 class="text-center">Service portal</h1><br>
-<h2 class="text-center">Here You can give Your car to service.</h2>
-<h2 class="text-center">You can also check progress of Your repair.</h2>
+<h1 class="text-center">Dealer portal</h1><br>
+<h2 class="text-center">Here You check our mechanics.</h2>
+<h2 class="text-center">If You arte mechanic Yoy can process car service request.</h2>
 <br><br>
     <div class="d-flex justify-content-evenly">
         <div class="card" style="width: 20rem;">
             <div class="card-body">
                 <h5 class="card-title">Repair car!</h5>
-                <p class="card-text">Send Your car to our best mechanics. They'll take care.</p>
-                <a th:href="@{service/request}" class="btn btn-primary">Service request</a>
+                <p class="card-text">Handle car service request.</p>
+                <a th:href="@{/handling}" class="btn btn-primary">Handle request</a>
             </div>
         </div>
         <div class="card" style="width: 20rem;">
             <div class="card-body">
-                <h5 class="card-title">Check progress!</h5>
-                <p class="card-text">Check what's going on with Your service request.</p>
-                <a th:href="@{service/progress}" class="btn btn-primary">Is finished?</a>
+                <h5 class="card-title">Check mechanics</h5>
+                <p class="card-text">Check the best mechanics in the world</p>
+                <a th:href="@{/mechanics}" class="btn btn-primary">Meet to them.</a>
             </div>
         </div>
     </div><br><br>
 
 <div class="d-grid gap-2 col-2 mx-auto">
-    <a class="btn btn-primary" th:href="@{/customer}" role="button">Go back</a>
     <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
 </div>
 </body>

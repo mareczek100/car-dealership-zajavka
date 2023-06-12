@@ -19,17 +19,19 @@ public class CarServiceRequestRepositoryImpl implements CarServiceRequestReposit
     private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
-    public void insertCarServiceRequest(CarServiceRequest carServiceRequest) {
+    public CarServiceRequest insertCarServiceRequest(CarServiceRequest carServiceRequest) {
         CarServiceRequestEntity carServiceRequestEntity = carServiceRequestEntityMapper.mapToEntity(carServiceRequest);
-        CarServiceRequestEntity carServiceRequestEntitySaved = carServiceRequestJpaRepository.saveAndFlush(carServiceRequestEntity);
-//        return carServiceRequestEntityMapper.mapFromEntity(carServiceRequestEntitySaved);
+        CarServiceRequestEntity savedServiceRequestEntity = carServiceRequestJpaRepository.saveAndFlush(carServiceRequestEntity);
+        return carServiceRequestEntityMapper.mapFromEntity(savedServiceRequestEntity);
     }
 
     @Override
-    public Optional<CarServiceRequest> findCarServiceRequestsByCarVin(String vin) {
-     return carServiceRequestJpaRepository.findCarServiceRequestsByCarVin(vin)
-             .map(carServiceRequestEntityMapper::mapFromEntity);
+    public List<CarServiceRequest> findCarServiceRequestsByCarVin(String vin) {
+        return carServiceRequestJpaRepository.findCarServiceRequestsByCarVin(vin).stream()
+                .map(carServiceRequestEntityMapper::mapFromEntity)
+                .toList();
     }
+
     @Override
     public List<CarServiceRequest> findAllCarServiceRequest() {
         return carServiceRequestJpaRepository.findAll().stream()

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -14,7 +15,7 @@ public interface CarServiceRequestJpaRepository extends JpaRepository<CarService
             SELECT csr FROM CarServiceRequestEntity csr
             WHERE csr.carToService.vin = :vin
             """)
-    Optional<CarServiceRequestEntity> findCarServiceRequestsByCarVin(final @Param("vin") String vin);
+    List<CarServiceRequestEntity> findCarServiceRequestsByCarVin(final @Param("vin") String vin);
 
 
 }

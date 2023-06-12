@@ -10,26 +10,33 @@
             crossorigin="anonymous"></script>
 </head>
 <body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
-
-<h1 class="text-center">Request Portal!</h1>
+<h1 class="text-center">Request Portal!</h1><br>
+<div th:unless="${serviceConfirm}">
 <h3 class="text-center">If You are new client choose "New client request"</h3>
 <br>
 <div class="d-grid gap-2 col-2 mx-auto">
     <a class="btn btn-primary" th:href="@{/service/service_request_new}" role="button">New client request</a>
 </div>
-<br><br>
+</div>
+<br>
+<div class="d-grid gap-2 col-4 mx-auto">
+<h3 class="text-center" th:text="${serviceConfirm}"></h3>
+<h3 class="text-center" th:text="${progress}"></h3>
+    <a th:if="${serviceConfirm}" class="btn btn-primary" th:href="@{/service/progress}" role="button">Progress portal</a>
+</div>
+<br>
 
-<form class="row g-3 was-validated" action="#" th:action="@{/service/service_request_new}" method="GET">
-    <h5>If You bought Your car by us just put below vin number and send a request.</h5>
+<form class="row g-3 was-validated" action="#" th:action="@{/service/request}" method="POST">
+    <h5>If You bought Your car by us just put below vin number, comment and send a request.</h5>
     <div class="col-md-3">
         <label for="validationVin" class="form-label">Car vin number</label>
-        <input type="text" th:name="vin" field="*{vin}" class="form-control" id="validationVin" required>
+        <input type="text" th:name="vin" class="form-control" id="validationVin" required>
         <div class="invalid-feedback">Enter your real name</div>
         <div class="valid-feedback">Looks good!</div>
     </div>
     <div class="col-md-4">
         <label for="validationComment" class="form-label">Comment</label>
-        <textarea th:name="comment" field="*{comment}" class="form-control" id="validationComment" required></textarea>
+        <textarea th:name="comment" class="form-control" id="validationComment" required></textarea>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">
             Please write a short comment what's wrong with Your car?

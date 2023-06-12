@@ -37,6 +37,12 @@ public class InvoiceRepositoryImpl implements InvoiceRepository {
     }
 
     @Override
+    public Optional<Invoice> findInvoiceByVin(String vin) {
+        return invoiceJpaRepository.findInvoiceByVin(vin)
+                .map(invoiceEntityMapper::mapFromEntity);
+    }
+
+    @Override
     public List<Invoice> findAllInvoices() {
         return invoiceJpaRepository.findAll().stream()
                 .map(invoiceEntityMapper::mapFromEntity)

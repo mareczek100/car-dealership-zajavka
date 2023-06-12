@@ -27,10 +27,11 @@ public class InvoiceService {
                 .carToSell(carToSell)
                 .customer(customer)
                 .salesman(salesman)
-        .build();
+                .build();
     }
+
     @Transactional
-    public Invoice insertInvoice(Invoice invoice){
+    public Invoice insertInvoice(Invoice invoice) {
         return invoiceRepository.insertInvoice(invoice);
     }
 
@@ -44,6 +45,13 @@ public class InvoiceService {
     public List<Invoice> findInvoiceByEmail(String email) {
         customerService.findCustomer(email);
         return invoiceRepository.findInvoiceByEmail(email);
+    }
+
+    @Transactional
+    public Invoice findInvoiceByVin(String vin) {
+        return invoiceRepository.findInvoiceByVin(vin).orElseThrow(
+                () -> new RuntimeException("No invoice for car [%s]!".formatted(vin))
+        );
     }
 
     @Transactional

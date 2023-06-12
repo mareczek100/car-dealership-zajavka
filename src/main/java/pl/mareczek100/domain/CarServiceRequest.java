@@ -11,6 +11,7 @@ import java.util.Set;
 @ToString(exclude = {"carServiceHandling","carServicePart", "customer", "carToService"})
 @EqualsAndHashCode(of = "carServiceRequestNumber")
 public class CarServiceRequest {
+
     Integer carServiceRequestId;
     String carServiceRequestNumber;
     OffsetDateTime receivedDateTime;

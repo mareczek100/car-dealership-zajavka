@@ -6,7 +6,6 @@ import lombok.Value;
 
 import java.math.BigDecimal;
 
-@Value
 @Builder
 @EqualsAndHashCode(of = "serialNumber")
 public class PartDTO {

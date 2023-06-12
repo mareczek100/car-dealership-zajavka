@@ -6,26 +6,31 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.mareczek100.api.dto.AddressDTO;
 import pl.mareczek100.api.dto.CarDTO;
+import pl.mareczek100.api.dto.CarServiceProcessDTO;
 import pl.mareczek100.api.dto.CustomerDTO;
 import pl.mareczek100.api.dto.dtomapper.CarDtoMapper;
+import pl.mareczek100.api.dto.dtomapper.CarServiceProcessDTOMapper;
 import pl.mareczek100.api.dto.dtomapper.CustomerDtoMapper;
+import pl.mareczek100.domain.CarServiceRequest;
+import pl.mareczek100.domain.CarToService;
 import pl.mareczek100.domain.Customer;
+import pl.mareczek100.service.CarServiceRequestService;
 import pl.mareczek100.service.CarToSellService;
 import pl.mareczek100.service.CustomerService;
-import pl.mareczek100.service.PurchaseCarService;
 
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/service")
 @RequiredArgsConstructor
 public class CarServiceController {
 
-    private final PurchaseCarService purchaseCarService;
-    private final CustomerService customerService;
+    private final CarServiceRequestService carServiceRequestService;
+    private final CarServiceProcessDTOMapper carServiceProcessDTOMapper;
     private final CustomerDtoMapper customerDtoMapper;
-    private final CarToSellService carToSellService;
     private final CarDtoMapper carDtoMapper;
 
     @GetMapping
@@ -33,24 +38,39 @@ public class CarServiceController {
 
         return "service";
     }
+
     @GetMapping("/request")
     public String serviceRequest() {
 
         return "service_request";
     }
+
+    @PostMapping("/request")
+    public String createServiceRequestByVin(
+            @RequestParam("vin") String vin,
+            @RequestParam("comment") String comment,
+            Model model
+    ) {
+        CarServiceRequest requestInner = carServiceRequestService.createCarServiceRequestInner(vin, comment);
+        carServiceRequestService.insertCarServiceRequest(requestInner);
+
+        String serviceConfirm = "Your car [%s] is in our mechanics hands right now!".formatted(vin);
+        String progress = "Your can check progress in Progress portal!";
+
+        model.addAttribute("serviceConfirm", serviceConfirm);
+        model.addAttribute("progress", progress);
+        return "service_request";
+    }
+
     @GetMapping("/service_request_new")
-    public String serviceRequestNewUser() {
+    public String serviceRequestByNewUser() {
+
 
         return "service_request_new_user";
     }
-    @GetMapping("/progress")
-    public String serviceProgress() {
 
-        return "service_progress";
-    }
-
-    @PostMapping("/service_request_new/add")
-    public String addNewCustomer(
+    @PostMapping("/service_request_new")
+    public String createServiceRequestByNewUser(
             @RequestParam("name") String name,
             @RequestParam("surname") String surname,
             @RequestParam("phone") String phone,
@@ -65,8 +85,8 @@ public class CarServiceController {
             @RequestParam("model") String model,
             @RequestParam("year") Short year,
             @RequestParam("color") String color,
-            @RequestParam("price") BigDecimal price,
-            @RequestParam("comment") String comment
+            @RequestParam("comment") String comment,
+            Model viewModel
     ) {
         CustomerDTO customerDTO = CustomerDTO.builder()
                 .name(name)
@@ -85,12 +105,63 @@ public class CarServiceController {
                 .build();
 
         Customer customer = customerDtoMapper.mapFromDTO(customerDTO);
-        customerService.insertCustomer(customer);
 
-        return "customer";
+        CarDTO carDTO = CarDTO.builder()
+                .vin(vin)
+                .brand(brand)
+                .model(model)
+                .year(year)
+                .color(color)
+                .build();
+
+        CarToService carToService = carDtoMapper.mapFromDTO(carDTO);
+
+        CarServiceRequest requestOuter = carServiceRequestService.createCarServiceRequestOuter(customer, carToService, comment);
+        carServiceRequestService.insertCarServiceRequest(requestOuter);
+
+        String serviceConfirm = "Your car [%s] is in our mechanics hands right now!".formatted(vin);
+        String progress = "Your can check progress in Progress portal!";
+
+        viewModel.addAttribute("serviceConfirm", serviceConfirm);
+        viewModel.addAttribute("progress", progress);
+
+        return "service_request_new_user";
     }
 
+    @GetMapping("/progress")
+    public String serviceProgress() {
 
 
+        return "service_progress";
+    }
+
+    @PostMapping("/progress")
+    public String checkServiceProgress(
+            @RequestParam("vin") String vin,
+            Model model
+    ) {
+
+        List<CarServiceRequest> serviceRequests = carServiceRequestService.findCarServiceRequest(vin);
+
+        List<CarServiceProcessDTO> serviceProcessDTOs = serviceRequests.stream()
+                .map(carServiceProcessDTOMapper::mapToDTO)
+                .toList();
+
+        List<OffsetDateTime> completedList = serviceRequests.stream()
+                .map(CarServiceRequest::getCompletedDateTime)
+                .toList();
+
+
+        String finished = "You car is finished, take it back!";
+        String unfinished = "You car is unfinished, wait a little longer!";
+
+//        model.addAttribute("carVin", vin);
+        model.addAttribute("serviceProcessDTOs", serviceProcessDTOs);
+        model.addAttribute("unfinished", unfinished);
+        model.addAttribute("finished", finished);
+        model.addAttribute("completedList", completedList);
+
+        return "service_progress";
+    }
 
 }

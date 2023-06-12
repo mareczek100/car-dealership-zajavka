@@ -7,7 +7,7 @@ import pl.mareczek100.domain.CarToService;
 import pl.mareczek100.infrastructure.database.entity.CarToServiceEntity;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CarToServiceEntityMapper {
-//    @Mapping(target = "carServiceRequests", ignore = true)
+    @Mapping(target = "carServiceRequests", ignore = true)
     CarToService mapFromEntity(CarToServiceEntity carToServiceEntity);
     @Mapping(target = "carServiceRequests", ignore = true)
     CarToServiceEntity mapToEntity(CarToService carToService);

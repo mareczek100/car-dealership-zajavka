@@ -3,36 +3,20 @@ package pl.mareczek100.service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.CarToService;
 import pl.mareczek100.service.dao.CarToServiceRepository;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @AllArgsConstructor
 public class CarToServiceService {
 
     private final CarToServiceRepository carToServiceRepository;
-    private final CarToSellService carToSellService;
     @Transactional
-    public CarToService createCarToService(String vin) {
-        CarToService existingCarToService = findCarToService(vin);
-        CarToSell existingCarToSell = carToSellService.findCarToSell(vin);
-        if (Objects.nonNull(existingCarToService)) {
-            return existingCarToService;
-        } else if (Objects.nonNull(existingCarToSell)) {
-//            return carToServiceDataStorage.createCarToServiceFromDealer(existingCarToSell);
-//        }else {
-//            return carToServiceDataStorage.createCarToServiceFromOutside(vin);
-        }
-        return null;
-    }
-    @Transactional
-    public CarToService carToServiceInit(String vin) {
-        return carToServiceRepository.carToServiceInsert(createCarToService(vin));
+    public CarToService insertCarToService(CarToService carToService) {
+        return carToServiceRepository.carToServiceInsert(carToService);
     }
     @Transactional
     public CarToService findCarToService(String vin) {

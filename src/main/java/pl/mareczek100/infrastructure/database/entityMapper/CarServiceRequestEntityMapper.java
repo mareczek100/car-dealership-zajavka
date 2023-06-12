@@ -1,6 +1,7 @@
 package pl.mareczek100.infrastructure.database.entityMapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import pl.mareczek100.domain.*;
 import pl.mareczek100.infrastructure.database.entity.*;
@@ -18,7 +19,11 @@ public interface CarServiceRequestEntityMapper {
 //    @Mapping(target = "customer.carServiceRequests", ignore = true)
 //    @Mapping(target = "customer.invoices", ignore = true)
 //    @Mapping(target = "carToService.carServiceRequests", ignore = true)
-    default CarServiceRequest mapFromEntity(CarServiceRequestEntity carServiceRequestEntity) {
+
+//    @Mapping(target = "carServiceHandling", ignore = true)
+//    @Mapping(target = "carServicePart", ignore = true)
+    default CarServiceRequest mapFromEntity(CarServiceRequestEntity carServiceRequestEntity)
+    {
         return CarServiceRequest.builder()
                 .carServiceRequestId(carServiceRequestEntity.getCarServiceRequestId())
                 .carServiceRequestNumber(carServiceRequestEntity.getCarServiceRequestNumber())
@@ -32,13 +37,14 @@ public interface CarServiceRequestEntityMapper {
                 .build();
     }
 
-    //    @Mapping(target = "carServiceHandling.carServiceRequest", ignore = true)
-//    @Mapping(target = "carServicePart.carServiceRequest", ignore = true)
+    @Mapping(target = "carServiceHandling", ignore = true)
+    @Mapping(target = "carServicePart", ignore = true)
 //    @Mapping(target = "customer.address", ignore = true)
 //    @Mapping(target = "customer.carServiceRequests", ignore = true)
 //    @Mapping(target = "customer.invoices", ignore = true)
 //    @Mapping(target = "carToService.carServiceRequests", ignore = true)
     CarServiceRequestEntity mapToEntity(CarServiceRequest carServiceRequest);
+
     private Customer getCustomer(CustomerEntity customerEntity) {
         return Customer.builder()
                 .customerId(customerEntity.getCustomerId())
@@ -60,6 +66,7 @@ public interface CarServiceRequestEntityMapper {
                 .buildingFlatNumber(addressEntity.getBuildingFlatNumber())
                 .build();
     }
+
     private CarToService getCarToService(CarToServiceEntity carToServiceEntity) {
         return CarToService.builder()
                 .carToServiceId(carToServiceEntity.getCarToServiceId())
@@ -113,7 +120,7 @@ public interface CarServiceRequestEntityMapper {
     }
 
     private Part getPart(PartEntity partEntity) {
-        if (Objects.isNull(partEntity)){
+        if (Objects.isNull(partEntity)) {
             return null;
         }
         return Part.builder()
@@ -123,10 +130,6 @@ public interface CarServiceRequestEntityMapper {
                 .price(partEntity.getPrice())
                 .build();
     }
-
-
-
-
 
 
 }
