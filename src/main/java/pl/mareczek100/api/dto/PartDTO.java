@@ -7,12 +7,12 @@ import lombok.Value;
 import java.math.BigDecimal;
 
 @Builder
-@EqualsAndHashCode(of = "serialNumber")
-public class PartDTO {
 
-    String serialNumber;
-    String description;
-    BigDecimal price;
+public record PartDTO  (String serialNumber,
+                        String description,
+                        BigDecimal price){
+
+
 
 
 }

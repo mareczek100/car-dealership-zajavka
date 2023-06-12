@@ -141,7 +141,7 @@ public class CarServiceController {
             Model model
     ) {
 
-        List<CarServiceRequest> serviceRequests = carServiceRequestService.findCarServiceRequest(vin);
+        List<CarServiceRequest> serviceRequests = carServiceRequestService.findCarServiceRequests(vin);
 
         List<CarServiceProcessDTO> serviceProcessDTOs = serviceRequests.stream()
                 .map(carServiceProcessDTOMapper::mapToDTO)

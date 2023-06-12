@@ -13,4 +13,6 @@ public interface CarServiceRequestRepository {
     List<CarServiceRequest> findCarServiceRequestsByCarVin(String vin);
 
     List<CarServiceRequest> findAllCarServiceRequest();
+
+    Optional<CarServiceRequest> findCarServiceRequestByCarServiceRequestNumber(String requestNumber);
 }

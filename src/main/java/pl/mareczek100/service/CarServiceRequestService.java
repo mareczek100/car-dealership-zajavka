@@ -9,7 +9,6 @@ import pl.mareczek100.service.dao.CarServiceRequestRepository;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -77,14 +76,20 @@ public class CarServiceRequestService {
     }
 
     @Transactional
-    public List<CarServiceRequest> findCarServiceRequest(String vin) {
+    public List<CarServiceRequest> findCarServiceRequests(String vin) {
         List<CarServiceRequest> requestsByCarVin = carServiceRequestRepository.findCarServiceRequestsByCarVin(vin);
         if (requestsByCarVin.isEmpty()) {
             throw new RuntimeException(
                     "Service request for car [%s] no exist".formatted(vin));
         }
         return requestsByCarVin;
+    }
 
+    @Transactional
+    public CarServiceRequest findCarServiceRequest(String requestNumber) {
+        return carServiceRequestRepository.findCarServiceRequestByCarServiceRequestNumber(requestNumber)
+                .orElseThrow(() -> new RuntimeException(
+                        "Service request [%s] no exist".formatted(requestNumber)));
     }
 
     @Transactional
@@ -100,7 +105,7 @@ public class CarServiceRequestService {
 
     @Transactional
     public void printCarHistory(String vin) {
-        List<CarServiceRequest> carServiceRequest = findCarServiceRequest(vin);
+        List<CarServiceRequest> carServiceRequest = findCarServiceRequests(vin);
         System.out.printf("###CAR HISTORY FOR CAR: [%s]%n", carServiceRequest.stream()
                 .map(CarServiceRequest::getCarToService)
                 .toList().get(0));

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 import pl.mareczek100.domain.CarServiceHandling;
 import pl.mareczek100.domain.CarServiceParts;
+import pl.mareczek100.domain.CarServiceRequest;
 import pl.mareczek100.infrastructure.database.entity.CarServiceHandlingEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
@@ -27,7 +28,7 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
     private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
-    public void serviceRequestProcess(CarServiceHandling carServiceHandling, CarServiceParts carServiceParts) {
+    public void serviceRequestProcess(CarServiceRequest serviceRequest, CarServiceHandling carServiceHandling, CarServiceParts carServiceParts) {
 
         CarServicePartsEntity servicePartsEntity = servicePartsEntityMapper.mapToEntity(carServiceParts);
         carServicePartsJpaRepository.saveAndFlush(servicePartsEntity);

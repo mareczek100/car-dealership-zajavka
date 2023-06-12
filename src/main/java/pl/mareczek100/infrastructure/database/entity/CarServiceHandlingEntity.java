@@ -13,6 +13,7 @@ import org.hibernate.annotations.FetchMode;
 @Builder
 @Table(name = "car_service_handling")
 public class CarServiceHandlingEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_service_handling_id")

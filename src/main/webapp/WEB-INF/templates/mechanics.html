@@ -15,9 +15,9 @@
 <div class="accordion accordion-flush d-grid gap-2 col-4 mx-auto" id="accordionFlushExample">
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed"  type="button" data-bs-toggle="collapse"
                     data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
-                Mechanic #1
+                Mechanics
             </button>
         </h2>
         <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
@@ -32,105 +32,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td th:text="${mechanic1.name}"></td>
-                        <td th:text="${mechanic1.surname}"></td>
-                        <td th:text="${mechanic1.pesel}"></td>
+                    <tr th:each="mechanic : ${mechanicDTOs}">
+                        <td th:text="${mechanic.name}"></td>
+                        <td th:text="${mechanic.surname}"></td>
+                        <td th:text="${mechanic.pesel}"></td>
                         <!--                            <td img></td>-->
                     </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                Mechanic #2
-            </button>
-        </h2>
-        <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Pesel</th>
-                        <th scope="col">Foto</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${mechanic2.name}"></td>
-                        <td th:text="${mechanic2.surname}"></td>
-                        <td th:text="${mechanic2.pesel}"></td>
-                        <!--                            <td img></td>-->
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                Mechanic #3
-            </button>
-        </h2>
-        <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Pesel</th>
-                        <th scope="col">Foto</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td th:text="${mechanic3.name}"></td>
-                        <td th:text="${mechanic3.surname}"></td>
-                        <td th:text="${mechanic3.pesel}"></td>
-                        <!--                        <td img></td>-->
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
-                    Mechanic #4
-                </button>
-            </h2>
-            <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Surname</th>
-                            <th scope="col">Pesel</th>
-                            <th scope="col">Foto</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td th:text="${mechanic4.name}"></td>
-                            <td th:text="${mechanic4.surname}"></td>
-                            <td th:text="${mechanic4.pesel}"></td>
-                            <!--                            <td img></td>-->
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

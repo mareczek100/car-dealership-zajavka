@@ -7,10 +7,10 @@ import java.util.Set;
 
 
 @Builder
-public class ServiceDTO {
+public record ServiceDTO (String serviceCode,
+                          String description,
+                          BigDecimal price){
 
-    String serviceCode;
-    String description;
-    BigDecimal price;
+
 
 }

@@ -38,4 +38,10 @@ public class CarServiceRequestRepositoryImpl implements CarServiceRequestReposit
                 .map(carServiceRequestEntityMapper::mapFromEntity)
                 .toList();
     }
+
+    @Override
+    public Optional<CarServiceRequest> findCarServiceRequestByCarServiceRequestNumber(String requestNumber) {
+        return carServiceRequestJpaRepository.findCarServiceRequestByCarServiceRequestNumber(requestNumber)
+                .map(carServiceRequestEntityMapper::mapFromEntity);
+    }
 }

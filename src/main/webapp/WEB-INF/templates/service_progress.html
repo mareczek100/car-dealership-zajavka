@@ -42,6 +42,7 @@
             <th>Repair duration</th>
             <th>Service</th>
             <th>Parts</th>
+            <th>Parts quantity</th>
             <th>Finished</th>
         </tr>
         <tr th:each="serviceProcess : ${serviceProcessDTOs}">
@@ -50,11 +51,27 @@
             <td th:text="${serviceProcess.customer}"></td>
             <td th:text="${serviceProcess.customerComment}"></td>
             <td th:text="${serviceProcess.carToService}"></td>
-            <td th:text="${serviceProcess.mechanic}"></td>
-            <td th:text="${serviceProcess.mechanicComment}"></td>
+            <td>
+                <span th:unless="${#lists.isEmpty(serviceProcess.mechanic)}" th:text="${serviceProcess.mechanic}"></span>
+                <span th:if="${#lists.isEmpty(serviceProcess.mechanic)}">No workers now!</span>
+            </td>
+            <td>
+                <span th:unless="${#lists.isEmpty(serviceProcess.mechanicComment)}" th:text="${serviceProcess.mechanicComment}"></span>
+                <span th:if="${#lists.isEmpty(serviceProcess.mechanicComment)}">No comment</span>
+            </td>
             <td th:text="${serviceProcess.workHours}"></td>
-            <td th:text="${serviceProcess.service}"></td>
-            <td th:text="${serviceProcess.partQuantity}"></td>
+            <td>
+                <span th:unless="${#lists.isEmpty(serviceProcess.service)}" th:text="${serviceProcess.service}"></span>
+                <span th:if="${#lists.isEmpty(serviceProcess.service)}">No service!</span>
+            </td>
+            <td>
+                <span th:unless="${#lists.isEmpty(serviceProcess.parts)}" th:text="${serviceProcess.parts}"></span>
+                <span th:if="${#lists.isEmpty(serviceProcess.parts)}">No parts!</span>
+            </td>
+            <td>
+                <span th:unless="${#lists.isEmpty(serviceProcess.partQuantity)}" th:text="${serviceProcess.partQuantity}"></span>
+                <span th:if="${#lists.isEmpty(serviceProcess.partQuantity)}">Zero parts used so far!</span>
+            </td>
             <td>
                 <span th:if="${serviceProcess.completedDateTime}" th:text="YES"></span>
                 <span th:unless="${serviceProcess.completedDateTime}" th:text="NO"></span>

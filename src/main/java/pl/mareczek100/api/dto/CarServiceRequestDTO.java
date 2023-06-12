@@ -7,15 +7,12 @@ import java.util.Set;
 
 
 @Builder
-public class CarServiceRequestDTO {
-
-
-    String carServiceRequestNumber;
-    OffsetDateTime receivedDateTime;
-    OffsetDateTime completedDateTime;
-    String comment;
-    CustomerDTO customer;
-    CarDTO carToService;
-
+@With
+public record CarServiceRequestDTO   (String carServiceRequestNumber,
+                                      OffsetDateTime receivedDateTime,
+                                      OffsetDateTime completedDateTime,
+                                      String comment,
+                                      CustomerDTO customer,
+                                      CarDTO carToService){
 
 }
