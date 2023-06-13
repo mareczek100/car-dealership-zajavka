@@ -33,9 +33,4 @@ public class DealerController {
 
         return "car_dealer";
     }
-
-
-
-
-
 }

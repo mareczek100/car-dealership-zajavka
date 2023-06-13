@@ -9,6 +9,5 @@ import pl.mareczek100.domain.Mechanic;
 public interface MechanicDtoMapper {
 
     MechanicDTO mapToDTO(Mechanic mechanic);
-    Mechanic mapFromDTO(MechanicDTO mechanicDTO);
 
 }

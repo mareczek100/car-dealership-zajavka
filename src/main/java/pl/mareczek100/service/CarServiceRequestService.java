@@ -40,7 +40,6 @@ public class CarServiceRequestService {
             CarServiceRequest serviceRequest = carServiceRequest.withCarToService(existingCarToService);
             return carServiceRequestRepository.insertCarServiceRequest(serviceRequest);
         }
-
     }
 
     public CarServiceRequest createCarServiceRequestInner(String vin, String comment) {
@@ -101,28 +100,5 @@ public class CarServiceRequestService {
         }
         allCarServiceRequest.forEach(System.out::println);
         return allCarServiceRequest;
-    }
-
-    @Transactional
-    public void printCarHistory(String vin) {
-        List<CarServiceRequest> carServiceRequest = findCarServiceRequests(vin);
-        System.out.printf("###CAR HISTORY FOR CAR: [%s]%n", carServiceRequest.stream()
-                .map(CarServiceRequest::getCarToService)
-                .toList().get(0));
-        System.out.printf("###CAR OWNER: [%s]%n", carServiceRequest.stream()
-                .map(CarServiceRequest::getCustomer)
-                .toList().get(0));
-    }
-
-    private void printServiceRequest(CarServiceRequest carHistory) {
-        System.out.printf("###SERVICE REQUEST: [%s]%n", carHistory);
-        carHistory.getCarServiceHandling().stream()
-                .map(CarServiceHandling::getService)
-                .forEach(service -> System.out.printf("###SERVICE: [%s]%n", service));
-
-        carHistory.getCarServicePart().stream()
-                .map(CarServiceParts::getPart)
-                .filter(Objects::nonNull)
-                .forEach(part -> System.out.printf("###PART: [%s]%n", part));
     }
 }

@@ -10,7 +10,4 @@ import java.util.Set;
 public record ServiceDTO (String serviceCode,
                           String description,
                           BigDecimal price){
-
-
-
 }

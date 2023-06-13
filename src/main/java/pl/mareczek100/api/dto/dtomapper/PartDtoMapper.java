@@ -9,6 +9,5 @@ import pl.mareczek100.domain.Part;
 public interface PartDtoMapper {
 
     PartDTO mapToDTO(Part part);
-    Part mapFromDTO(PartDTO partDTO);
 
 }

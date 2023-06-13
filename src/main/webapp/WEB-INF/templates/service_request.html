@@ -11,12 +11,13 @@
 </head>
 <body class="p-3 mb-2 bg-dark-subtle text-emphasis-dark">
 <h1 class="text-center">Request Portal!</h1><br>
-<div th:unless="${serviceConfirm}">
+<div class="alert alert-success" role="alert">
+    <h3 th:unless="${serviceConfirm}"></h3>
+</div>
 <h3 class="text-center">If You are new client choose "New client request"</h3>
 <br>
 <div class="d-grid gap-2 col-2 mx-auto">
     <a class="btn btn-primary" th:href="@{/service/service_request_new}" role="button">New client request</a>
-</div>
 </div>
 <br>
 <div class="d-grid gap-2 col-4 mx-auto">

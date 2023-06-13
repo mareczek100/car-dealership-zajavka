@@ -10,10 +10,7 @@ import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 public interface CarServicePartsEntityMapper {
     @Mapping(target = "carServiceRequest", ignore = true)
     CarServiceParts mapFromEntity(CarServicePartsEntity carServicePartsEntity);
-//    @Mapping(target = "carServiceRequest.carServicePart", ignore = true)
-//    @Mapping(target = "carServiceRequest.customer", ignore = true)
-//    @Mapping(target = "carServiceRequest.carServiceHandling", ignore = true)
-//    @Mapping(target = "carServiceRequest.carToService", ignore = true)
+
     CarServicePartsEntity mapToEntity(CarServiceParts carServiceParts);
 
 }

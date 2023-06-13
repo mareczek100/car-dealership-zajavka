@@ -9,6 +9,5 @@ import pl.mareczek100.domain.Service;
 public interface ServiceDtoMapper {
 
     ServiceDTO mapToDTO(Service service);
-    Service mapFromDTO(ServiceDTO serviceDTO);
 
 }

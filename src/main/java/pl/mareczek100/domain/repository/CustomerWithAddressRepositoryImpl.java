@@ -42,16 +42,20 @@ public class CustomerWithAddressRepositoryImpl implements CustomerRepository, Ad
 
     @Override
     public Customer insertCustomer(Customer customer) {
-        CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
+
         CustomerEntity customerEntitySaved = null;
         Address customerAddress = customer.getAddress();
 
         if (Objects.isNull(customerAddress.getAddressId())){
             AddressEntity addressEntity = addressMapper.mapToEntity(customerAddress);
-            addressJpaRepository.saveAndFlush(addressEntity);
+            AddressEntity addressSaved = addressJpaRepository.saveAndFlush(addressEntity);
+            Address address = addressMapper.mapFromEntity(addressSaved);
+            Customer customerWithAddress = customer.withAddress(address);
+            CustomerEntity customerEntity = customerMapper.mapToEntity(customerWithAddress);
             customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
         }
         if (Objects.nonNull(customerAddress.getAddressId())){
+            CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
             customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
         }
 

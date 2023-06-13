@@ -11,10 +11,10 @@ import java.util.Set;
 @EqualsAndHashCode(of = "serviceCode")
 @ToString(exclude = "carServiceHandlings")
 public class Service {
+
     Integer serviceId;
     String serviceCode;
     String description;
     BigDecimal price;
     Set<CarServiceHandling> carServiceHandlings;
-
 }

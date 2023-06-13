@@ -21,8 +21,4 @@ public record CarServiceProcessDTO (String carServiceRequestNumber,
                                     List<ServiceDTO> service,
                                     List<Short> partQuantity,
                                     List<PartDTO> parts){
-
-
-
-
 }

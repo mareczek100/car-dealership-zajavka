@@ -25,7 +25,6 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
     private final CarServicePartsJpaRepository carServicePartsJpaRepository;
     private final CarServiceHandlingEntityMapper serviceHandlingEntityMapper;
     private final CarServicePartsEntityMapper servicePartsEntityMapper;
-    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
     public void serviceRequestProcess(CarServiceRequest serviceRequest, CarServiceHandling carServiceHandling, CarServiceParts carServiceParts) {
@@ -38,6 +37,5 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
 
         CarServiceRequestEntity serviceRequestEntity = savedServiceHandlingEntity.getCarServiceRequest();
         carServiceRequestJpaRepository.saveAndFlush(serviceRequestEntity);
-
     }
 }

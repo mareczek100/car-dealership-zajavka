@@ -14,9 +14,14 @@
 <h1 class="text-center">This is Car Dealership Site!</h1>
 <h2 class="text-center">Who are You?</h2>
 <br/>
-<div class="d-grid gap-2 col-6 mx-auto">
-    <a class="btn btn-primary btn-lg" th:href="@{/customer}" role="button">Client</a>
-    <a class="btn btn-primary btn-lg" th:href="@{/car_dealer}" role="button">Car dealer</a>
+<div class="container">
+<img th:src="@{/resources/img/salon.jpg}" class="rounded mx-auto d-block" width="300px" height="200px"/><br>
+    <p>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a class="btn btn-primary btn-lg" th:href="@{/customer}" role="button">Client</a>
+        <a class="btn btn-primary btn-lg" th:href="@{/car_dealer}" role="button">Car dealer</a>
+    </div>
+    </p>
 </div>
 
 </body>

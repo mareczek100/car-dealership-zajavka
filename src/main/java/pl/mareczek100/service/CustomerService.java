@@ -35,17 +35,6 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer createNewOrFindCustomerToMakeInvoice(String email) {
-        Optional<Customer> optionalCustomer = customerRepository.findCustomer(email);
-        if (optionalCustomer.isPresent()) {
-            return optionalCustomer.get();
-        } else {
-//        insertCustomer(purchaseDataStorage.customerWithAddress(email));
-            return findCustomer(email);
-        }
-    }
-
-    @Transactional
     public Customer insertCustomer(Customer customer) {
         if (checkIfCustomerExistInDataBaseDuringCreateNewAccount(customer.getEmail()).isPresent()) {
             throw new RuntimeException("""

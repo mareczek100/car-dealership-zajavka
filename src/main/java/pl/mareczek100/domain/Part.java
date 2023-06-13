@@ -11,6 +11,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = "serialNumber")
 @ToString(exclude = "carServiceParts")
 public class Part {
+
     Integer partId;
     String serialNumber;
     String description;

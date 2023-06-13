@@ -10,10 +10,10 @@ import java.util.Set;
 @EqualsAndHashCode(of = "pesel")
 @ToString(exclude = "invoices")
 public class Salesman {
+
     Integer salesmanId;
     String name;
     String surname;
     String pesel;
     Set<Invoice> invoices;
-
 }

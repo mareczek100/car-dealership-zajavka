@@ -15,7 +15,6 @@ public interface CarDtoMapper {
 
     CarDTO mapToDTO(CarToSell car);
     CarServiceDTO mapToCarServiceDTO(CarToService car);
-    CarDTO mapToDTO(CarToService car);
     CarToService mapFromDTO(CarDTO car);
     CarDTO mapToDTO(CarToSellTempStorage car);
 

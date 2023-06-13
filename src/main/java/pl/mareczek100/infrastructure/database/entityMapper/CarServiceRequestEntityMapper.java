@@ -13,15 +13,6 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CarServiceRequestEntityMapper {
 
-    //    @Mapping(target = "carServiceHandling.carServiceRequest", ignore = true)
-//    @Mapping(target = "carServicePart.carServiceRequest", ignore = true)
-//    @Mapping(target = "customer.address", ignore = true)
-//    @Mapping(target = "customer.carServiceRequests", ignore = true)
-//    @Mapping(target = "customer.invoices", ignore = true)
-//    @Mapping(target = "carToService.carServiceRequests", ignore = true)
-
-//    @Mapping(target = "carServiceHandling", ignore = true)
-//    @Mapping(target = "carServicePart", ignore = true)
     default CarServiceRequest mapFromEntity(CarServiceRequestEntity carServiceRequestEntity)
     {
         return CarServiceRequest.builder()
@@ -39,10 +30,6 @@ public interface CarServiceRequestEntityMapper {
 
     @Mapping(target = "carServiceHandling", ignore = true)
     @Mapping(target = "carServicePart", ignore = true)
-//    @Mapping(target = "customer.address", ignore = true)
-//    @Mapping(target = "customer.carServiceRequests", ignore = true)
-//    @Mapping(target = "customer.invoices", ignore = true)
-//    @Mapping(target = "carToService.carServiceRequests", ignore = true)
     CarServiceRequestEntity mapToEntity(CarServiceRequest carServiceRequest);
 
     private Customer getCustomer(CustomerEntity customerEntity) {
@@ -130,6 +117,4 @@ public interface CarServiceRequestEntityMapper {
                 .price(partEntity.getPrice())
                 .build();
     }
-
-
 }

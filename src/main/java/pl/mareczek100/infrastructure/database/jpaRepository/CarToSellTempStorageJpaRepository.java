@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface CarToSellTempStorageJpaRepository extends JpaRepository<CarToSellTempStorageEntity, Integer> {
     Optional<CarToSellTempStorageEntity> findByVin(String vin);
-    void deleteCarToSellTempStorageByVin(String vin);
 
 }

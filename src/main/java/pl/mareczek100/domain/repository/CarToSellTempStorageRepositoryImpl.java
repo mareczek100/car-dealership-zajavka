@@ -33,11 +33,6 @@ public class CarToSellTempStorageRepositoryImpl implements CarToSellTempStorageR
     }
 
     @Override
-    public void deleteCarToSellTempStorageByCarVin(String vin) {
-        carToSellTempStorageJpaRepository.deleteCarToSellTempStorageByVin(vin);
-    }
-
-    @Override
     public void deleteCarToSellTempStorage(CarToSellTempStorage carToSellTempStorage) {
         CarToSellTempStorageEntity carToSellTempStorageEntity = carToSellTempStorageMapper.mapToEntity(carToSellTempStorage);
         carToSellTempStorageJpaRepository.delete(carToSellTempStorageEntity);

@@ -11,5 +11,4 @@ public record InvoiceDTO (String invoiceNumber,
                           CarDTO carToSell,
                           SalesmanDTO salesman,
                           CustomerDTO customer){
-
 }

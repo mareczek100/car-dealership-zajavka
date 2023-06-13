@@ -12,6 +12,7 @@ import java.time.OffsetDateTime;
 @Builder
 @EqualsAndHashCode(of = "invoiceNumber")
 public class Invoice {
+
     Integer invoiceId;
     String invoiceNumber;
     OffsetDateTime dateTime;

@@ -15,8 +15,9 @@
 <h2 class="text-center">Here You can handle clients car service request.</h2>
 <br><br>
 
+<div class="alert alert-success" role="alert">
 <h2 th:if="${dataSaved}" class="text-center">Your data is written down to database!</h2>
-
+</div>
 <form class="row g-3 was-validated" action="#" th:action="@{/handling/process/{requestNumber}(requestNumber=${requestNumber})}" method="POST">
     <div class="col-md-2">
         <label for="validationPesel" class="form-label">Mechanic pesel</label>
@@ -98,7 +99,7 @@
 
 <br><br>
 <div class="d-grid gap-2 col-2 mx-auto">
-    <a class="btn btn-primary" th:href="@{/service/handling}" role="button">Go back</a>
+    <a class="btn btn-primary" th:href="@{/handling}" role="button">Go back</a>
     <a class="btn btn-primary" th:href="@{/car_dealer}" role="button">Dealer portal</a>
     <a class="btn btn-primary" th:href="@{/}" role="button">Main page</a>
 </div>

@@ -10,6 +10,5 @@ public interface CarToSellTempStorageRepository {
 
     Optional<CarToSellTempStorage> findCarToSellTempStorage(String vin);
     List<CarToSellTempStorage> findAllCarsToSellTempStorage();
-    void deleteCarToSellTempStorageByCarVin(String vin);
     void deleteCarToSellTempStorage(CarToSellTempStorage carToSellTempStorage);
 }

@@ -26,12 +26,8 @@ public interface CustomerEntityMapper {
                 .carServiceRequests(getCarServiceRequests(customerEntity.getCarServiceRequests()))
                 .invoices(getInvoices(customerEntity.getInvoices()))
                 .build();
-
     }
 
-
-    //    @Mapping(target = "carServiceRequests", ignore = true)
-//    @Mapping(target = "invoices", ignore = true)
     @Mapping(target = "address.customers", ignore = true)
     CustomerEntity mapToEntity(Customer customer);
 

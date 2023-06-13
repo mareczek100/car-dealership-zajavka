@@ -131,7 +131,6 @@ public class CarServiceController {
     @GetMapping("/progress")
     public String serviceProgress() {
 
-
         return "service_progress";
     }
 
@@ -150,7 +149,6 @@ public class CarServiceController {
         List<OffsetDateTime> completedList = serviceRequests.stream()
                 .map(CarServiceRequest::getCompletedDateTime)
                 .toList();
-
 
         String finished = "You car is finished, take it back!";
         String unfinished = "You car is unfinished, wait a little longer!";

@@ -19,10 +19,7 @@ public class ServiceHandlingController {
     private final static String FINISHED = "FINISHED";
     private final CarServiceRequestProcessingService processingService;
     private final CarServiceRequestService carServiceRequestService;
-    private final CarServiceRequestDtoMapper carServiceRequestDtoMapper;
     private final CarServiceProcessDTOMapper serviceProcessDTOMapper;
-    private final CarServiceHandlingDtoMapper carServiceHandlingDTOMapper;
-    private final CarServicePartsDtoMapper carServicePartsDTOMapper;
     private final MechanicService mechanicService;
     private final MechanicDtoMapper mechanicDtoMapper;
     private final ServiceService serviceService;
