@@ -2,16 +2,15 @@ package pl.mareczek100.api.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.mareczek100.api.dto.AddressDTO;
 import pl.mareczek100.api.dto.CustomerDTO;
 import pl.mareczek100.api.dto.dtomapper.CustomerDtoMapper;
 import pl.mareczek100.domain.Customer;
-import pl.mareczek100.domain.Invoice;
 import pl.mareczek100.service.CustomerService;
-import pl.mareczek100.service.InvoiceService;
-import pl.mareczek100.service.PurchaseCarService;
 
 @Controller
 @RequestMapping("/customer")

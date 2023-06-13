@@ -1,7 +1,6 @@
 package pl.mareczek100.infrastructure.database.entityMapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import pl.mareczek100.domain.*;
 import pl.mareczek100.infrastructure.database.entity.*;

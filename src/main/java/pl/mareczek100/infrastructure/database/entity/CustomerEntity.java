@@ -2,8 +2,6 @@ package pl.mareczek100.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 @Data

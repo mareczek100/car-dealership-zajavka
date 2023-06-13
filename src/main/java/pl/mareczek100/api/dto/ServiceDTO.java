@@ -1,9 +1,8 @@
 package pl.mareczek100.api.dto;
 
-import lombok.*;
+import lombok.Builder;
 
 import java.math.BigDecimal;
-import java.util.Set;
 
 
 @Builder

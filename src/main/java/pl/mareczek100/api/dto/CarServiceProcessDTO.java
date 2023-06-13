@@ -1,8 +1,6 @@
 package pl.mareczek100.api.dto;
 
 import lombok.Builder;
-import lombok.Value;
-import lombok.With;
 
 import java.time.OffsetDateTime;
 import java.util.List;

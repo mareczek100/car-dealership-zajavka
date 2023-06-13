@@ -60,6 +60,7 @@
             <span th:each="part : ${partDTOs}">
             <option th:text="${part.description}" th:value="${part.serialNumber}"></option>
             </span>
+            <option>NONE</option>
         </select>
         <div class="valid-feedback">Looks good!</div>
         <div class="invalid-feedback">Please select part used during service.</div>

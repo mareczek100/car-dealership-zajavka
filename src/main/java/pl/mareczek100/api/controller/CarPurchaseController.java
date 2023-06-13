@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.mareczek100.api.dto.CarDTO;
 import pl.mareczek100.api.dto.dtomapper.CarDtoMapper;
-import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.service.CarToSellService;
 import pl.mareczek100.service.PurchaseCarService;
 

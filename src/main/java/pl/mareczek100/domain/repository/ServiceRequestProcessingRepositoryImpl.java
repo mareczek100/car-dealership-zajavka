@@ -10,7 +10,6 @@ import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.mareczek100.infrastructure.database.entityMapper.CarServiceHandlingEntityMapper;
 import pl.mareczek100.infrastructure.database.entityMapper.CarServicePartsEntityMapper;
-import pl.mareczek100.infrastructure.database.entityMapper.CarServiceRequestEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServiceHandlingJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServicePartsJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServiceRequestJpaRepository;

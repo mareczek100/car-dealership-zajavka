@@ -2,7 +2,10 @@ package pl.mareczek100.api.dto.dtomapper;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.mareczek100.api.dto.*;
+import pl.mareczek100.api.dto.CarServiceProcessDTO;
+import pl.mareczek100.api.dto.MechanicDTO;
+import pl.mareczek100.api.dto.PartDTO;
+import pl.mareczek100.api.dto.ServiceDTO;
 import pl.mareczek100.domain.CarServiceHandling;
 import pl.mareczek100.domain.CarServiceParts;
 import pl.mareczek100.domain.CarServiceRequest;

@@ -3,7 +3,6 @@ package pl.mareczek100.infrastructure.database.jpaRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import pl.mareczek100.domain.CarServiceRequest;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 
 import java.util.List;

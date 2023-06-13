@@ -4,9 +4,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.mareczek100.api.dto.*;
-import pl.mareczek100.api.dto.dtomapper.*;
-import pl.mareczek100.domain.*;
+import pl.mareczek100.api.dto.CarServiceProcessDTO;
+import pl.mareczek100.api.dto.MechanicDTO;
+import pl.mareczek100.api.dto.PartDTO;
+import pl.mareczek100.api.dto.ServiceDTO;
+import pl.mareczek100.api.dto.dtomapper.CarServiceProcessDTOMapper;
+import pl.mareczek100.api.dto.dtomapper.MechanicDtoMapper;
+import pl.mareczek100.api.dto.dtomapper.PartDtoMapper;
+import pl.mareczek100.api.dto.dtomapper.ServiceDtoMapper;
+import pl.mareczek100.domain.CarServiceHandling;
+import pl.mareczek100.domain.CarServiceParts;
+import pl.mareczek100.domain.CarServiceRequest;
+import pl.mareczek100.domain.Part;
 import pl.mareczek100.service.*;
 
 import java.time.OffsetDateTime;
@@ -17,6 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServiceHandlingController {
     private final static String FINISHED = "FINISHED";
+    private final static String NONE = "NONE";
+
     private final CarServiceRequestProcessingService processingService;
     private final CarServiceRequestService carServiceRequestService;
     private final CarServiceProcessDTOMapper serviceProcessDTOMapper;
@@ -98,7 +109,7 @@ public class ServiceHandlingController {
         CarServiceParts carServiceParts = CarServiceParts.builder()
                 .quantity(Short.parseShort(partQuantity))
                 .carServiceRequest(carServiceRequestProcessed)
-                .part(partService.findPart(partSerialNumber))
+                .part(findPart(partSerialNumber))
                 .build();
 
         processingService.insertServiceRequestProcess(carServiceRequestProcessed, carServiceHandling, carServiceParts);
@@ -107,6 +118,13 @@ public class ServiceHandlingController {
 
 
         return "service_handling_process";
+    }
+
+    private Part findPart(String partSerialNumber) {
+        if (partSerialNumber.equalsIgnoreCase(NONE)){
+            return null;
+        }
+        return partService.findPart(partSerialNumber);
     }
 
     private OffsetDateTime setCompletedDate(String finished) {

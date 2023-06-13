@@ -4,11 +4,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import pl.mareczek100.api.dto.CarDTO;
 import pl.mareczek100.api.dto.CarServiceDTO;
-import pl.mareczek100.api.dto.CustomerDTO;
 import pl.mareczek100.domain.CarToSell;
 import pl.mareczek100.domain.CarToSellTempStorage;
 import pl.mareczek100.domain.CarToService;
-import pl.mareczek100.domain.Customer;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CarDtoMapper {
