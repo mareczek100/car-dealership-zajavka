@@ -13,7 +13,7 @@
 <h1 class="text-center">Your invoices</h1>
 <br>
     <h4 class="text-center">You can see your invoices here if you have any.</h4><br>
-    <div class="text-bg-info p-3">
+    <div th:if="${noInvoice}" class="text-bg-info p-3">
     <h3 class="text-center" th:text="${noInvoice}"></h3>
     </div>
         <div>

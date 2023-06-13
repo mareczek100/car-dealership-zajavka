@@ -10,7 +10,6 @@ import pl.mareczek100.domain.Salesman;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface InvoiceDtoMapper {
-    @Mapping(target = "customer.address", ignore = true)
     InvoiceDTO mapToDTO(Invoice invoice);
 
 }

@@ -14,7 +14,7 @@ public class ExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(Exception ex) {
-        String message = String.format("Other exception occurred: [%s]", ex.getMessage());
+        String message = String.format("Error: [%s]", ex.getMessage());
         log.error(message, ex);
         ModelAndView modelView = new ModelAndView("error");
         modelView.addObject("errorMessage", message);

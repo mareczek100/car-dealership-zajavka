@@ -19,10 +19,9 @@ public class CarServiceRequestRepositoryImpl implements CarServiceRequestReposit
     private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
-    public CarServiceRequest insertCarServiceRequest(CarServiceRequest carServiceRequest) {
+    public void insertCarServiceRequest(CarServiceRequest carServiceRequest) {
         CarServiceRequestEntity carServiceRequestEntity = carServiceRequestEntityMapper.mapToEntity(carServiceRequest);
-        CarServiceRequestEntity savedServiceRequestEntity = carServiceRequestJpaRepository.saveAndFlush(carServiceRequestEntity);
-        return carServiceRequestEntityMapper.mapFromEntity(savedServiceRequestEntity);
+        carServiceRequestJpaRepository.saveAndFlush(carServiceRequestEntity);
     }
 
     @Override

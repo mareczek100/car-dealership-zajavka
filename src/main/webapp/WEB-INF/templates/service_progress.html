@@ -28,8 +28,8 @@
     </div>
 </form>
 <div th:if="${serviceProcessDTOs}" class="container">
-    <h3 th:if="${#lists.isEmpty(completedList)}" class="text-center" th:text="${finished}"></h3>
-    <h3 th:unless="${#lists.isEmpty(completedList)}" class="text-center" th:text="${unfinished}"></h3>
+    <h3 th:unless="${#lists.isEmpty(completedList)}" class="text-center" th:text="${finished}"></h3>
+    <h3 th:if="${#lists.isEmpty(completedList)}" class="text-center" th:text="${unfinished}"></h3>
     <table class="table table-striped table-primary table-hover">
         <tr>
             <th>Request number</th>

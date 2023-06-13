@@ -14,8 +14,8 @@
 <h1 class="text-center">Handling portal</h1><br>
 <h2 class="text-center">Here You can repair our clients vehicles.</h2>
 <br><br>
-<div class="alert alert-info" role="alert">
-<h2 th:if="${#lists.isEmpty(serviceProcessDTOs)}" class="text-center">Sorry, no job for You right now!</h2>
+<div th:if="${#lists.isEmpty(serviceProcessDTOs)}" class="alert alert-info" role="alert">
+<h2 class="text-center">Sorry, no job for You right now!</h2>
 </div>
 <span th:unless="${#lists.isEmpty(serviceProcessDTOs)}">
     <div class="container">

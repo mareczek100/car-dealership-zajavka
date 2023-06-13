@@ -22,7 +22,7 @@ public class CarServiceRequestService {
     private final InvoiceService invoiceService;
 
     @Transactional
-    public CarServiceRequest insertCarServiceRequest(CarServiceRequest carServiceRequest) {
+    public void insertCarServiceRequest(CarServiceRequest carServiceRequest) {
         Customer customer = carServiceRequest.getCustomer();
         CarToService carToService = carServiceRequest.getCarToService();
 
@@ -35,10 +35,10 @@ public class CarServiceRequestService {
         if (Objects.isNull(existingCarToService)) {
             CarToService carToServiceSaved = carToServiceService.insertCarToService(carToService);
             CarServiceRequest serviceRequest = carServiceRequest.withCarToService(carToServiceSaved);
-            return carServiceRequestRepository.insertCarServiceRequest(serviceRequest);
+            carServiceRequestRepository.insertCarServiceRequest(serviceRequest);
         } else {
             CarServiceRequest serviceRequest = carServiceRequest.withCarToService(existingCarToService);
-            return carServiceRequestRepository.insertCarServiceRequest(serviceRequest);
+            carServiceRequestRepository.insertCarServiceRequest(serviceRequest);
         }
     }
 
@@ -93,12 +93,6 @@ public class CarServiceRequestService {
 
     @Transactional
     public List<CarServiceRequest> findAllCarServiceRequest() {
-        System.out.println("Service history for all cars: ");
-        List<CarServiceRequest> allCarServiceRequest = carServiceRequestRepository.findAllCarServiceRequest();
-        if (allCarServiceRequest.isEmpty()) {
-            throw new RuntimeException("No car service request's at all!");
-        }
-        allCarServiceRequest.forEach(System.out::println);
-        return allCarServiceRequest;
+        return carServiceRequestRepository.findAllCarServiceRequest();
     }
 }

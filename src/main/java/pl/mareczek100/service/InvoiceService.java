@@ -50,7 +50,7 @@ public class InvoiceService {
     @Transactional
     public Invoice findInvoiceByVin(String vin) {
         return invoiceRepository.findInvoiceByVin(vin).orElseThrow(
-                () -> new RuntimeException("No invoice for car [%s]!".formatted(vin))
+                () -> new RuntimeException("Car [%s] is not bought!!".formatted(vin))
         );
     }
 

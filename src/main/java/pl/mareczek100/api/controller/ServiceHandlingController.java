@@ -32,13 +32,14 @@ public class ServiceHandlingController {
     public String homePage(Model model) {
         List<CarServiceRequest> allCarServiceRequest = carServiceRequestService.findAllCarServiceRequest();
         List<CarServiceProcessDTO> serviceProcessDTOs = null;
-        if (!allCarServiceRequest.isEmpty()) {
+        if (allCarServiceRequest.isEmpty()) {
+            return "service_handling";}
+        else {
             serviceProcessDTOs = allCarServiceRequest.stream()
                     .map(serviceProcessDTOMapper::mapToDTO)
                     .toList();
         }
         model.addAttribute("serviceProcessDTOs", serviceProcessDTOs);
-
 
         return "service_handling";
     }
