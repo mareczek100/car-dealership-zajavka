@@ -65,9 +65,9 @@
                 <span th:if="${#lists.isEmpty(serviceProcess.service)}">No service!</span>
             </td>
             <td>
-                <span th:unless="${#lists.isEmpty(serviceProcess.parts)}" th:text="${serviceProcess.parts}"></span>
-                <span th:if="'null'">No parts!</span>
+                <span th:text="${#lists.isEmpty(serviceProcess.parts)} ? 'No parts!' : ${serviceProcess.parts}"></span>
             </td>
+
             <td>
                 <span th:unless="${#lists.isEmpty(serviceProcess.partQuantity)}" th:text="${serviceProcess.partQuantity}"></span>
                 <span th:if="${#lists.isEmpty(serviceProcess.partQuantity)}">Zero parts!</span>

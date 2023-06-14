@@ -12,11 +12,9 @@ import pl.mareczek100.domain.CarServiceRequest;
 
 import java.util.List;
 import java.util.Set;
-
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class CarServiceProcessDTOMapper {
-
 
     private final CustomerDtoMapper customerDtoMapper;
     private final MechanicDtoMapper mechanicDtoMapper;
@@ -80,5 +78,4 @@ public class CarServiceProcessDTOMapper {
                 .reduce((a, b) -> (short) (a + b))
                 .orElse((short) 0);
     }
-
 }

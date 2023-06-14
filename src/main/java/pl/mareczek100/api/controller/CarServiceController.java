@@ -152,7 +152,6 @@ public class CarServiceController {
         String finished = "You car is finished, take it back!";
         String unfinished = "You car is unfinished, wait a little longer!";
 
-//        model.addAttribute("carVin", vin);
         model.addAttribute("serviceProcessDTOs", serviceProcessDTOs);
         model.addAttribute("unfinished", unfinished);
         model.addAttribute("finished", finished);
