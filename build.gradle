@@ -1,65 +1,48 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'war'
+    id 'org.springframework.boot' version "${springBootVersion}"
+    id 'io.spring.dependency-management' version "${springBootDependencyManagementVersion}"
 }
 
 group 'pl.mareczek100'
 version '1.0-SNAPSHOT'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation "ch.qos.logback:logback-classic:$logbackVersion"
 
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
 
     implementation "org.mapstruct:mapstruct:$mapstructVersion"
     annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
 
-    compileOnly "jakarta.platform:jakarta.jakartaee-api:$jakartaApiVersion"
-
-    implementation "org.thymeleaf:thymeleaf:$thymeleafVersion"
-    implementation "org.thymeleaf:thymeleaf-spring6:$thymeleafVersion"
-
-    implementation "org.springframework:spring-core:$springVersion"
-    implementation "org.springframework:spring-beans:$springVersion"
-    implementation "org.springframework:spring-context:$springVersion"
-    implementation "org.springframework:spring-context-support:$springVersion"
-    implementation "org.springframework:spring-expression:$springVersion"
-    implementation "org.springframework:spring-jdbc:$springVersion"
-    implementation "org.springframework:spring-tx:$springVersion"
-    implementation "org.springframework:spring-webmvc:$springVersion"
-    implementation "org.springframework.data:spring-data-jpa:$springDataVersion"
-
-    implementation "org.postgresql:postgresql:$postgresqlVersion"
-    implementation "org.flywaydb:flyway-core:$flywayVersion"
-
-    implementation "org.hibernate.orm:hibernate-core:$hibernateVersion"
-    implementation "org.hibernate.orm:hibernate-hikaricp:$hibernateVersion"
-    implementation "com.zaxxer:HikariCP:$hikariCPVersion"
-
-    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-
-    testImplementation "org.springframework:spring-test:$springVersion"
-
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$jUnitVersion"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:$jUnitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$jUnitVersion"
-
-    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-
-    testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
-    testImplementation "org.testcontainers:postgresql:$testcontainersVersion"
-
 }
 
-war{
-    archiveFileName = 'car-dealership.war'
+dependencyManagement {
+    imports {
+        mavenBom "org.testcontainers:testcontainers-bom:${testcontainersVersion}"
+    }
 }
 
 test{
@@ -72,10 +55,6 @@ test{
 
 jacocoTestReport{
     dependsOn test
-}
-
-repositories {
-    mavenCentral()
 }
 
 compileJava.options.encoding = 'UTF-8'
