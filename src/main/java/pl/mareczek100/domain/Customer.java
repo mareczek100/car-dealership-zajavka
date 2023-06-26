@@ -1,5 +1,6 @@
 package pl.mareczek100.domain;
 
+import jakarta.validation.constraints.Email;
 import lombok.*;
 
 import java.util.HashSet;
@@ -17,6 +18,7 @@ public class Customer {
     String name;
     String surname;
     String phone;
+    @Email
     String email;
     Address address;
     Set<CarServiceRequest> carServiceRequests;

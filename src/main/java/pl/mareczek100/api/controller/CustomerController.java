@@ -1,5 +1,6 @@
 package pl.mareczek100.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +35,8 @@ private final CustomerDtoMapper customerDtoMapper;
     public String addNewCustomer(
             @RequestParam("name") String name,
             @RequestParam("surname") String surname,
-            @RequestParam("phone") String phone,
-            @RequestParam("email") String email,
+            @Valid @RequestParam("phone") String phone,
+            @Valid @RequestParam("email") String email,
             @RequestParam("country") String country,
             @RequestParam("city") String city,
             @RequestParam("postalCode") String postalCode,

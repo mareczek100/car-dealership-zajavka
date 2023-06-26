@@ -13,6 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "customer")
 public class CustomerEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customer_id")

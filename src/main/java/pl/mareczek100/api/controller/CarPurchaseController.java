@@ -1,5 +1,6 @@
 package pl.mareczek100.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,7 @@ public class CarPurchaseController {
     @PostMapping("/purchase/{carVin}")
     public String buyCar(
             @PathVariable String carVin,
-            @RequestParam(name = "email") String email,
+            @Valid @RequestParam(name = "email") String email,
             Model model
     ) {
         String carBought = "Car [" + carVin + "] is Yours!! Take a ride!:)";

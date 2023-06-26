@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-
+@With
 @Getter
 @Entity
 @EqualsAndHashCode(of = "vin")

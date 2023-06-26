@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
+import pl.mareczek100.infrastructure.security.SecurityService;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.Collections;
@@ -17,6 +18,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final AddressService addressService;
+    private final SecurityService securityService;
 
     @Transactional
     public Customer findCustomer(String email) {
@@ -46,6 +48,7 @@ public class CustomerService {
         if (addressFromDataBase.isPresent()){
             customer = customer.withAddress(addressFromDataBase.get());
         }
+        securityService.insertRole(customer);
         return customerRepository.insertCustomer(customer);
     }
 
