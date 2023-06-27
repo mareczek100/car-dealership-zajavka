@@ -1,12 +1,9 @@
-package pl.mareczek100.infrastructure.security;
+package pl.mareczek100.infrastructure.configuration.security;
 
 
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Value;
-import pl.mareczek100.infrastructure.database.entity.CustomerEntity;
-
-import java.util.Set;
 
 @Value
 @Entity

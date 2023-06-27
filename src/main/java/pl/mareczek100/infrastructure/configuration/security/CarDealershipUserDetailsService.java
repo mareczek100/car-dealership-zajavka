@@ -1,4 +1,4 @@
-package pl.mareczek100.infrastructure.security;
+package pl.mareczek100.infrastructure.configuration.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import pl.mareczek100.infrastructure.security.jpaRepository.UserRepository;
+import pl.mareczek100.infrastructure.configuration.security.jpaRepository.UserRepository;
 
 import java.util.List;
 import java.util.Set;

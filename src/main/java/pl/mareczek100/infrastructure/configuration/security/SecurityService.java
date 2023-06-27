@@ -1,18 +1,12 @@
-package pl.mareczek100.infrastructure.security;
+package pl.mareczek100.infrastructure.configuration.security;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
-import pl.mareczek100.infrastructure.security.jpaRepository.RoleRepository;
-import pl.mareczek100.infrastructure.security.jpaRepository.UserRepository;
-import pl.mareczek100.service.AddressService;
-import pl.mareczek100.service.dao.CustomerRepository;
+import pl.mareczek100.infrastructure.configuration.security.jpaRepository.RoleRepository;
+import pl.mareczek100.infrastructure.configuration.security.jpaRepository.UserRepository;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,6 +16,7 @@ public class SecurityService {
     private final static int ROLE_SALESMAN = 1;
     private final static int ROLE_MECHANIC = 2;
     private final static int ROLE_CUSTOMER = 3;
+    private final static int ROLE_REST_API = 4;
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;

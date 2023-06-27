@@ -1,4 +1,4 @@
-package pl.mareczek100.infrastructure.security;
+package pl.mareczek100.infrastructure.configuration.security;
 
 
 import jakarta.persistence.*;
@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Value;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import pl.mareczek100.infrastructure.database.entity.AddressEntity;
-import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
-import pl.mareczek100.infrastructure.database.entity.InvoiceEntity;
 
 import java.util.Set;
 

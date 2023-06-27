@@ -5,5 +5,5 @@ import pl.mareczek100.domain.CarServiceParts;
 import pl.mareczek100.domain.CarServiceRequest;
 
 public interface ServiceRequestProcessingRepository {
-    void serviceRequestProcess(CarServiceRequest serviceRequest, CarServiceHandling carServiceHandling, CarServiceParts carServiceParts);
+    CarServiceRequest serviceRequestProcess(CarServiceHandling carServiceHandling, CarServiceParts carServiceParts);
 }

@@ -10,6 +10,7 @@ import pl.mareczek100.infrastructure.database.entity.CarServicePartsEntity;
 import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 import pl.mareczek100.infrastructure.database.entityMapper.CarServiceHandlingEntityMapper;
 import pl.mareczek100.infrastructure.database.entityMapper.CarServicePartsEntityMapper;
+import pl.mareczek100.infrastructure.database.entityMapper.CarServiceRequestEntityMapper;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServiceHandlingJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServicePartsJpaRepository;
 import pl.mareczek100.infrastructure.database.jpaRepository.CarServiceRequestJpaRepository;
@@ -23,10 +24,11 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
     private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
     private final CarServicePartsJpaRepository carServicePartsJpaRepository;
     private final CarServiceHandlingEntityMapper serviceHandlingEntityMapper;
+    private final CarServiceRequestEntityMapper serviceRequestEntityMapper;
     private final CarServicePartsEntityMapper servicePartsEntityMapper;
 
     @Override
-    public void serviceRequestProcess(CarServiceRequest serviceRequest, CarServiceHandling carServiceHandling, CarServiceParts carServiceParts) {
+    public CarServiceRequest serviceRequestProcess(CarServiceHandling carServiceHandling, CarServiceParts carServiceParts) {
 
         CarServicePartsEntity servicePartsEntity = servicePartsEntityMapper.mapToEntity(carServiceParts);
         carServicePartsJpaRepository.saveAndFlush(servicePartsEntity);
@@ -35,6 +37,8 @@ public class ServiceRequestProcessingRepositoryImpl implements ServiceRequestPro
         CarServiceHandlingEntity savedServiceHandlingEntity = serviceHandlingJpaRepository.saveAndFlush(serviceHandlingEntity);
 
         CarServiceRequestEntity serviceRequestEntity = savedServiceHandlingEntity.getCarServiceRequest();
-        carServiceRequestJpaRepository.saveAndFlush(serviceRequestEntity);
+        CarServiceRequestEntity carServiceRequestSaved = carServiceRequestJpaRepository.saveAndFlush(serviceRequestEntity);
+
+        return serviceRequestEntityMapper.mapFromEntity(carServiceRequestSaved);
     }
 }

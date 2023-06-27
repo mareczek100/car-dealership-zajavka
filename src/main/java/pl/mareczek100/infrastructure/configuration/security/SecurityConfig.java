@@ -1,4 +1,4 @@
-package pl.mareczek100.infrastructure.security;
+package pl.mareczek100.infrastructure.configuration.security;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -53,11 +53,12 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/login", "/error", "/").permitAll()
+                .requestMatchers("/login", "/error", "/", "/images/**").permitAll()
                 .requestMatchers("/mechanics", "/handling/**").hasAnyAuthority("MECHANIC")
                 .requestMatchers("/customer/**", "/car/**", "/invoice/**", "/service/**", "/salesmen/**")
                 .hasAnyAuthority("SALESMAN, CUSTOMER")
-                .requestMatchers("/").hasAnyAuthority("SALESMAN", "MECHANIC"))
+                .requestMatchers("/").hasAnyAuthority("SALESMAN", "MECHANIC")
+                .requestMatchers("/api/**").hasAnyAuthority("REST_API"))
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")

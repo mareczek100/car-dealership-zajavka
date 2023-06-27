@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
-import pl.mareczek100.infrastructure.security.SecurityService;
+import pl.mareczek100.infrastructure.configuration.security.SecurityService;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.Collections;

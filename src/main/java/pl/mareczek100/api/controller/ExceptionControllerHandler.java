@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @ControllerAdvice
 @Slf4j
-public class ExceptionController {
+public class ExceptionControllerHandler {
 
     @ExceptionHandler(Exception.class)
     public ModelAndView handleException(Exception ex) {

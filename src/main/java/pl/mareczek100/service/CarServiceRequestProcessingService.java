@@ -15,10 +15,10 @@ public class CarServiceRequestProcessingService {
     private final ServiceRequestProcessingRepository serviceRequestProcessingRepository;
 
     @Transactional
-    public void insertServiceRequestProcess(CarServiceRequest serviceRequest,
+    public CarServiceRequest insertServiceRequestProcess(
                                             CarServiceHandling serviceHandling,
                                             CarServiceParts serviceParts) {
 
-        serviceRequestProcessingRepository.serviceRequestProcess(serviceRequest, serviceHandling, serviceParts);
+        return serviceRequestProcessingRepository.serviceRequestProcess(serviceHandling, serviceParts);
     }
 }

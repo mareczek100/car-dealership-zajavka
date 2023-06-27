@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /car-dealership
 
+api:
+  cepik:
+    url: https://api.cepik.gov.pl/
+
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -15,6 +19,11 @@ spring:
       minimumIdle: 10
       maximumPoolSize: 20
       idleTimeout: 300000
+  security:
+    enabled: false
+    user:
+      name: "test"
+      password: "test"
   jpa:
     hibernate:
       ddl-auto: validate
