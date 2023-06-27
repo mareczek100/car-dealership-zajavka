@@ -57,7 +57,7 @@ dependencies {
     testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
     testImplementation "io.rest-assured:rest-assured:${restAssuredVersion}"
     testImplementation "org.slf4j:slf4j-api:${wiremockSlf4jVersion}"
-    testImplementation "com.github.tomakehurst:wiremock-standalone:${wiremockVersion}"
+    testImplementation "com.github.tomakehurst:wiremock-jre8-standalone:${wiremockVersion}"
 
 }
 
@@ -82,8 +82,11 @@ sourceSets {
     }
 }
 
-test {
+tasks.named('test') {
     useJUnitPlatform()
+}
+
+test {
     testLogging {
         events "passed", "skipped", "failed"
     }
