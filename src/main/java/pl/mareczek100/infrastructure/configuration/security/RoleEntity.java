@@ -2,10 +2,11 @@ package pl.mareczek100.infrastructure.configuration.security;
 
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Builder
 @Table(name = "role")

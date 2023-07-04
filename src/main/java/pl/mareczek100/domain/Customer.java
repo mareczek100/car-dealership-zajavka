@@ -21,6 +21,7 @@ public class Customer {
     @Email
     String email;
     Address address;
+    Integer userId;
     Set<CarServiceRequest> carServiceRequests;
     Set<Invoice> invoices;
 

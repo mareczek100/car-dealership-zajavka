@@ -8,7 +8,6 @@ import pl.mareczek100.infrastructure.database.entity.CarServiceRequestEntity;
 import java.util.List;
 import java.util.Optional;
 
-
 public interface CarServiceRequestJpaRepository extends JpaRepository<CarServiceRequestEntity, Integer> {
 
     @Query("""

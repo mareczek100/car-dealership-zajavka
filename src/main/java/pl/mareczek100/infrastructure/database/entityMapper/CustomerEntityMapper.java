@@ -23,6 +23,7 @@ public interface CustomerEntityMapper {
                 .phone(customerEntity.getPhone())
                 .email(customerEntity.getEmail())
                 .address(getAddress(customerEntity.getAddress()))
+                .userId(customerEntity.getUserId())
                 .carServiceRequests(getCarServiceRequests(customerEntity.getCarServiceRequests()))
                 .invoices(getInvoices(customerEntity.getInvoices()))
                 .build();

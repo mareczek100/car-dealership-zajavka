@@ -9,9 +9,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestPropertySource;
-import pl.mareczek100.infrastructure.config.PersistenceTestConfig;
+import pl.mareczek100.config.PersistenceTestConfig;
 import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
-import pl.mareczek100.infrastructure.testInputData.TestInputData;
+import pl.mareczek100.test_data_storage.TestInputData;
 
 import java.util.List;
 import java.util.Optional;

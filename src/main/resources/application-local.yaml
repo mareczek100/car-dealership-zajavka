@@ -1,0 +1,6 @@
+api:
+  cepik:
+    url: https://api.cepik.gov.pl/
+spring:
+  security:
+    enabled: false

@@ -31,6 +31,9 @@ public class CustomerEntity {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "user_id")
+    private Integer userId;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
 //    @Fetch(FetchMode.JOIN)

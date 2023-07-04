@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Address;
 import pl.mareczek100.domain.Customer;
 import pl.mareczek100.infrastructure.configuration.security.SecurityService;
+import pl.mareczek100.infrastructure.configuration.security.UserEntity;
 import pl.mareczek100.service.dao.CustomerRepository;
 
 import java.util.Collections;
@@ -31,7 +32,8 @@ public class CustomerService {
     public List<Customer> findAllCustomers() {
         List<Customer> allCustomer = customerRepository.findAllCustomers();
         if (allCustomer.isEmpty()) {
-            throw new RuntimeException("No customer's at all!");
+            return Collections.emptyList();
+//            throw new RuntimeException("No customer's at all!");
         }
         return allCustomer;
     }
@@ -48,8 +50,8 @@ public class CustomerService {
         if (addressFromDataBase.isPresent()){
             customer = customer.withAddress(addressFromDataBase.get());
         }
-        securityService.insertRole(customer);
-        return customerRepository.insertCustomer(customer);
+        UserEntity userEntity = securityService.insertRole(customer);
+        return customerRepository.insertCustomer(customer.withUserId(userEntity.getUserId()));
     }
 
     private Optional<Customer> checkIfCustomerExistInDataBaseDuringCreateNewAccount(String email) {

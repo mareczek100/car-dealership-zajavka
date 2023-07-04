@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/handling")
+@RequestMapping("/api/handling")
 @RequiredArgsConstructor
 public class ServiceHandlingRestController {
     private final static String FINISHED = "FINISHED";

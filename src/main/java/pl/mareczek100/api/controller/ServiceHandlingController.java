@@ -42,7 +42,7 @@ public class ServiceHandlingController {
     @GetMapping
     public String homePage(Model model) {
         List<CarServiceRequest> allCarServiceRequest = carServiceRequestService.findAllCarServiceRequest();
-        List<CarServiceProcessDTO> serviceProcessDTOs = null;
+        List<CarServiceProcessDTO> serviceProcessDTOs;
         if (allCarServiceRequest.isEmpty()) {
             return "service_handling";}
         else {

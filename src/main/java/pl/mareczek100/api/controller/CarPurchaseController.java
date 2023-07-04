@@ -1,9 +1,10 @@
 package pl.mareczek100.api.controller;
 
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.mareczek100.api.dto.CarDTO;
 import pl.mareczek100.api.dto.dtomapper.CarDtoMapper;
@@ -13,6 +14,7 @@ import pl.mareczek100.service.PurchaseCarService;
 import java.util.List;
 
 @Controller
+@Validated
 @RequestMapping("/car")
 @RequiredArgsConstructor
 public class CarPurchaseController {
@@ -50,7 +52,7 @@ public class CarPurchaseController {
     @PostMapping("/purchase/{carVin}")
     public String buyCar(
             @PathVariable String carVin,
-            @Valid @RequestParam(name = "email") String email,
+            @Email @RequestParam(name = "email") String email,
             Model model
     ) {
         String carBought = "Car [" + carVin + "] is Yours!! Take a ride!:)";
@@ -59,6 +61,4 @@ public class CarPurchaseController {
 
         return "purchase";
     }
-
-
 }

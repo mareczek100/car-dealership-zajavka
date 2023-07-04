@@ -6,18 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import pl.mareczek100.infrastructure.config.AbstractTestConfigIT;
+import pl.mareczek100.config.AbstractTestConfigIT;
 
 
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class MainPageControllerTest extends AbstractTestConfigIT {
-
-    private final static String HOME_ENDPOINT = "/car-dealership/";
+public class MainPageControllerTestIT extends AbstractTestConfigIT {
     private final static String HOME_WELCOME = "This is Car Dealership Site!";
-
-    @LocalServerPort
-    private int port;
 
     private final TestRestTemplate testRestTemplate;
 

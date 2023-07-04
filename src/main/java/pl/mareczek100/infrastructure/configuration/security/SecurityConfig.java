@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .build();
     }
 
+
     @Bean
     @ConditionalOnProperty(value = "spring.security.enabled", havingValue = "true", matchIfMissing = true)
     SecurityFilterChain securityEnabled(HttpSecurity http) throws Exception {
@@ -57,7 +58,6 @@ public class SecurityConfig {
                 .requestMatchers("/mechanics", "/handling/**").hasAnyAuthority("MECHANIC")
                 .requestMatchers("/customer/**", "/car/**", "/invoice/**", "/service/**", "/salesmen/**")
                 .hasAnyAuthority("SALESMAN, CUSTOMER")
-                .requestMatchers("/").hasAnyAuthority("SALESMAN", "MECHANIC")
                 .requestMatchers("/api/**").hasAnyAuthority("REST_API"))
                 .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
                 .logout(logout -> logout

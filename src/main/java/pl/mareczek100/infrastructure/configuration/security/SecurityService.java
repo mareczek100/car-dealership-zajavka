@@ -1,6 +1,7 @@
 package pl.mareczek100.infrastructure.configuration.security;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.mareczek100.domain.Customer;
@@ -29,7 +30,7 @@ public class SecurityService {
         UserEntity userEntity = UserEntity.builder()
                 .userName(customer.getName().concat("_").concat(customer.getSurname()))
                 .email(customer.getEmail())
-                .password("0000")
+                .password("test")
                 .active(true)
                 .roles(Set.of(roleCustomer))
                 .build();

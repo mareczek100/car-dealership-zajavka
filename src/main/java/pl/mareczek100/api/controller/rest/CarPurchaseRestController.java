@@ -1,7 +1,8 @@
 package pl.mareczek100.api.controller.rest;
 
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.mareczek100.api.dto.CarDTO;
 import pl.mareczek100.api.dto.InvoiceDTO;
@@ -14,7 +15,8 @@ import pl.mareczek100.service.PurchaseCarService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/car")
+@Validated
+@RequestMapping("/api/car")
 @RequiredArgsConstructor
 public class CarPurchaseRestController {
 
@@ -25,7 +27,6 @@ public class CarPurchaseRestController {
 
     @GetMapping
     public List<CarDTO> homePage() {
-
         return carToSellService.findAllAvailableCarsToSell().stream()
                 .map(carDtoMapper::mapToDTO)
                 .toList();
@@ -41,7 +42,7 @@ public class CarPurchaseRestController {
     @PostMapping("/purchase/{carVin}")
     public InvoiceDTO buyCar(
             @PathVariable String carVin,
-            @Valid @RequestParam(name = "email") String email
+            @Email @RequestParam(name = "email") String email
     ) {
         Invoice invoice = purchaseCarService.buyANewCar(carVin, email);
         return invoiceDtoMapper.mapToDTO(invoice);

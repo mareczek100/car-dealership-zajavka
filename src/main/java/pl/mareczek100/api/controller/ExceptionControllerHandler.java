@@ -1,6 +1,7 @@
 package pl.mareczek100.api.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class ExceptionControllerHandler {
 
     @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelAndView handleException(Exception ex) {
         String message = String.format("Error: [%s]", ex.getMessage());
         log.error(message, ex);
@@ -30,6 +32,15 @@ public class ExceptionControllerHandler {
         String message = String.format("Bad input for field: [%s], wrong value: [%s]",
                 Optional.ofNullable(ex.getFieldError()).map(FieldError::getField).orElse(null),
                 Optional.ofNullable(ex.getFieldError()).map(FieldError::getRejectedValue).orElse(null));
+        log.error(message, ex);
+        ModelAndView modelView = new ModelAndView("error");
+        modelView.addObject("errorMessage", message);
+        return modelView;
+    }
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ModelAndView handleConstraintViolationException(ConstraintViolationException ex) {
+        String message = String.format("Bad input: [%s]", ex.getMessage().substring(ex.getMessage().indexOf("email")));
         log.error(message, ex);
         ModelAndView modelView = new ModelAndView("error");
         modelView.addObject("errorMessage", message);

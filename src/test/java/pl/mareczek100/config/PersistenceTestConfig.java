@@ -1,12 +1,13 @@
-package pl.mareczek100.infrastructure.config;
+package pl.mareczek100.config;
 
 import com.zaxxer.hikari.HikariDataSource;
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.testcontainers.containers.PostgreSQLContainer;
+
+import javax.sql.DataSource;
 
 @TestConfiguration
 public class PersistenceTestConfig {
@@ -30,10 +31,10 @@ public class PersistenceTestConfig {
     DataSource dataSource (final PostgreSQLContainer<?> container){
         return DataSourceBuilder.create()
                 .type(HikariDataSource.class)
-                .driverClassName(postgreSQLContainer().getDriverClassName())
-                .url(postgreSQLContainer().getJdbcUrl())
-                .username(postgreSQLContainer().getUsername())
-                .password(postgreSQLContainer().getPassword())
+                .driverClassName(container.getDriverClassName())
+                .url(container.getJdbcUrl())
+                .username(container.getUsername())
+                .password(container.getPassword())
                 .build();
     }
 

@@ -13,7 +13,7 @@ import pl.mareczek100.domain.Customer;
 import pl.mareczek100.service.CustomerService;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/customer")
 @RequiredArgsConstructor
 public class CustomerRestController {
 

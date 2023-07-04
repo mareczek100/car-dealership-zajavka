@@ -58,7 +58,6 @@ public class CustomerWithAddressRepositoryImpl implements CustomerRepository, Ad
             CustomerEntity customerEntity = customerMapper.mapToEntity(customer);
             customerEntitySaved = customerJpaRepository.saveAndFlush(customerEntity);
         }
-
         return customerMapper.mapFromEntity(customerEntitySaved);
     }
 

@@ -14,7 +14,7 @@ import pl.mareczek100.service.InvoiceService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/invoice")
+@RequestMapping("/api/invoice")
 @RequiredArgsConstructor
 public class InvoiceRestController {
 

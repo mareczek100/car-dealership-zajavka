@@ -2,14 +2,15 @@ package pl.mareczek100.infrastructure.configuration.security;
 
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import java.util.Set;
 
-@Value
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Builder
 @Table(name = "car_dealership_user")

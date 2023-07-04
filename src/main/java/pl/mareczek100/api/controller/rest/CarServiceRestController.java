@@ -2,10 +2,7 @@ package pl.mareczek100.api.controller.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.mareczek100.api.dto.AddressDTO;
 import pl.mareczek100.api.dto.CarDTO;
 import pl.mareczek100.api.dto.CarServiceProcessDTO;
@@ -21,7 +18,7 @@ import pl.mareczek100.service.CarServiceRequestService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/api/service")
 @RequiredArgsConstructor
 public class CarServiceRestController {
 
@@ -48,54 +45,42 @@ public class CarServiceRestController {
 
     @PostMapping("/service_request_new")
     public String createServiceRequestByNewUser(
-            @RequestParam("name") String name,
-            @RequestParam("surname") String surname,
-            @Valid @RequestParam("phone") String phone,
-            @Valid @RequestParam("email") String email,
-            @RequestParam("country") String country,
-            @RequestParam("city") String city,
-            @RequestParam("postalCode") String postalCode,
-            @RequestParam("street") String street,
-            @RequestParam("buildingFlatNumber") String buildingFlatNumber,
-            @RequestParam("vin") String vin,
-            @RequestParam("brand") String brand,
-            @RequestParam("model") String model,
-            @RequestParam("year") Short year,
-            @RequestParam("color") String color,
+            @Valid @RequestBody CustomerDTO customerDTO,
+            @RequestBody CarDTO carDTO,
             @RequestParam("comment") String comment
     ) {
-        CustomerDTO customerDTO = CustomerDTO.builder()
-                .name(name)
-                .surname(surname)
-                .phone(phone)
-                .email(email)
+        CustomerDTO customerToRequestDTO = CustomerDTO.builder()
+                .name(customerDTO.name())
+                .surname(customerDTO.surname())
+                .phone(customerDTO.phone())
+                .email(customerDTO.email())
                 .address(
                         AddressDTO.builder()
-                                .country(country)
-                                .city(city)
-                                .postalCode(postalCode)
-                                .street(street)
-                                .buildingFlatNumber(buildingFlatNumber)
+                                .country(customerDTO.address().country())
+                                .city(customerDTO.address().city())
+                                .postalCode(customerDTO.address().postalCode())
+                                .street(customerDTO.address().street())
+                                .buildingFlatNumber(customerDTO.address().buildingFlatNumber())
                                 .build()
                 )
                 .build();
 
-        Customer customer = customerDtoMapper.mapFromDTO(customerDTO);
+        Customer customer = customerDtoMapper.mapFromDTO(customerToRequestDTO);
 
-        CarDTO carDTO = CarDTO.builder()
-                .vin(vin)
-                .brand(brand)
-                .model(model)
-                .year(year)
-                .color(color)
+        CarDTO carToRequestDTO = CarDTO.builder()
+                .vin(carDTO.vin())
+                .brand(carDTO.brand())
+                .model(carDTO.model())
+                .year(carDTO.year())
+                .color(carDTO.color())
                 .build();
 
-        CarToService carToService = carDtoMapper.mapFromDTO(carDTO);
+        CarToService carToService = carDtoMapper.mapFromDTO(carToRequestDTO);
 
         CarServiceRequest requestOuter = carServiceRequestService.createCarServiceRequestOuter(customer, carToService, comment);
         carServiceRequestService.insertCarServiceRequest(requestOuter);
 
-        String serviceConfirm = "Your car [%s] is in our mechanics hands right now!%n".formatted(vin);
+        String serviceConfirm = "Your car [%s] is in our mechanics hands right now!%n".formatted(carToService.getVin());
         String progress = "Your can check progress in Progress portal!";
 
 

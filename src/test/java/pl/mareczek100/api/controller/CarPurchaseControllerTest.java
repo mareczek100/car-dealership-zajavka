@@ -1,6 +1,7 @@
 package pl.mareczek100.api.controller;
 
 
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -54,34 +55,48 @@ class CarPurchaseControllerTest {
         //given
         String carVin = "1G1PE5S97B7239380";
 
-//        //when, then
-//        mockMvc.perform(MockMvcRequestBuilders.get("/purchase/{carVin}")
-//                        .queryParam("carVin", carVin))
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.model().attributeExists("carVin"))
-//                .andExpect(MockMvcResultMatchers.view().name("purchase"));
+        //when, then
+        mockMvc.perform(MockMvcRequestBuilders.get("/car/purchase/{carVin}", carVin))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("carVin"))
+                .andExpect(MockMvcResultMatchers.view().name("purchase"));
     }
 
     @Test
     void buyCar() throws Exception {
-        //when, then
-//
-//        mockMvc.perform(MockMvcRequestBuilders.post("/purchase/{carVin}").param())
-//                .andExpect(MockMvcResultMatchers.status().isOk())
-//                .andExpect(MockMvcResultMatchers.view().name("purchase"));
+        //given
+        String carVin = "123";
+        String email = "test@test.pl";
+        @Email String badEmail = "badEmailTest";
+        String carBought = "carBought";
+
+        // when, then
+        mockMvc.perform(MockMvcRequestBuilders.post("/car/purchase/{carVin}", carVin)
+                        .param("email", email))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.model().attributeExists(carBought))
+                .andExpect(MockMvcResultMatchers.view().name("purchase"));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/car/purchase/{carVin}", carVin)
+                        .param("email", badEmail))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.model().attributeDoesNotExist(carBought))
+                .andExpect(MockMvcResultMatchers.view().name("error"));
     }
 
     @Test
-    void emailValidationWorksFine() throws Exception {
+    void emailValidationAndExceptionHandlerWorksFine() throws Exception {
         //given
         String badEmail = "badEmail";
+        String carVin = "123";
+        String exceptionMessage = "must be a well-formed email address";
 
-//        //when, then
-//        mockMvc.perform(MockMvcRequestBuilders.post("/purchase/{carVin}")
-//                        .param("badEmail", badEmail))
-//                .andExpect(MockMvcResultMatchers.status().isBadRequest())
-//                .andExpect(MockMvcResultMatchers.model().attributeExists("errorMessage"))
-//                .andExpect(MockMvcResultMatchers.model().attribute("errorMessage", Matchers.containsString(badEmail)))
-//                .andExpect(MockMvcResultMatchers.view().name("error"));
+        //when, then
+        mockMvc.perform(MockMvcRequestBuilders.post("/car/purchase/{carVin}", carVin)
+                        .param("email", badEmail))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.model().attributeExists("errorMessage"))
+                .andExpect(MockMvcResultMatchers.model().attribute("errorMessage", Matchers.containsString(exceptionMessage)))
+                .andExpect(MockMvcResultMatchers.view().name("error"));
     }
 }

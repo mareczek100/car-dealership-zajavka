@@ -1,5 +1,8 @@
-package pl.mareczek100.infrastructure.testInputData;
+package pl.mareczek100.test_data_storage;
 
+import pl.mareczek100.domain.Address;
+import pl.mareczek100.domain.CarToSellTempStorage;
+import pl.mareczek100.domain.Customer;
 import pl.mareczek100.infrastructure.database.entity.CarToSellEntity;
 
 import java.math.BigDecimal;
@@ -40,6 +43,28 @@ public class TestInputData {
         cars.add(carDacia);
 
         return cars;
+    }
+
+    public static CarToSellTempStorage availableCarToSell() {
+        return CarToSellTempStorage.builder()
+                .vin("1FT7X2B60FEA74019")
+                .build();
+    }
+
+    public static Customer customerToInsert() {
+        return Customer.builder()
+                .name("Alfred")
+                .surname("Samochodowy")
+                .phone("+48 754 552 234")
+                .email("alf.samoch@gmail.com")
+                .address(Address.builder()
+                        .country("Polska")
+                        .city("Wrocław")
+                        .postalCode("20-001")
+                        .street("Bokserska")
+                        .buildingFlatNumber("15")
+                        .build())
+                .build();
     }
 
 

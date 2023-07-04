@@ -11,7 +11,7 @@ import pl.mareczek100.service.SalesmanService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/salesmen")
+@RequestMapping("/api/salesmen")
 @RequiredArgsConstructor
 public class SalesmanRestController {
 

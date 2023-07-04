@@ -17,7 +17,7 @@ import pl.mareczek100.infrastructure.cepik.api.SownikiApi;
 public class WebClientConfig {
 
     @Value("${api.cepik.url}")
-    private static String CEPIK_URL;
+    private String CEPIK_URL;
 
     @Bean
     public WebClient webClient(ObjectMapper objectMapper) {

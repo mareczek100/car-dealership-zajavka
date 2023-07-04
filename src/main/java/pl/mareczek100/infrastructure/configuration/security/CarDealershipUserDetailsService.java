@@ -21,8 +21,8 @@ public class CarDealershipUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserEntity userEntity = userRepository.findByEmail(email).orElseThrow();
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        UserEntity userEntity = userRepository.findByUserName(userName).orElseThrow();
         List<GrantedAuthority> authorities = getUserAuthority(userEntity.getRoles());
         return buildUserForAuthentication(userEntity, authorities);
     }
