@@ -65,6 +65,9 @@ public interface CarServiceRequestEntityMapper {
     }
 
     private Set<CarServiceHandling> getCarServiceHandling(Set<CarServiceHandlingEntity> carServiceHandlingEntitySet) {
+        if (Objects.isNull(carServiceHandlingEntitySet)){
+            return null;
+        }
         return carServiceHandlingEntitySet.stream()
                 .map(carServiceHandlingEntity ->
                         CarServiceHandling.builder()

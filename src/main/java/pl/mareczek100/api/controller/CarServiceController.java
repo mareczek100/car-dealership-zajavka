@@ -21,6 +21,7 @@ import pl.mareczek100.service.CarServiceRequestService;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/service")
@@ -147,6 +148,7 @@ public class CarServiceController {
 
         List<OffsetDateTime> completedList = serviceRequests.stream()
                 .map(CarServiceRequest::getCompletedDateTime)
+                .filter(Objects::nonNull)
                 .toList();
 
         String finished = "You car is finished, take it back!";
